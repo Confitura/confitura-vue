@@ -20,7 +20,7 @@
                     <form>
                         <div>
                             <label>Full Name<br/>
-                                <input placeholder="name" v-model="profile.name">
+                                <input placeholder="name" v-model="profile.name" class="input">
                             </label>
                             <div v-if="errors.name" class="errors">
                             <span v-for="error in errors.name">
@@ -30,7 +30,7 @@
                         </div>
                         <div>
                             <label>E-Mail<br/>
-                                <input placeholder="email" v-model="profile.email" type="email">
+                                <input placeholder="email" v-model="profile.email" type="email" class="input">
                             </label>
                             <div v-if="errors.email" class="errors">
                             <span v-for="error in errors.email">
@@ -40,7 +40,7 @@
                         </div>
                         <div>
                             <label>Bio<br/>
-                                <textarea placeholder="bio" v-model="profile.bio"
+                                <textarea placeholder="bio" v-model="profile.bio" class="input"
                                           rows="20"></textarea>
                             </label>
                             <div v-if="errors.bio" class="errors">
@@ -50,6 +50,19 @@
                             </div>
                         </div>
 
+                        <div>
+                            <input type="checkbox" v-model="profile.privacyPolicyAccepted" id="privacyPolicyAccepted">
+
+                            <label for="privacyPolicyAccepted">I accept the privacy
+                                policy
+                            </label>
+
+                            <div v-if="errors.privacyPolicyAccepted" class="errors">
+                            <span v-for="error in errors.privacyPolicyAccepted">
+                                {{error}}
+                            </span>
+                            </div>
+                        </div>
                         <button type="submit">save</button>
                     </form>
                 </div>
@@ -124,6 +137,10 @@
         this.errors['bio'] = ['Bio should be at least 100 characters long'];
         valid = false;
       }
+      if (!this.profile.privacyPolicyAccepted) {
+        this.errors['privacyPolicyAccepted'] = ['Agreeing to our policy is required'];
+        valid = false;
+      }
       return valid;
     }
 
@@ -143,13 +160,10 @@
     .fields {
         grid-area: fields;
 
-        input {
+        .input {
             width: 100%;
         }
 
-        textarea {
-            width: 100%;
-        }
     }
 
     .registration-form {
