@@ -15,8 +15,6 @@ export const userModule: Module<StoreUserProfile> = {
     },
     actions: {
         [LOAD_CURRENT_PROFILE](store) {
-            console.log(LOAD_CURRENT_PROFILE, store.state);
-            console.log(LOAD_CURRENT_PROFILE, store.rootState);
             return axios.get('/api/users/' + store.getters.user.jti, {
                 headers: {Authorization: `Bearer ${store.rootState.token}`}
             })
