@@ -2,6 +2,7 @@
     <div class="login">
         <Box class="content" color="white">
             <h1>Login with</h1>
+
             <div class="login-with">
                 <a v-for="option in options" :key="option.name" :href="loginLinkTo(option.name)">
                     <i class="login__icon fab" :class="'fa-'+option.name"></i>
@@ -13,10 +14,10 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
+  import {Component, Vue} from 'vue-property-decorator';
   import Box from '@/components/Box.vue';
   import TheContact from '@/components/TheContact.vue';
-  import { LOGIN } from '@/types';
+  import {LOGIN} from '@/types';
 
   @Component({
     components: { Box, TheContact },
@@ -41,7 +42,14 @@
           'oauth_token': this.$route.query['oauth_token'],
           'oauth_verifier': this.$route.query['oauth_verifier'],
         };
-        this.$store.dispatch(LOGIN, { service, params });
+        this.$store.dispatch(LOGIN, {service, params}).then(it => {
+            let user = this.$store.getters.user;
+            if (user && user.isNew) {
+              this.$router.push('/register')
+            }
+          }
+        )
+        ;
       }
     }
   }

@@ -1,16 +1,19 @@
 import Vue from 'vue';
-import Vuex, { StoreOptions } from 'vuex';
+import Vuex, {StoreOptions} from 'vuex';
 import {
   CHANGE_HEADER_THEME,
-  LOGIN,
   LOAD_PARTNER_BY_ID,
   LOAD_PARTNERS,
+  LOGIN,
   Partner,
   RootState,
+  TOKEN,
+  User,
+  USER_FROM_TOKEN,
   WINDOW_RESIZED,
-  User, TOKEN, USER_FROM_TOKEN,
 } from '@/types';
 import axios from 'axios';
+import {userModule} from "@/store.user-profile";
 
 Vue.use(Vuex);
 const storeOptions: StoreOptions<RootState> = {
@@ -20,7 +23,7 @@ const storeOptions: StoreOptions<RootState> = {
     windowWidth: 0,
     date: '2019-06-29T09:00',
     partners: [],
-    token: '',
+    token: localStorage.getItem('token'),
   },
   getters: {
     isSm: (state) => state.windowWidth >= 576,
@@ -56,6 +59,7 @@ const storeOptions: StoreOptions<RootState> = {
       store.token = payload.token;
     },
     [USER_FROM_TOKEN](store, payload: { token: string }) {
+      localStorage.setItem('token', payload.token);
       const body = payload.token.split('.')[1];
       store.user = JSON.parse(atob(body)) as User;
     },
@@ -160,6 +164,7 @@ At Dynatrace Gdansk Lab, we design, create and develop a best-in-class product t
         .then(() => state.partners.find((partner) => partner.id.toLowerCase() === id.toLowerCase()));
     },
   },
+  modules: {userProfile: userModule}
 };
 export default new Vuex.Store(storeOptions);
 
