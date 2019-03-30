@@ -46,6 +46,8 @@
             let user = this.$store.getters.user;
             if (user && user.isNew) {
               this.$router.push('/register')
+            } else {
+              this.$router.push('/profile')
             }
           }
         )

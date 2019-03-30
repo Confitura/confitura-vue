@@ -63,6 +63,12 @@
                             </span>
                             </div>
                         </div>
+
+                        <div v-if="errors.form" class="errors">
+                            <span v-for="error in errors.form">
+                                {{error}}
+                            </span>
+                        </div>
                         <button type="submit">save</button>
                     </form>
                 </div>
@@ -103,7 +109,8 @@
         axios
           .post("/api/users", this.profile, {headers: {Authorization: `Bearer ${this.$store.state.token}`}})
           .then(it => this.uploadPhoto())
-          .then(it => console.log('saved', it))
+          .then(it => this.$router.push('/profile'))
+          .catch((error) => this.uploadFailed(error))
       }
     }
 
@@ -148,6 +155,16 @@
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     }
+
+    private uploadFailed(error: any) {
+      console.log('uploadFailed', error.response);
+      this.errors = {
+        form: [
+          "Submit failed",
+          error.response.data.message
+        ]
+      }
+    }
   }
 </script>
 
@@ -176,6 +193,7 @@
         grid-template-columns: 1fr 2fr;
         grid-template-rows: auto;
         grid-template-areas: "picture fields";
+        margin-top: 30vh;
     }
 
     .errors {

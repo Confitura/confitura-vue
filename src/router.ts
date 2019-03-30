@@ -7,6 +7,7 @@ import Partners from '@/views/Partners.vue';
 import PartnerPage from '@/views/PartnerPage.vue';
 import Login from '@/views/Login.vue';
 import RegisterPage from '@/views/profile/RegisterPage.vue';
+import ProfilePage from "@/views/profile/ProfilePage.vue";
 
 Vue.use(Router);
 Vue.use(VueScrollTo, {
@@ -54,6 +55,12 @@ export default new Router({
       name: 'register',
       component: RegisterPage,
     },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfilePage,
+    },
+
   ],
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
