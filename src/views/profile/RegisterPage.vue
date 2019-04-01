@@ -2,45 +2,43 @@
     <div class="profile">
         <Box class="content " color="white" :full="false">
 
-            <div class="back-office">
+            <div class="back-office" v-if="profile">
                 <div class="row">
-                    <form class="col s12" @submit="save">
+                    <form class="col s12" @submit="save" novalidate>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="full_name" type="text" class="validate"
+                                <input id="full_name" type="text" class=""
                                        v-model="profile.name" required>
                                 <label for="full_name">First Name</label>
-                                <span class="helper-text" data-error="Field required" data-success="OK">{{errors.name}}</span>
+                                <span class="errors" v-for="error in errors.name">{{error}}</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="email" type="email" class="validate"
+                                <input id="email" type="email" class=""
                                        v-model="profile.email" required>
                                 <label for="email">e-mail</label>
-                                <span class="helper-text" data-error="Required proper e-mail address"
-                                      data-success="OK">{{errors.email}}</span>
+                                <span class="errors" v-for="error in errors.email">{{error}}</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <textarea id="Bio" type="text" class="materialize-textarea validate"
-                                          minlength="100"
-                                          v-model="profile.bio" required>
+                                <textarea id="Bio" type="text" class="materialize-textarea"
+                                          v-model="profile.bio">
                                 </textarea>
                                 <label for="Bio">Bio</label>
-                                <span class="helper-text" data-error="Should be at least 100 characters long"
-                                      data-success="OK">{{errors.bio}}</span>
+                                <span class="errors" v-for="error in errors.bio">{{error}}</span>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col s12">
                                 <label for="photo">Profile picture</label>
-                                <input id="photo" type="file" class="validate"
+                                <input id="photo" type="file"
                                        ref="file" v-on:change="handleFileUpload()"
                                        required>
-                                <span class="helper-text" data-error="Field required" data-success="OK">{{errors.photo}}</span>
+                                <br/>
+                                <span class="errors" v-for="error in errors.photo">{{error}}</span>
                             </div>
                         </div>
 
@@ -51,12 +49,12 @@
                                            id="privacyPolicyAccepted" required>
                                     <span>I accept the privacy policy</span>
                                 </label>
-                                <span class="helper-text" data-error="Field required" data-success="OK">{{errors.privacyPolicyAccepted}}</span>
+                                <span class="errors" v-for="error in errors.privacyPolicyAccepted">{{error}}</span>
 
                             </div>
                         </div>
-                        <span>
-                            {{errors.form}}
+                        <span v-for="error in errors.form">
+                             {{error}} <br/>
                         </span>
 
                         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
@@ -117,8 +115,7 @@ export default class RegisterPage extends Vue {
       axios
         .post<any>('/api/users', this.profile, { headers: { Authorization: `Bearer ${this.$store.state.token}` } })
         .then((it: any) => {
-          this.uploadPhoto();
-          return it;
+          return this.uploadPhoto();
         })
         .then((it: any) => {
           this.$router.push('/profile');
@@ -163,10 +160,6 @@ export default class RegisterPage extends Vue {
     }
     if (!this.profile.name) {
       this.errors.name = ['Name is required'];
-      valid = false;
-    }
-    if (!this.profile.bio || this.profile.bio.length < 100) {
-      this.errors.bio = ['Bio should be at least 100 characters long'];
       valid = false;
     }
     if (!this.profile.privacyPolicyAccepted) {
