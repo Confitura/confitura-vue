@@ -49,7 +49,7 @@
                                            id="privacyPolicyAccepted" required>
                                     <span>I accept the privacy policy</span>
                                 </label>
-                                <span class="errors" v-for="error in errors.privacyPolicyAccepted">{{error}}</span>
+                                <div class="errors" v-for="error in errors.privacyPolicyAccepted">{{error}}</div>
 
                             </div>
                         </div>
