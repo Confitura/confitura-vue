@@ -72,16 +72,16 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
-  import { LOAD_CURRENT_PROFILE } from '@/store.user-profile';
-  import Box from '@/components/Box.vue';
-  import TheContact from '@/components/TheContact.vue';
-  import { UserProfile } from '@/types';
-  import * as M from 'materialize-css/dist/js/materialize.js'
+import { Component, Vue } from 'vue-property-decorator';
+import { LOAD_CURRENT_PROFILE } from '@/store.user-profile';
+import Box from '@/components/Box.vue';
+import TheContact from '@/components/TheContact.vue';
+import { UserProfile } from '@/types';
+import * as M from 'materialize-css/dist/js/materialize.js'
 
-  import axios from 'axios';
+import axios from 'axios';
 
-  @Component({
+@Component({
   components: { Box, TheContact },
 })
 export default class RegisterPage extends Vue {
@@ -132,19 +132,6 @@ export default class RegisterPage extends Vue {
     const { files } = this.$refs.file;
     this.photo = files[0];
   }
-
-
-
-    save(e) {
-      e.preventDefault();
-      if (this.validate()) {
-        axios
-          .post("/api/users", this.profile, {headers: {Authorization: `Bearer ${this.$store.state.token}`}})
-          .then(it => this.uploadPhoto())
-          .then(it => this.$router.push('/profile'))
-          .catch((error) => this.uploadFailed(error))
-      }
-    }
 
   public validEmail(email: string) {
     return this.emailPattern.test(email);
