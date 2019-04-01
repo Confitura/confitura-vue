@@ -9,7 +9,7 @@
                             <div class="input-field col s12">
                                 <input id="full_name" type="text" class=""
                                        v-model="profile.name" required>
-                                <label for="full_name">First Name</label>
+                                <label for="full_name">Full name</label>
                                 <span class="errors" v-for="error in errors.name">{{error}}</span>
                             </div>
                         </div>
@@ -17,7 +17,7 @@
                             <div class="input-field col s12">
                                 <input id="email" type="email" class=""
                                        v-model="profile.email" required>
-                                <label for="email">e-mail</label>
+                                <label for="email">E-mail</label>
                                 <span class="errors" v-for="error in errors.email">{{error}}</span>
                             </div>
                         </div>
@@ -70,123 +70,122 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { LOAD_CURRENT_PROFILE } from '@/store.user-profile';
-import Box from '@/components/Box.vue';
-import TheContact from '@/components/TheContact.vue';
-import { UserProfile } from '@/types';
-import * as M from 'materialize-css/dist/js/materialize.js'
+  import { Component, Vue } from 'vue-property-decorator';
+  import { LOAD_CURRENT_PROFILE } from '@/store.user-profile';
+  import Box from '@/components/Box.vue';
+  import TheContact from '@/components/TheContact.vue';
+  import { UserProfile } from '@/types';
+  import M from 'materialize-css';
 
-import axios from 'axios';
+  import axios from 'axios';
 
-@Component({
-  components: { Box, TheContact },
-})
-export default class RegisterPage extends Vue {
-  public $refs!: Vue['$refs'] & {
-    file: {
-      files: File[],
-    },
-  };
-  public profile: UserProfile | null = null;
-  public photo: File | null = null;
-  public errors: RegisterErrors = {};
-  // tslint:disable
-  private emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  // tslint:enable
-
-  public mounted() {
-    M.AutoInit();
-
-    this.$store.dispatch(LOAD_CURRENT_PROFILE)
-      .then(() => {
-        this.profile = this.$store.state.userProfile.currentProfile;
-      });
-  }
-
-  public updated() {
-    M.updateTextFields();
-  }
-
-  public save(event: Event) {
-    event.preventDefault();
-    if (this.validate()) {
-      axios
-        .post<any>('/api/users', this.profile, { headers: { Authorization: `Bearer ${this.$store.state.token}` } })
-        .then((it: any) => {
-          return this.uploadPhoto();
-        })
-        .then((it: any) => {
-          this.$router.push('/profile');
-          return it;
-        })
-        .catch((error: any) => this.uploadFailed(error));
-    }
-  }
-
-  public handleFileUpload() {
-    const { files } = this.$refs.file;
-    this.photo = files[0];
-  }
-
-  public validEmail(email: string) {
-    return this.emailPattern.test(email);
-  }
-
-  private uploadPhoto() {
-    if (this.photo !== null && this.profile !== null) {
-      const formData = new FormData();
-      formData.append('file', this.photo);
-      const headers = { Authorization: `Bearer ${this.$store.state.token}` };
-      return axios
-        .post(`/api/resources/${this.profile.id}`, formData, { headers });
-    }
-  }
-
-  private validate() {
-    this.errors = {};
-    let valid = true;
-    if (this.profile === null) {
-      return;
-    }
-    if (!this.validEmail(this.profile.email)) {
-      this.errors.email = ['invalid email'];
-      valid = false;
-    }
-    if (!this.photo) {
-      this.errors.photo = ['Photo is required'];
-      valid = false;
-    }
-    if (!this.profile.name) {
-      this.errors.name = ['Name is required'];
-      valid = false;
-    }
-    if (!this.profile.privacyPolicyAccepted) {
-      this.errors.privacyPolicyAccepted = ['Agreeing to our policy is required'];
-      valid = false;
-    }
-    return valid;
-  }
-
-  private uploadFailed(error: any) {
-    this.errors = {
-      form: [
-        'Submit failed',
-        error.response.data.message,
-      ],
+  @Component({
+    components: { Box, TheContact },
+  })
+  export default class RegisterPage extends Vue {
+    public $refs!: Vue['$refs'] & {
+      file: {
+        files: File[],
+      },
     };
-  }
-}
+    public profile: UserProfile | null = {};
+    public photo: File | null = null;
+    public errors: RegisterErrors = {};
+    // tslint:disable
+    private emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // tslint:enable
 
-interface RegisterErrors {
-  bio?: string[];
-  email?: string[];
-  photo?: string[];
-  name?: string[];
-  privacyPolicyAccepted?: string[];
-  form?: string[];
-}
+    public mounted() {
+      M.AutoInit();
+
+      this.$store.dispatch(LOAD_CURRENT_PROFILE)
+        .then(() => {
+          this.profile = this.$store.state.userProfile.currentProfile;
+        });
+    }
+
+    public updated() {
+      M.updateTextFields();
+    }
+
+    public save(event: Event) {
+      event.preventDefault();
+      if (this.validate()) {
+        axios
+          .post<any>('/api/users', this.profile, { headers: { Authorization: `Bearer ${this.$store.state.token}` } })
+          .then((it: any) => {
+            return this.uploadPhoto();
+          })
+          .then((it: any) => {
+            this.$router.push('/profile');
+            return it;
+          })
+          .catch((error: any) => this.uploadFailed(error));
+      }
+    }
+
+    public handleFileUpload() {
+      const { files } = this.$refs.file;
+      this.photo = files[0];
+    }
+
+    public validEmail(email: string) {
+      return this.emailPattern.test(email);
+    }
+
+    private uploadPhoto() {
+      if (this.photo !== null && this.profile !== null) {
+        const formData = new FormData();
+        formData.append('file', this.photo);
+        const headers = { Authorization: `Bearer ${this.$store.state.token}` };
+        return axios
+          .post(`/api/resources/${this.profile.id}`, formData, { headers });
+      }
+    }
+
+    private validate() {
+      this.errors = {};
+      let valid = true;
+      if (this.profile === null) {
+        return;
+      }
+      if (!this.validEmail(this.profile.email)) {
+        this.errors.email = ['invalid email'];
+        valid = false;
+      }
+      if (!this.photo) {
+        this.errors.photo = ['Photo is required'];
+        valid = false;
+      }
+      if (!this.profile.name) {
+        this.errors.name = ['Name is required'];
+        valid = false;
+      }
+      if (!this.profile.privacyPolicyAccepted) {
+        this.errors.privacyPolicyAccepted = ['Agreeing to our policy is required'];
+        valid = false;
+      }
+      return valid;
+    }
+
+    private uploadFailed(error: any) {
+      this.errors = {
+        form: [
+          'Submit failed',
+          error.response.data.message,
+        ],
+      };
+    }
+  }
+
+  interface RegisterErrors {
+    bio?: string[];
+    email?: string[];
+    photo?: string[];
+    name?: string[];
+    privacyPolicyAccepted?: string[];
+    form?: string[];
+  }
 </script>
 
 <style lang="scss" scoped>
