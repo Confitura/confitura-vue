@@ -1,89 +1,79 @@
 <template>
     <div class="profile">
-        <Box class="content" color="white">
-            <div v-if="profile" class="registration-form">
-                <div class="picture">
-                    <div>
-                        <label>Pick photo <br/>
-                            <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
-                        </label>
-                        <div v-if="errors.photo" class="errors">
-                            <span v-for="error in errors.photo">
-                                {{error}}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="fields"
-                     @submit="save"
-                >
-                    <form>
-                        <div>
-                            <label>Full Name<br/>
-                                <input placeholder="name" v-model="profile.name" class="input">
-                            </label>
-                            <div v-if="errors.name" class="errors">
-                            <span v-for="error in errors.name">
-                                {{error}}
-                            </span>
+        <Box class="content " color="white" :full="false">
+
+            <div class="back-office">
+                <div class="row">
+                    <form class="col s12" @submit="save">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="full_name" type="text" class="validate"
+                                       v-model="profile.name" required>
+                                <label for="full_name">First Name</label>
+                                <span class="helper-text" data-error="Field required" data-success="OK"></span>
                             </div>
                         </div>
-                        <div>
-                            <label>E-Mail<br/>
-                                <input placeholder="email" v-model="profile.email" type="email" class="input">
-                            </label>
-                            <div v-if="errors.email" class="errors">
-                            <span v-for="error in errors.email">
-                                {{error}}
-                            </span>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="email" type="email" class="validate"
+                                       v-model="profile.email" required>
+                                <label for="email">e-mail</label>
+                                <span class="helper-text" data-error="Required proper e-mail address"
+                                      data-success="OK"></span>
                             </div>
                         </div>
-                        <div>
-                            <label>Bio<br/>
-                                <textarea placeholder="bio" v-model="profile.bio" class="input"
-                                          rows="20"></textarea>
-                            </label>
-                            <div v-if="errors.bio" class="errors">
-                            <span v-for="error in errors.bio">
-                                {{error}}
-                            </span>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="Bio" type="text" class="materialize-textarea validate"
+                                          minlength="100"
+                                          v-model="profile.bio" required>
+                                </textarea>
+                                <label for="Bio">Bio</label>
+                                <span class="helper-text" data-error="Should be at least 100 characters long"
+                                      data-success="OK"></span>
                             </div>
                         </div>
 
-                        <div>
-                            <input type="checkbox" v-model="profile.privacyPolicyAccepted" id="privacyPolicyAccepted">
-
-                            <label for="privacyPolicyAccepted">I accept the privacy
-                                policy
-                            </label>
-
-                            <div v-if="errors.privacyPolicyAccepted" class="errors">
-                            <span v-for="error in errors.privacyPolicyAccepted">
-                                {{error}}
-                            </span>
+                        <div class="row">
+                            <div class="col s12">
+                                <label for="photo">Profile picture</label>
+                                <input id="photo" type="file" class="validate"
+                                       ref="file" v-on:change="handleFileUpload()"
+                                       required>
+                                <span class="helper-text" data-error="Field required" data-success="OK"></span>
                             </div>
                         </div>
 
-                        <div v-if="errors.form" class="errors">
-                            <span v-for="error in errors.form">
-                                {{error}}
-                            </span>
+                        <div class="row">
+                            <div class="col s12">
+                                <label>
+                                    <input type="checkbox" v-model="profile.privacyPolicyAccepted"
+                                           id="privacyPolicyAccepted" required>
+                                    <span>I accept the privacy policy</span>
+                                </label>
+
+                            </div>
                         </div>
-                        <button type="submit">save</button>
+
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
                     </form>
                 </div>
             </div>
         </Box>
         <TheContact id="contact"/>
     </div>
+
 </template>
 
 <script lang="ts">
-  import {Component, Vue} from 'vue-property-decorator';
-  import {LOAD_CURRENT_PROFILE} from "@/store.user-profile";
+  import { Component, Vue } from 'vue-property-decorator';
+  import { LOAD_CURRENT_PROFILE } from "@/store.user-profile";
   import Box from "@/components/Box.vue";
   import TheContact from "@/components/TheContact.vue";
-  import {UserProfile} from "@/types";
+  import { UserProfile } from "@/types";
+  import * as M from 'materialize-css/dist/js/materialize.js'
 
   import axios from 'axios';
 
@@ -91,16 +81,20 @@
     components: {Box, TheContact},
   })
   export default class RegisterPage extends Vue {
-    profile: UserProfile | null = null;
+    profile: UserProfile = {};
     photo: File | null = null;
     errors = {};
 
     mounted() {
-
+      M.AutoInit();
       this.$store.dispatch(LOAD_CURRENT_PROFILE)
         .then(() => {
           this.profile = this.$store.state.userProfile.currentProfile
         });
+    }
+
+    updated() {
+      M.updateTextFields();
     }
 
     save(e) {
@@ -169,33 +163,9 @@
 </script>
 
 <style lang="scss" scoped>
-    .picture {
-        word-wrap: break-word;
-        grid-area: picture;
+    .back-office {
+        padding-top: 10vh;
     }
-
-    .fields {
-        grid-area: fields;
-
-        .input {
-            width: 100%;
-        }
-
-    }
-
-    .registration-form {
-        display: grid;
-        width: 100vw;
-        justify-content: stretch;
-        padding-left: 20%;
-        padding-right: 20%;
-        max-width: 800px;
-        grid-template-columns: 1fr 2fr;
-        grid-template-rows: auto;
-        grid-template-areas: "picture fields";
-        margin-top: 30vh;
-    }
-
     .errors {
         color: red;
     }
