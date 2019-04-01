@@ -114,13 +114,8 @@
       if (this.validate()) {
         axios
           .post<any>('/api/users', this.profile, { headers: { Authorization: `Bearer ${this.$store.state.token}` } })
-          .then((it: any) => {
-            this.uploadPhoto();
-            return it;
-          })
-          .then((it: any) => {
-            this.$router.push('/profile');
-          })
+          .then(() =>  this.uploadPhoto())
+          .then(() => this.$router.push('/profile'))
           .catch((error: any) => this.uploadFailed(error));
       }
     }
@@ -141,6 +136,8 @@
         const headers = { Authorization: `Bearer ${this.$store.state.token}` };
         return axios
           .post(`/api/resources/${this.profile.id}`, formData, { headers });
+      } else {
+        throw new Error('Something went wrong');
       }
     }
 
