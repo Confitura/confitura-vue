@@ -93,6 +93,7 @@
     public errors: RegisterErrors = {};
     // tslint:disable
     private emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     // tslint:enable
 
     public mounted() {
@@ -114,11 +115,11 @@
         axios
           .post<any>('/api/users', this.profile, { headers: { Authorization: `Bearer ${this.$store.state.token}` } })
           .then((it: any) => {
-            return this.uploadPhoto();
+            this.uploadPhoto();
+            return it;
           })
           .then((it: any) => {
             this.$router.push('/profile');
-            return it;
           })
           .catch((error: any) => this.uploadFailed(error));
       }
@@ -149,7 +150,7 @@
       if (this.profile === null) {
         return;
       }
-      if (!this.validEmail(this.profile.email)) {
+      if (this.profile.email && !this.validEmail(this.profile.email)) {
         this.errors.email = ['invalid email'];
         valid = false;
       }
@@ -192,6 +193,7 @@
     .back-office {
         padding-top: 10vh;
     }
+
     .errors {
         color: red;
     }
