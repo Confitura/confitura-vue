@@ -90,7 +90,7 @@ export default class RegisterPage extends Vue {
       files: File[],
     },
   };
-  public profile: UserProfile = {};
+  public profile: UserProfile | null = null;
   public photo: File | null = null;
   public errors: RegisterErrors = {};
   // tslint:disable
