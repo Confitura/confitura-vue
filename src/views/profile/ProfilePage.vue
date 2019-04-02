@@ -98,7 +98,7 @@ export default class ProfilePage extends Vue {
       .then(() => {
         this.profile = this.$store.state.userProfile.currentProfile;
       })
-      .then(() => axios.get<EmbeddedPresentations>(`/api/users/${this.profile.id}/presentations`))
+      .then(() => axios.get<EmbeddedPresentations>(`/api/users/${this.profile!.id}/presentations`))
       .then((response) => this.presentations = response.data._embedded.presentations);
   }
 
