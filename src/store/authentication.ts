@@ -1,6 +1,7 @@
 import { Module } from 'vuex';
 import { LOGIN, LOGOUT, RootState, TOKEN, User } from '@/types';
 import axios from 'axios';
+import router from '../router';
 
 export const authenticationModule: Module<AuthenticationState, RootState> = {
   state: {
@@ -20,6 +21,9 @@ export const authenticationModule: Module<AuthenticationState, RootState> = {
         return null;
       }
     },
+    isLogin: (state, getters) => {
+      return getters.user !== null;
+    },
   },
   mutations: {
     [TOKEN](store, payload: { token: string }) {
@@ -28,11 +32,20 @@ export const authenticationModule: Module<AuthenticationState, RootState> = {
     },
   },
   actions: {
-    [LOGIN]({ commit }, { service, params }) {
+    [LOGIN]({ commit, rootGetters }, { service, params }) {
       axios.get(`/api/login/${service}/callback`, { params })
         .then(({ data }) => {
           commit(TOKEN, { token: data });
-        });
+        })
+        .then(() => {
+            const { isNew } = rootGetters.user;
+            if (isNew) {
+              router.push('/register');
+            } else {
+              router.push('/profile');
+            }
+          },
+        );
     },
 
     [LOGOUT]({ commit }) {

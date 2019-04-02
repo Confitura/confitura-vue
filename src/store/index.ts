@@ -1,13 +1,6 @@
 import Vue from 'vue';
 import Vuex, { StoreOptions } from 'vuex';
-import {
-  CHANGE_HEADER_THEME,
-  LOAD_PARTNER_BY_ID,
-  LOAD_PARTNERS,
-  Partner,
-  RootState,
-  WINDOW_RESIZED,
-} from '@/types';
+import { CHANGE_HEADER_THEME, LOAD_PARTNER_BY_ID, LOAD_PARTNERS, Partner, RootState, WINDOW_RESIZED } from '@/types';
 import { userModule } from './store.user-profile';
 import { authenticationModule } from './authentication';
 
@@ -23,6 +16,7 @@ const storeOptions: StoreOptions<RootState> = {
     windowWidth: 0,
     date: '2019-06-29T09:00',
     partners: [],
+    authentication: { token: null },
   },
   getters: {
     isSm: (state) => state.windowWidth >= 576,
@@ -31,9 +25,6 @@ const storeOptions: StoreOptions<RootState> = {
     isXl: (state) => state.windowWidth >= 1200,
     platinum: ({ partners }): Partner[] => partners.filter((partner) => partner.type === 'platinum'),
     silver: ({ partners }): Partner[] => partners.filter((partner) => partner.type === 'silver'),
-    isLogin: (state, getters) => {
-      return getters.user !== null;
-    },
   },
   mutations: {
     [CHANGE_HEADER_THEME](store, theme: { color: string }) {
