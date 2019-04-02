@@ -70,12 +70,10 @@ const router = new Router({
 
 });
 router.beforeEach((to, from, next) => {
-  if (['/register', '/profile'].includes(to.path)) {
-    if (store.getters.isLogin) {
-      next();
-    } else {
-      next('login');
-    }
+  const isSessionActive = store.getters.isLogin;
+  const accessingProtectedResource = ['/register', '/profile'].includes(to.path);
+  if (accessingProtectedResource && !isSessionActive) {
+    next('login');
   } else {
     next();
   }
