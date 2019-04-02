@@ -12,7 +12,7 @@ import {
   User,
   WINDOW_RESIZED,
 } from '@/types';
-import { userModule } from '@/store.user-profile';
+import { userModule } from './store.user-profile';
 import axios from 'axios';
 
 Vue.use(Vuex);
@@ -106,7 +106,7 @@ const storeOptions: StoreOptions<RootState> = {
           name: 'SoftwarePlant',
           www: 'https://softwareplant.com/',
           type: 'platinum',
-          logo: require('./assets/partners/softwareplant.svg'),
+          logo: require('../assets/partners/softwareplant.svg'),
         }, {
           id: '7n',
           description: `[7N](https://www.7n.com/) to duńska firma konsultingowa, zajmująca się
@@ -122,7 +122,7 @@ const storeOptions: StoreOptions<RootState> = {
           name: '7n',
           www: 'https://7n.com/',
           type: 'silver',
-          logo: require('./assets/partners/7N.svg'),
+          logo: require('../assets/partners/7N.svg'),
         }, {
           id: 'volvo',
           description: `Volvo Group IT we Wrocławiu jest jednym z dwóch (obok Bangalore w Indiach)
@@ -136,7 +136,7 @@ const storeOptions: StoreOptions<RootState> = {
           name: 'Volvo Group',
           www: 'https://www.volvogroup.pl/kariera',
           type: 'silver',
-          logo: require('./assets/partners/volvo.svg'),
+          logo: require('../assets/partners/volvo.svg'),
         }, {
           id: 'dynatrace',
           description: `**WHO WE ARE?**
@@ -158,7 +158,7 @@ At Dynatrace Gdansk Lab, we design, create and develop a best-in-class product t
           name: 'Dynatrace',
           www: 'https://jobs.dynatrace.pl/',
           type: 'silver',
-          logo: require('./assets/partners/dynatrace.svg'),
+          logo: require('../assets/partners/dynatrace.svg'),
         },
       ];
     },
