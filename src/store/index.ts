@@ -4,26 +4,25 @@ import {
   CHANGE_HEADER_THEME,
   LOAD_PARTNER_BY_ID,
   LOAD_PARTNERS,
-  LOGIN,
-  LOGOUT,
   Partner,
   RootState,
-  TOKEN,
-  User,
   WINDOW_RESIZED,
 } from '@/types';
 import { userModule } from './store.user-profile';
-import axios from 'axios';
+import { authenticationModule } from './authentication';
 
 Vue.use(Vuex);
 const storeOptions: StoreOptions<RootState> = {
+  modules: {
+    userProfile: userModule,
+    authentication: authenticationModule,
+  },
   state: {
     headerTheme: 'default',
     headerHeight: 73,
     windowWidth: 0,
     date: '2019-06-29T09:00',
     partners: [],
-    token: localStorage.getItem(TOKEN),
   },
   getters: {
     isSm: (state) => state.windowWidth >= 576,
@@ -35,19 +34,6 @@ const storeOptions: StoreOptions<RootState> = {
     isLogin: (state, getters) => {
       return getters.user !== null;
     },
-    user: ({ token }): User | null => {
-      if (token) {
-        try {
-          const body = token.split('.')[1];
-          return JSON.parse(atob(body)) as User;
-        } catch (error) {
-          return null;
-        }
-      } else {
-        return null;
-      }
-    },
-
   },
   mutations: {
     [CHANGE_HEADER_THEME](store, theme: { color: string }) {
@@ -62,22 +48,9 @@ const storeOptions: StoreOptions<RootState> = {
         store.headerHeight = 60;
       }
     },
-    [TOKEN](store, payload: { token: string }) {
-      store.token = payload.token;
-      localStorage.setItem(TOKEN, payload.token);
-    },
+
   },
   actions: {
-    [LOGIN]({ commit }, payload: { service: string, params: { [key: string]: any } }) {
-      axios.get(`/api/login/${payload.service}/callback`, { params: payload.params })
-        .then(({ data }) => {
-          commit(TOKEN, { token: data });
-        });
-
-    },
-    [LOGOUT]({ commit }) {
-      commit(TOKEN, { token: null });
-    },
     [LOAD_PARTNERS]({ state }) {
       // tslint:disable
       state.partners = [
@@ -168,7 +141,6 @@ At Dynatrace Gdansk Lab, we design, create and develop a best-in-class product t
         .then(() => state.partners.find((partner) => partner.id.toLowerCase() === id.toLowerCase()));
     },
   },
-  modules: {userProfile: userModule},
 };
 
 export default new Vuex.Store(storeOptions);
