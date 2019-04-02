@@ -49,17 +49,17 @@ export interface UserProfile {
   // presentations: Presentation[];
 }
 
-export class EmbeddedPresentations {
+export interface EmbeddedPresentations {
   _embedded: { presentations: Presentation[] };
 }
 
-export class Presentation {
+export interface Presentation {
   id: string;
   title: string;
   language: string;
   level: string;
   speaker: User;
-  cospeakers: User[] = [];
+  cospeakers: User[];
   tags: string;
   shortDescription: string;
   description: string;
