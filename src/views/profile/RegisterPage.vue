@@ -2,7 +2,7 @@
     <div class="profile">
         <Box class="content " color="white" :full="false">
 
-            <div class="back-office" v-if="profile">
+            <div class="back-office" v-if="profile && activeUser">
                 <div class="row">
                     <form class="col s12" @submit="save" novalidate>
                         <div class="row">
@@ -24,6 +24,7 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <textarea id="Bio" type="text" class="materialize-textarea"
+                                          ref="bio"
                                           v-model="profile.bio">
                                 </textarea>
                                 <label for="Bio">Bio</label>
@@ -57,9 +58,12 @@
                              {{error}} <br/>
                         </span>
 
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                            <i class="material-icons right">send</i>
-                        </button>
+                        <div>
+                            <button class="btn waves-effect waves-light button button--save" type="submit" name="action">Save
+                            </button>
+                            <button v-if="activeUser.isNew" class="btn waves-effect waves-light button button--cancel" type="button" name="action">Cancel
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -74,7 +78,7 @@
   import { LOAD_CURRENT_PROFILE } from '@/store/store.user-profile';
   import Box from '@/components/Box.vue';
   import TheContact from '@/components/TheContact.vue';
-  import { UserProfile } from '@/types';
+  import { User, UserProfile } from '@/types';
   import M from 'materialize-css';
   import axios from 'axios';
 
@@ -86,10 +90,12 @@
       file: {
         files: File[],
       },
+      bio: Element,
     };
     public profile: UserProfile | null = {};
     public photo: File | null = null;
     public errors: RegisterErrors = {};
+    public activeUser!: User;
     // tslint:disable
     private emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -97,10 +103,11 @@
 
     public mounted() {
       M.AutoInit();
-
+      this.activeUser = this.$store.getters.user;
       this.$store.dispatch(LOAD_CURRENT_PROFILE)
         .then(() => {
           this.profile = this.$store.state.userProfile.currentProfile;
+          M.textareaAutoResize(this.$refs.bio);
         });
     }
 
@@ -113,7 +120,7 @@
       if (this.validate()) {
         axios
           .post<any>('/api/users', this.profile, { headers: { Authorization: `Bearer ${this.$store.state.token}` } })
-          .then(() =>  this.uploadPhoto())
+          .then(() => this.uploadPhoto())
           .then(() => this.$router.push('/profile'))
           .catch((error: any) => this.uploadFailed(error));
       }
@@ -186,11 +193,31 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "../../assets/colors";
+
     .back-office {
         padding-top: 10vh;
     }
 
     .errors {
         color: red;
+    }
+
+    .button {
+        width: 100px;
+    }
+
+    .button--save {
+        margin-right: 1rem;
+
+        &, &:focus, &:hover {
+            background-color: $brand;
+        }
+    }
+
+    .button--cancel {
+        &, &:focus, &:hover {
+            background-color: $brand;
+        }
     }
 </style>
