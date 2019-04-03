@@ -34,7 +34,7 @@
 
                             </div>
                             <div class="card-action">
-                                <a href="#">New presentation</a>
+                                <router-link to="new-presentation">New presentation</router-link>
                             </div>
                             <div class="card-content">
                                 {{profile.bio}}

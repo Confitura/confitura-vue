@@ -7,8 +7,9 @@ import Partners from '@/views/Partners.vue';
 import PartnerPage from '@/views/PartnerPage.vue';
 import Login from '@/views/Login.vue';
 import RegisterPage from '@/views/profile/RegisterPage.vue';
-import ProfilePage from '@/views/profile/ProfilePage.vue';
 import store from './store';
+import ProfilePage from '@/views/profile/ProfilePage.vue';
+import AddPresentation from '@/views/profile/AddPresentation.vue';
 
 Vue.use(Router);
 Vue.use(VueScrollTo, {
@@ -60,6 +61,11 @@ const router = new Router({
       path: '/profile',
       name: 'profile',
       component: ProfilePage,
+    },
+    {
+      path: '/new-presentation',
+      name: 'new-presentation',
+      component: AddPresentation,
     },
   ],
   scrollBehavior(to, from, savedPosition) {
