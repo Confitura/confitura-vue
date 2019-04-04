@@ -32,17 +32,6 @@
                             </div>
                         </div>
 
-                        <!--<div class="row">-->
-                            <!--<div class="col s12">-->
-                                <!--<label for="photo">Profile picture</label>-->
-                                <!--<input id="photo" type="file"-->
-                                       <!--ref="file" v-on:change="handleFileUpload()"-->
-                                       <!--required>-->
-                                <!--<br/>-->
-                                <!--<span class="errors" v-for="error in errors.photo">{{error}}</span>-->
-                            <!--</div>-->
-                        <!--</div>-->
-
                         <div class="row">
                             <div class="col s12">
                                 <label>
