@@ -12,34 +12,34 @@
     </article>
 </template>
 <script lang="ts">
-    import dayjs from 'dayjs';
-    import linkifyHtml from 'linkifyjs/html';
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+  import dayjs from 'dayjs';
+  import linkifyHtml from 'linkifyjs/html';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
 
-    @Component({})
-    export default class Twit extends Vue {
-        @Prop()
-        public model!: TwitItem;
+  @Component({})
+  export default class Twit extends Vue {
+    @Prop()
+    public model!: TwitItem;
 
-        get dateTime() {
-            return dayjs.unix(this.model.time).format('DD MMM YY, hh:mm');
-        }
-
-        get message() {
-            return linkifyHtml(this.model.text, {
-                defaultProtocol: 'https',
-                className: 'twit__link',
-            });
-        }
+    get dateTime() {
+      return dayjs.unix(this.model.time).format('DD MMM YY, hh:mm');
     }
 
-    export interface TwitItem {
-        name: string;
-        twitterHandle: string;
-        avatar: string;
-        text: string;
-        time: number;
+    get message() {
+      return linkifyHtml(this.model.text, {
+        defaultProtocol: 'https',
+        className: 'twit__link',
+      });
     }
+  }
+
+  export interface TwitItem {
+    name: string;
+    twitterHandle: string;
+    avatar: string;
+    text: string;
+    time: number;
+  }
 </script>
 <style scoped lang="scss">
     @import '../assets/colors';

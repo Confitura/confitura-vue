@@ -32,16 +32,16 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col s12">
-                                <label for="photo">Profile picture</label>
-                                <input id="photo" type="file"
-                                       ref="file" v-on:change="handleFileUpload()"
-                                       required>
-                                <br/>
-                                <span class="errors" v-for="error in errors.photo">{{error}}</span>
-                            </div>
-                        </div>
+                        <!--<div class="row">-->
+                            <!--<div class="col s12">-->
+                                <!--<label for="photo">Profile picture</label>-->
+                                <!--<input id="photo" type="file"-->
+                                       <!--ref="file" v-on:change="handleFileUpload()"-->
+                                       <!--required>-->
+                                <!--<br/>-->
+                                <!--<span class="errors" v-for="error in errors.photo">{{error}}</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
                         <div class="row">
                             <div class="col s12">
@@ -119,32 +119,14 @@
       event.preventDefault();
       if (this.validate()) {
         axios
-          .post<any>('/api/users', this.profile, { headers: { Authorization: `Bearer ${this.$store.state.token}` } })
-          .then(() => this.uploadPhoto())
+          .post<any>('/api/users', this.profile)
           .then(() => this.$router.push('/profile'))
           .catch((error: any) => this.uploadFailed(error));
       }
     }
 
-    public handleFileUpload() {
-      const { files } = this.$refs.file;
-      this.photo = files[0];
-    }
-
     public validEmail(email: string) {
       return this.emailPattern.test(email);
-    }
-
-    private uploadPhoto() {
-      if (this.photo !== null && this.profile !== null) {
-        const formData = new FormData();
-        formData.append('file', this.photo);
-        const headers = { Authorization: `Bearer ${this.$store.state.token}` };
-        return axios
-          .post(`/api/resources/${this.profile.id}`, formData, { headers });
-      } else {
-        throw new Error('Something went wrong');
-      }
     }
 
     private validate() {
