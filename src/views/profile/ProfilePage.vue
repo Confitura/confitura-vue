@@ -143,7 +143,7 @@
             if (error.response!.status === 413) {
               message = 'Uploaded photo is too large!';
             }
-            this.$toasted.error(message, { duration: 3000, className: 'error', fullWidth: true});
+            this.$toasted.error(message, { duration: 3000, className: 'error', fullWidth: true });
           });
       } else {
         throw new Error('Something went wrong');
