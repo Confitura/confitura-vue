@@ -1,5 +1,6 @@
 <template>
     <div class="profile">
+        <PageHeader></PageHeader>
         <Box class="content" color="white">
             <div class="back-office">
 
@@ -10,6 +11,7 @@
                                 <input class="validate" id="title" type="text" v-model="presentation.title">
                                 <label for="title">Title</label>
                             </div>
+                            <div class="errors" v-for="error in errors.title">{{error}}</div>
                         </div>
                         <div class="row">
                             <div class="col m6 s12">
@@ -28,14 +30,18 @@
 
                                 <div class="input-field">
                                     <textarea class="materialize-textarea" id="shortDescription"
+                                              ref="shortDescription"
                                               v-model="presentation.shortDescription"></textarea>
                                     <label for="shortDescription">Short description</label>
                                 </div>
+                                <div class="errors" v-for="error in errors.shortDescription">{{error}}</div>
                                 <div class="input-field">
                                     <textarea class="materialize-textarea" id="description"
+                                              ref="description"
                                               v-model="presentation.description"></textarea>
                                     <label for="description">Full description</label>
                                 </div>
+                                <div class="errors" v-for="error in errors.description">{{error}}</div>
                             </div>
                             <div class="col m6 s12">
                                 <p>
@@ -53,6 +59,8 @@
                                         <input name="language" type="radio" v-model="presentation.language" value="en"/>
                                         <span>English</span>
                                     </label>
+                                    <span class="errors"
+                                          v-for="error in errors.language"><br/>{{error}}</span>
                                 </p>
 
                                 <p>
@@ -69,6 +77,8 @@
                                         <input name="level" type="radio" v-model="presentation.level" value="master"/>
                                         <span>Master</span>
                                     </label>
+                                    <span class="errors"
+                                          v-for="error in errors.level"><br/>{{error}}</span>
                                 </p>
                             </div>
                         </div>
@@ -88,11 +98,16 @@
   import M from 'materialize-css'
   import { Presentation, EmbeddedTags, Tag } from "@/types";
   import axios from 'axios';
+  import PageHeader from "@/components/PageHeader.vue";
 
   @Component({
-    components: { Box, TheContact },
+    components: { Box, TheContact, PageHeader },
   })
   export default class AddPresentation extends Vue {
+    public $refs!: Vue['$refs'] & {
+      shortDescription: Element,
+      description: Element,
+    };
     public presentation: Presentation = {
       title: '',
       language: '',
@@ -102,16 +117,16 @@
       description: '',
     };
     public tagInput = "";
-    public tags: string[] = [];
+    public errors: PresentationErrors = {};
+
     private tagsByName: { name: string, tag: Tag } = {};
     private userId: string;
 
     mounted() {
       this.userId = this.$store.getters.user.jti;
-
       this.setupTagsAutocomplete();
-
-
+      M.textareaAutoResize(this.$refs.description);
+      M.textareaAutoResize(this.$refs.shortDescription);
     }
 
     private setupTagsAutocomplete() {
@@ -128,7 +143,6 @@
             data: data,
             onAutocomplete: (arg) => {
               this.tagInput = "";
-              this.tags.push(arg);
               let tag = this.tagsByName[arg];
               this.presentation.tags.push(tag);
             }
@@ -137,24 +151,60 @@
     }
 
     save() {
-      axios.post(`/api/users/${this.userId}/presentations`, this.presentation, {
-        headers: {
-          Authorization: `Bearer ${this.$store.state.authentication.token}`
-        }
-      }).then(() => this.$router.back());
+      if (this.validate()) {
+        axios.post(`/api/users/${this.userId}/presentations`, this.presentation, {
+          headers: {
+            Authorization: `Bearer ${this.$store.state.authentication.token}`
+          }
+        }).then(() => this.$router.back());
+      }
     }
 
-    public removeTag(tag) {
-      this.tags = this.tags.filter(it => it != tag);
+    public removeTag(tag: Tag) {
+      this.presentation.tags = this.presentation.tags.filter(it => it.id !== tag.id);
     }
+
+    private validate() {
+      this.errors = {};
+      let valid = true;
+      if (this.userId === null) {
+        return;
+      }
+      if (!this.presentation.title) {
+        this.errors.title = ['Title is required'];
+        valid = false;
+      }
+      if (!this.presentation.shortDescription) {
+        this.errors.shortDescription = ['ShortDescription is required'];
+        valid = false;
+      }
+      if (!this.presentation.description) {
+        this.errors.description = ['Description is required'];
+        valid = false;
+      }
+      if (!this.presentation.language) {
+        this.errors.language = ['Language is required'];
+        valid = false;
+      }
+      if (!this.presentation.level) {
+        this.errors.level = ['Level is required'];
+        valid = false;
+      }
+      return valid;
+    }
+  }
+
+  interface PresentationErrors {
+    title?: string[]
+    shortDescription?: string[]
+    description?: string[]
+    language?: string[]
+    level?: string[]
   }
 </script>
 <style scoped>
-    #shortDescription {
-        min-height: 5em;
-    }
 
-    #description {
-        min-height: 10em;
+    .errors {
+        color: red;
     }
 </style>
