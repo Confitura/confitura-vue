@@ -119,8 +119,8 @@
     public tagInput = "";
     public errors: PresentationErrors = {};
 
-    private tagsByName: { name: string, tag: Tag } = {};
-    private userId: string;
+    private tagsByName: { [name: string]: Tag } = {};
+    private userId!: string;
 
     mounted() {
       this.userId = this.$store.getters.user.jti;
@@ -147,14 +147,14 @@
       axios.get<EmbeddedTags>('/api/tags')
         .then(response => response.data._embedded.tags)
         .then(tags => {
-          let data = {};
+          let autocompleteData: { [name: string]: null } = {};
           for (let tag of tags) {
-            data[tag.name] = null;
+            autocompleteData[tag.name] = null;
             this.tagsByName[tag.name] = tag;
           }
           var elems = document.querySelectorAll('.autocomplete');
           M.Autocomplete.init(elems, {
-            data: data,
+            data: autocompleteData,
             onAutocomplete: (arg) => {
               this.tagInput = "";
               let tag = this.tagsByName[arg];

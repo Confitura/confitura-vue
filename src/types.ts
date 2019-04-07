@@ -56,7 +56,7 @@ export interface EmbeddedPresentations {
   _embedded: { presentations: Presentation[] };
 }
 
-export class EmbeddedTags {
+export interface EmbeddedTags {
   _embedded: { tags: Tag[] };
 }
 
