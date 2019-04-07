@@ -34,7 +34,7 @@
 
                             </div>
                             <div class="card-action">
-                                <router-link to="new-presentation">New presentation</router-link>
+                                <router-link to="presentation">New presentation</router-link>
                             </div>
                             <div class="card-content">
                                 {{profile.bio}}
@@ -74,7 +74,7 @@
 
                             </div>
                             <div class="card-action">
-                                <a href="#">edit</a>
+                                <router-link :to="{name: 'presentation', params:{id:pres.id}}">edit</router-link>
                             </div>
                         </div>
 

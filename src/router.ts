@@ -9,7 +9,7 @@ import Login from '@/views/Login.vue';
 import RegisterPage from '@/views/profile/RegisterPage.vue';
 import store from './store';
 import ProfilePage from '@/views/profile/ProfilePage.vue';
-import AddPresentation from '@/views/profile/AddPresentation.vue';
+import PresentationForm from "@/views/profile/PresentationForm.vue";
 
 Vue.use(Router);
 Vue.use(VueScrollTo, {
@@ -63,9 +63,9 @@ const router = new Router({
       component: ProfilePage,
     },
     {
-      path: '/new-presentation',
-      name: 'new-presentation',
-      component: AddPresentation,
+      path: '/presentation/:id?',
+      name: 'presentation',
+      component: PresentationForm,
     },
   ],
   scrollBehavior(to, from, savedPosition) {

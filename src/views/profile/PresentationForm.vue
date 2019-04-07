@@ -46,7 +46,7 @@
                             <div class="col m6 s12">
                                 <p>
                                     <label>
-                                        <input type="checkbox" v-model="presentation.isWorkshop"/>
+                                        <input type="checkbox" v-model="presentation.workshop"/>
                                         <span>Workshop</span>
                                     </label>
                                 </p>
@@ -103,7 +103,7 @@
   @Component({
     components: { Box, TheContact, PageHeader },
   })
-  export default class AddPresentation extends Vue {
+  export default class PresentationForm extends Vue {
     public $refs!: Vue['$refs'] & {
       shortDescription: Element,
       description: Element,
@@ -127,6 +127,20 @@
       this.setupTagsAutocomplete();
       M.textareaAutoResize(this.$refs.description);
       M.textareaAutoResize(this.$refs.shortDescription);
+
+      let presentationId = this.$route.params['id'];
+      if (presentationId) {
+        var presentation: Presentation;
+        axios.get<Presentation>(`/api/presentations/${presentationId}`)
+          .then(it => presentation = it.data)
+          .then(it => axios.get<EmbeddedTags>(`/api/presentations/${presentationId}/tags`))
+          .then(it => presentation.tags = it.data._embedded.tags)
+          .then(it => this.presentation = presentation)
+      }
+    }
+
+    public updated() {
+      M.updateTextFields();
     }
 
     private setupTagsAutocomplete() {
@@ -152,11 +166,8 @@
 
     save() {
       if (this.validate()) {
-        axios.post(`/api/users/${this.userId}/presentations`, this.presentation, {
-          headers: {
-            Authorization: `Bearer ${this.$store.state.authentication.token}`
-          }
-        }).then(() => this.$router.back());
+        axios.post(`/api/users/${this.userId}/presentations`, this.presentation)
+          .then(() => this.$router.back());
       }
     }
 
