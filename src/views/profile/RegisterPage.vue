@@ -15,7 +15,7 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="email" type="email" class=""
+                                <input id="email" type="email"
                                        v-model="profile.email" required>
                                 <label for="email">E-mail</label>
                                 <span class="errors" v-for="error in errors.email">{{error}}</span>
@@ -29,6 +29,27 @@
                                 </textarea>
                                 <label for="Bio">Bio</label>
                                 <span class="errors" v-for="error in errors.bio">{{error}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="twitter" type="text"
+                                       v-model="profile.twitter">
+                                <label for="twitter">twitter</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="github" type="text"
+                                       v-model="profile.github">
+                                <label for="github">github</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="www" type="text"
+                                       v-model="profile.www">
+                                <label for="www">www</label>
                             </div>
                         </div>
 
