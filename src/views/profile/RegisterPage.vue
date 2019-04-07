@@ -82,9 +82,8 @@
       bio: Element,
     };
     public profile: UserProfile | null = {};
-    public photo: File | null = null;
     public errors: RegisterErrors = {};
-    public activeUser!: User;
+    public activeUser: User | null = null;
     // tslint:disable
     private emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -119,27 +118,24 @@
     }
 
     private validate() {
-      this.errors = {};
+      let errors: RegisterErrors = {};
       let valid = true;
       if (this.profile === null) {
         return;
       }
-      if (this.profile.email && !this.validEmail(this.profile.email)) {
-        this.errors.email = ['invalid email'];
-        valid = false;
-      }
-      if (!this.photo) {
-        this.errors.photo = ['Photo is required'];
+      if (!this.profile.email || !this.validEmail(this.profile.email)) {
+        errors.email = ['invalid email'];
         valid = false;
       }
       if (!this.profile.name) {
-        this.errors.name = ['Name is required'];
+        errors.name = ['Name is required'];
         valid = false;
       }
       if (!this.profile.privacyPolicyAccepted) {
-        this.errors.privacyPolicyAccepted = ['Agreeing to our policy is required'];
+        errors.privacyPolicyAccepted = ['Agreeing to our policy is required'];
         valid = false;
       }
+      this.errors = errors;
       return valid;
     }
 
@@ -156,7 +152,6 @@
   interface RegisterErrors {
     bio?: string[];
     email?: string[];
-    photo?: string[];
     name?: string[];
     privacyPolicyAccepted?: string[];
     form?: string[];
