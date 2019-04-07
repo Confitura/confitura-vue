@@ -57,6 +57,25 @@
                     </div>
 
                     <div class="col s12 m6 l8">
+
+                        <!-- Modal Structure For adding speaker -->
+                        <div class="modal" id="modal1">
+                            <div class="modal-content" v-if="selectedPresentation">
+                                <h4>{{selectedPresentation.title}}</h4>
+                                <div class="input-field ">
+                                    <input id="email" type="email" v-model="email">
+                                    <label for="email">Email of speaker</label>
+                                    <span class="helper-text" data-error="wrong" data-success="right">Speaker {{email}} must be already registered in system</span>
+                                </div>
+                                <button @click="addSpeakerToPresentation()" class="btn">
+                                    Add speaker
+                                </button>
+                            </div>
+                            <div class="modal-footer">
+                                <a class="modal-close waves-effect waves-green btn-flat">close</a>
+                            </div>
+                        </div>
+
                         <div class="card" v-for="pres in presentations">
                             <div class="card-content">
                                 <span class="card-title">
@@ -75,6 +94,9 @@
                             </div>
                             <div class="card-action">
                                 <router-link :to="{name: 'presentation', params:{id:pres.id}}">edit</router-link>
+                                <button @click="openModal(pres)" class="btn modal-trigger" data-target="modal1">
+                                    Add speakers
+                                </button>
                             </div>
                         </div>
 
@@ -95,6 +117,7 @@
   import axios, { AxiosError } from 'axios';
   import PageHeader from '@/components/PageHeader.vue';
   import Toasted from 'vue-toasted';
+  import M from 'materialize-css';
 
   Vue.use(Toasted);
 
@@ -111,6 +134,8 @@
     public profile: UserProfile | null = null;
     public presentations: Presentation[] = [];
     public photoKey = 0;
+    public selectedPresentation: Presentation | null = null;
+    public email = "";
 
     public mounted() {
       this.$store.dispatch(LOAD_CURRENT_PROFILE)
@@ -119,6 +144,17 @@
         })
         .then(() => axios.get<EmbeddedPresentations>(`/api/users/${this.profile!.id}/presentations`))
         .then((response) => this.presentations = response.data._embedded.presentations);
+
+    }
+
+    public addSpeakerToPresentation() {
+      axios.post(`/api/presentations/${this.selectedPresentation!.id}/cospeakers/${this.email}`)
+    }
+
+    public openModal(pres: Presentation) {
+      this.selectedPresentation = pres;
+      var elems = document.querySelectorAll('.modal');
+      M.Modal.init(elems);
     }
 
     public editProfile() {
