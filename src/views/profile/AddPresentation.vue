@@ -24,7 +24,7 @@
                                 <div>
                                     <div class="chip" v-for="tag in presentation.tags">
                                         {{tag.name}}
-                                        <i @click="removeTag(tag)" class="close material-icons">close</i>
+                                        <i @click="removeTag(tag)" class="material-icons">close</i>
                                     </div>
                                 </div>
 
@@ -206,5 +206,13 @@
 
     .errors {
         color: red;
+    }
+
+    .back-office .chip .material-icons {
+        cursor: pointer;
+        float: right;
+        font-size: 16px;
+        line-height: 32px;
+        padding-left: 8px;
     }
 </style>
