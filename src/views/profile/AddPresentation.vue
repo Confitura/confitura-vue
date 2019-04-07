@@ -75,8 +75,7 @@
                     </form>
                 </div>
 
-                <button @click="save()">Save</button>
-                {{presentation}}
+                <button @click="save()" class="waves-effect waves-light btn">Save</button>
             </div>
         </Box>
         <TheContact id="contact"/>
@@ -87,7 +86,7 @@
   import TheContact from "@/components/TheContact.vue";
   import Box from '@/components/Box.vue';
   import M from 'materialize-css'
-  import { Presentation } from "@/types";
+  import { Presentation, EmbeddedTags, Tag } from "@/types";
   import axios from 'axios';
 
   @Component({
@@ -104,27 +103,37 @@
     };
     public tagInput = "";
     public tags: string[] = [];
+    private tagsByName: { name: string, tag: Tag } = {};
     private userId: string;
 
     mounted() {
       this.userId = this.$store.getters.user.jti;
 
-      var elems = document.querySelectorAll('.autocomplete');
-      var instances: M.Autocomplete[] = M.Autocomplete.init(elems, {
-        data: {
-          "Apple": null,
-          "Microsoft": null,
-          "Google": 'https://placehold.it/250x250'
-        },
-        onAutocomplete: (arg) => {
-          this.tagInput = "";
-          this.tags.push(arg);
-        }
-      });
+      this.setupTagsAutocomplete();
+
+
     }
 
-    tag(xxx, yyy) {
-      console.log(xxx, this.tagInput)
+    private setupTagsAutocomplete() {
+      axios.get<EmbeddedTags>('/api/tags')
+        .then(response => response.data._embedded.tags)
+        .then(tags => {
+          let data = {};
+          for (let tag of tags) {
+            data[tag.name] = null;
+            this.tagsByName[tag.name] = tag;
+          }
+          var elems = document.querySelectorAll('.autocomplete');
+          M.Autocomplete.init(elems, {
+            data: data,
+            onAutocomplete: (arg) => {
+              this.tagInput = "";
+              this.tags.push(arg);
+              let tag = this.tagsByName[arg];
+              this.presentation.tags.push(tag);
+            }
+          });
+        });
     }
 
     save() {
@@ -132,7 +141,7 @@
         headers: {
           Authorization: `Bearer ${this.$store.state.authentication.token}`
         }
-      });
+      }).then(() => this.$router.back());
     }
 
     public removeTag(tag) {
