@@ -44,13 +44,16 @@
                                 <div class="errors" v-for="error in errors.description">{{error}}</div>
                             </div>
                             <div class="col m6 s12">
-                                <p>
+                                <div class="presentation-section">
                                     <label>
                                         <input type="checkbox" v-model="presentation.workshop"/>
                                         <span>Workshop</span>
                                     </label>
-                                </p>
-                                <p>
+                                </div>
+                                <div class="presentation-section">
+                                    <div>
+                                        <label>Language</label>
+                                    </div>
                                     <label>
                                         <input name="language" type="radio" v-model="presentation.language" value="pl"/>
                                         <span>Polish</span>
@@ -61,9 +64,12 @@
                                     </label>
                                     <span class="errors"
                                           v-for="error in errors.language"><br/>{{error}}</span>
-                                </p>
+                                </div>
 
-                                <p>
+                                <div class="presentation-section">
+                                    <div>
+                                        <label>Level</label>
+                                    </div>
                                     <label>
                                         <input name="level" type="radio" v-model="presentation.level" value="novice"/>
                                         <span>Novice</span>
@@ -79,7 +85,7 @@
                                     </label>
                                     <span class="errors"
                                           v-for="error in errors.level"><br/>{{error}}</span>
-                                </p>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -235,8 +241,14 @@
 
     .save-button, .cancel-button {
         margin-right: 1rem;
+
         &, &:focus, &:hover {
             background-color: $brand;
         }
+    }
+
+    .presentation-section {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 </style>

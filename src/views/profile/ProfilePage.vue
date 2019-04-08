@@ -64,14 +64,16 @@
                                       <span :data-badge-caption="tag.name" class="new badge"
                                             v-for="tag in presentation.tags"></span>
                                 </span>
-                                full description:
-                                <blockquote>{{presentation.description}}</blockquote>
-                                short description:
-                                <blockquote>{{presentation.shortDescription}}</blockquote>
+                                <label>Full description</label>
+                                <div class="description">{{presentation.description}}</div>
+
+                                <label>Short description</label>
+                                <div class="description">{{presentation.shortDescription}}</div>
 
                             </div>
                             <div class="card-action">
                                 <router-link :to="{name: 'presentation', params:{id:presentation.id}}">edit</router-link>
+                                <a href="#" @click="remove(presentation, $event)">delete</a>
                             </div>
                         </div>
 
@@ -88,7 +90,7 @@
   import { LOAD_CURRENT_PROFILE } from '@/store/store.user-profile';
   import Box from '@/components/Box.vue';
   import TheContact from '@/components/TheContact.vue';
-  import { EmbeddedPresentations, Presentation, UserProfile } from '@/types';
+  import { EmbeddedPresentations, Presentation, REMOVE_PRESENTATION, UserProfile } from '@/types';
   import axios, { AxiosError } from 'axios';
   import PageHeader from '@/components/PageHeader.vue';
   import Toasted from 'vue-toasted';
@@ -142,6 +144,12 @@
       } else {
         throw new Error('Something went wrong');
       }
+    }
+
+    public remove(presentation: Presentation, event: Event) {
+      event.preventDefault();
+      this.$store.dispatch(REMOVE_PRESENTATION, presentation.id)
+        .then(() => this.$delete(this.presentations, this.presentations.indexOf(presentation)));
     }
 
   }
@@ -199,6 +207,10 @@
 
     .about-icon {
         margin-right: 1em;
+    }
+    .description{
+margin-bottom: 1rem;
+        padding-left: 1rem;
     }
 </style>
 <style lang="scss">

@@ -16,6 +16,7 @@ export const LOAD_PARTNER_BY_ID = 'LOAD_PARTNER_BY_ID';
 export const TOKEN = 'TOKEN';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const REMOVE_PRESENTATION = 'REMOVE_PRESENTATION';
 
 export interface User {
   sub: string;
