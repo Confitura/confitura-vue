@@ -1,6 +1,6 @@
 <template>
     <div class="profile">
-        <PageHeader></PageHeader>
+        <PageHeader :small="true" title="My Profile"></PageHeader>
         <Box class="content" color="white">
             <div class="back-office" v-if="profile">
                 <div class="row">
@@ -17,8 +17,6 @@
                                         <input class="upload-input" type="file" ref="file" v-on:change="uploadPhoto()" required>
                                     </div>
                                 </div>
-                                <a class="btn-floating halfway-fab waves-effect waves-light edit-profile-button"><i
-                                        @click="editProfile()" class="material-icons">edit</i></a>
                             </div>
                             <div class="card-content">
                                     <span class="card-title">
@@ -34,7 +32,8 @@
 
                             </div>
                             <div class="card-action">
-                                <router-link to="presentation">New presentation</router-link>
+                                <router-link to="register">Edit profile</router-link>
+                                <router-link to="presentation">Add presentation</router-link>
                             </div>
                             <div class="card-content">
                                 {{profile.bio}}
@@ -57,24 +56,22 @@
                     </div>
 
                     <div class="col s12 m6 l8">
-                        <div class="card" v-for="pres in presentations">
+                        <div class="card" v-for="presentation in presentations">
                             <div class="card-content">
                                 <span class="card-title">
-                                    {{pres.title}}
-                                    <span class="small">({{pres.language}}, {{pres.level}})</span>
+                                    {{presentation.title}}
+                                    <span class="small">({{presentation.language}}, {{presentation.level}})</span>
                                       <span :data-badge-caption="tag.name" class="new badge"
-                                            v-for="tag in pres.tags"></span>
+                                            v-for="tag in presentation.tags"></span>
                                 </span>
-
-
                                 full description:
-                                <blockquote>{{pres.description}}</blockquote>
+                                <blockquote>{{presentation.description}}</blockquote>
                                 short description:
-                                <blockquote>{{pres.shortDescription}}</blockquote>
+                                <blockquote>{{presentation.shortDescription}}</blockquote>
 
                             </div>
                             <div class="card-action">
-                                <router-link :to="{name: 'presentation', params:{id:pres.id}}">edit</router-link>
+                                <router-link :to="{name: 'presentation', params:{id:presentation.id}}">edit</router-link>
                             </div>
                         </div>
 
@@ -121,9 +118,6 @@
         .then((response) => this.presentations = response.data._embedded.presentations);
     }
 
-    public editProfile() {
-      this.$router.push('/register');
-    }
 
     public showUploadDialog() {
       this.$refs.file.click();
@@ -162,8 +156,8 @@
 
     .photo-container {
         display: flex;
-        width: 400px;
-        height: 400px;
+        width: 250px;
+        height: 250px;
         overflow: hidden;
         margin: auto;
 
@@ -171,6 +165,7 @@
             width: 100%;
             object-fit: cover;
             height: 100%;
+            padding: 0.5rem;
         }
     }
 

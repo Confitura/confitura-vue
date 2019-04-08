@@ -74,6 +74,6 @@ export interface Presentation {
 }
 
 export interface Tag {
-  id: string
-  name: string
+  id: string;
+  name: string;
 }
