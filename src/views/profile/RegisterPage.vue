@@ -139,7 +139,7 @@
     }
 
     private validate() {
-      let errors: RegisterErrors = {};
+      const errors: RegisterErrors = {};
       let valid = true;
       if (this.profile === null) {
         return;
