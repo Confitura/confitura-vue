@@ -91,6 +91,19 @@
                                 short description:
                                 <blockquote>{{pres.shortDescription}}</blockquote>
 
+                                <div v-if="pres.speakers.length > 1">
+                                    Speakers:
+                                    <ul class="collection">
+                                        <li class="collection-item" v-for="speaker of pres.speakers">
+                                        <span class="title">
+                                            {{speaker.name}}
+                                        </span>
+                                            <a @click="deleteSpeaker(pres, speaker, $event)" class="secondary-content"
+                                               href="#">
+                                                <i class="material-icons">delete</i></a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                             <div class="card-action">
                                 <router-link :to="{name: 'presentation', params:{id:pres.id}}">edit</router-link>
@@ -113,7 +126,7 @@
   import { LOAD_CURRENT_PROFILE } from '@/store/store.user-profile';
   import Box from '@/components/Box.vue';
   import TheContact from '@/components/TheContact.vue';
-  import { EmbeddedPresentations, Presentation, UserProfile } from '@/types';
+  import { EmbeddedPresentations, Presentation, UserProfile, User } from '@/types';
   import axios, { AxiosError } from 'axios';
   import PageHeader from '@/components/PageHeader.vue';
   import Toasted from 'vue-toasted';
@@ -142,13 +155,40 @@
         .then(() => {
           this.profile = this.$store.state.userProfile.currentProfile;
         })
-        .then(() => axios.get<EmbeddedPresentations>(`/api/users/${this.profile!.id}/presentations`))
-        .then((response) => this.presentations = response.data._embedded.presentations);
+        .then(() => this.loadPresentations());
 
+    }
+
+    private loadPresentations() {
+      return axios.get<EmbeddedPresentations>(`/api/users/${this.profile!.id}/presentations`, {
+        params: { 'projection': 'inlineSpeaker' }
+      })
+        .then((response) => this.presentations = response.data._embedded.presentations);
     }
 
     public addSpeakerToPresentation() {
       axios.post(`/api/presentations/${this.selectedPresentation!.id}/cospeakers/${this.email}`)
+        .then(it => {
+          this.loadPresentations();
+          this.$toasted.success("speaker added", { duration: 3000 });
+        }, (error: AxiosError) => {
+          let message = "Something went wrong";
+          if (error.response.status == 404) {
+            message = "User not found"
+          } else if (error.response.status == 409) {
+            message = "Unable to add this user: conflict"
+          }
+          this.$toasted.error(message, { duration: 3000, className: 'error', fullWidth: true });
+        })
+    }
+
+    public deleteSpeaker(pres: Presentation, speaker: UserProfile, event) {
+      event.preventDefault();
+      if ((this.profile.email != speaker.email) || confirm("Are you sure you want to remove yourself from presentation? You will no longer be able to change it."))
+        axios.delete(`/api/presentations/${pres.id}/cospeakers/${speaker.email}`)
+          .then(it => {
+            this.loadPresentations()
+          })
     }
 
     public openModal(pres: Presentation) {
