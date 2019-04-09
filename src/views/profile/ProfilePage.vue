@@ -173,18 +173,18 @@
           this.$toasted.success("speaker added", { duration: 3000 });
         }, (error: AxiosError) => {
           let message = "Something went wrong";
-          if (error.response.status == 404) {
+          if (error.response!.status == 404) {
             message = "User not found"
-          } else if (error.response.status == 409) {
+          } else if (error.response!.status == 409) {
             message = "Unable to add this user: conflict"
           }
           this.$toasted.error(message, { duration: 3000, className: 'error', fullWidth: true });
         })
     }
 
-    public deleteSpeaker(pres: Presentation, speaker: UserProfile, event) {
+    public deleteSpeaker(pres: Presentation, speaker: UserProfile, event: Event) {
       event.preventDefault();
-      if ((this.profile.email != speaker.email) || confirm("Are you sure you want to remove yourself from presentation? You will no longer be able to change it."))
+      if ((this.profile!.email != speaker.email) || confirm("Are you sure you want to remove yourself from presentation? You will no longer be able to change it."))
         axios.delete(`/api/presentations/${pres.id}/cospeakers/${speaker.email}`)
           .then(it => {
             this.loadPresentations()
