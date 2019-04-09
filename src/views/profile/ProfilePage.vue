@@ -111,6 +111,7 @@
                                     Add speakers
                                 </button>
                             </div>
+                            </div>
                         </div>
 
                     </div>
