@@ -56,8 +56,6 @@
                     </div>
 
                     <div class="col s12 m6 l8">
-                        <div class="card" v-for="presentation in presentations">
-
                         <!-- Modal Structure For adding speaker -->
                         <div class="modal" id="modal1">
                             <div class="modal-content" v-if="selectedPresentation">
@@ -75,8 +73,7 @@
                                 <a class="modal-close waves-effect waves-green btn-flat">close</a>
                             </div>
                         </div>
-
-                        <div class="card" v-for="pres in presentations">
+                        <div class="card" v-for="presentation in presentations">
                             <div class="card-content">
                                 <span class="card-title">
                                     {{presentation.title}}
@@ -107,10 +104,9 @@
                             <div class="card-action">
                                 <router-link :to="{name: 'presentation', params:{id:presentation.id}}">edit</router-link>
                                 <a href="#" @click="remove(presentation, $event)">delete</a>
-                                <button @click="openModal(pres)" class="btn modal-trigger" data-target="modal1">
+                                <button @click="openModal(presentation)" class="btn modal-trigger" data-target="modal1">
                                     Add speakers
                                 </button>
-                            </div>
                             </div>
                         </div>
 
