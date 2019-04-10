@@ -120,7 +120,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { LOAD_CURRENT_PROFILE } from '@/store/store.user-profile';
+  import { LOAD_CURRENT_PROFILE, LOAD_CURRENT_PROFILE_PRESENTATIONS } from '@/store/store.user-profile';
   import Box from '@/components/Box.vue';
   import TheContact from '@/components/TheContact.vue';
   import { EmbeddedPresentations, Presentation, REMOVE_PRESENTATION, UserProfile } from '@/types';
@@ -141,32 +141,28 @@
         files: File[],
       },
     };
-    public profile: UserProfile | null = null;
-    public presentations: Presentation[] = [];
+
     public photoKey = 0;
     public selectedPresentation: Presentation | null = null;
     public email = "";
 
-    public mounted() {
-      this.$store.dispatch(LOAD_CURRENT_PROFILE)
-        .then(() => {
-          this.profile = this.$store.state.userProfile.currentProfile;
-        })
-        .then(() => this.loadPresentations());
-
+    get profile() {
+      return this.$store.state.userProfile.currentProfile;
     }
 
-    private loadPresentations() {
-      return axios.get<EmbeddedPresentations>(`/api/users/${this.profile!.id}/presentations`, {
-        params: { 'projection': 'inlineSpeaker' }
-      })
-        .then((response) => this.presentations = response.data._embedded.presentations);
+    get presentations() {
+      return this.$store.state.userProfile.currentProfilePresentations;
+    }
+
+    public mounted() {
+      this.$store.dispatch(LOAD_CURRENT_PROFILE);
+      this.$store.dispatch(LOAD_CURRENT_PROFILE_PRESENTATIONS);
     }
 
     public addSpeakerToPresentation() {
       axios.post(`/api/presentations/${this.selectedPresentation!.id}/cospeakers/${this.email}`)
         .then(it => {
-          this.loadPresentations();
+          this.$store.dispatch(LOAD_CURRENT_PROFILE_PRESENTATIONS);
           this.$toasted.success("speaker added", { duration: 3000 });
         }, (error: AxiosError) => {
           let message = "Something went wrong";
@@ -187,7 +183,7 @@
           "You will no longer be able to change it."))
         axios.delete(`/api/presentations/${pres.id}/cospeakers/${speaker.email}`)
           .then(it => {
-            this.loadPresentations()
+            this.$store.dispatch(LOAD_CURRENT_PROFILE_PRESENTATIONS)
           })
     }
 
