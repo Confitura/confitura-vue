@@ -35,7 +35,6 @@ const storeOptions: StoreOptions<RootState> = {
     isXl: (state) => state.windowWidth >= 1200,
     platinum: ({ partners }): Partner[] => partners.filter((partner) => partner.type === 'platinum'),
     silver: ({ partners }): Partner[] => partners.filter((partner) => partner.type === 'silver'),
-    gold: ({ partners }): Partner[] => partners.filter((partner) => partner.type === 'gold'),
   },
   mutations: {
     [CHANGE_HEADER_THEME](store, theme: { color: string }) {
@@ -156,6 +155,14 @@ Viacom.Tech is pioneering a new era of data in entertainment with opportunities 
           www: 'https://viacom.tech/',
           type: 'gold',
           logo: require('../assets/partners/viacom.svg'),
+          orientation: 'horizontal',
+        }, {
+          id: 'nfj',
+          description: `[No Fluff Jobs](https://nofluffjobs.com/) to najpopularniejszy portal z ogłoszeniami IT w Polsce. U nas każde ogłoszenie jest aktualne, zawiera widełki płacowe, a także wszystkie szczegóły na temat danego stanowiska, przedstawione w prosty i czytelny sposób. Już od 3 lat zmieniamy standardy rekrutacji IT w naszym kraju, przekonując pracodawców do transparentności i uczciwości wobec potencjalnych pracowników.`,
+          name: 'No Fluff Jobs',
+          www: 'https://www.nofluffjobs.com ',
+          type: 'silver',
+          logo: require('../assets/partners/nfj.svg'),
           orientation: 'horizontal',
         },
       ];

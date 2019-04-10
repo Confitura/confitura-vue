@@ -121,12 +121,14 @@
         }
 
         .logos {
-            display: grid;
-            grid-row-gap: 3rem;
-            grid-column-gap: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            /*flex-direction: column;*/
+            /*grid-row-gap: 3rem;*/
+            /*grid-column-gap: 1rem;*/
             padding-bottom: 3rem;
             padding-top: 3rem;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            /*grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));*/
             justify-items: center;
             align-items: center;
             justify-content: space-evenly;
@@ -136,7 +138,8 @@
         }
 
 
-        .logo--silver {
+        .logo--silver, .logo--gold {
+            margin: 0.5rem;
         }
 
         .logo--horizontal {
