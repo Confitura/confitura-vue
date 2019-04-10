@@ -9,7 +9,7 @@ const UPDATE_CURRENT_PROFILE_PRESENTATIONS = 'UPDATE_CURRENT_PROFILE_PRESENTATIO
 export const userModule: Module<StoreUserProfile, RootState> = {
   state: {
     currentProfile: null,
-    currentProfilePresentations: []
+    currentProfilePresentations: [],
   },
   mutations: {
     [UPDATE_CURRENT_PROFILE](store, payload: { profile: any }) {
@@ -30,9 +30,11 @@ export const userModule: Module<StoreUserProfile, RootState> = {
       if (rootState.authentication) {
 
         return axios.get<EmbeddedPresentations>(`/api/users/${rootGetters.user.jti}/presentations`, {
-          params: { 'projection': 'inlineSpeaker' }
+          params: { projection: 'inlineSpeaker' },
         })
-          .then((data) => commit(UPDATE_CURRENT_PROFILE_PRESENTATIONS, { presentations: data.data._embedded.presentations }));
+          .then((data) => commit(UPDATE_CURRENT_PROFILE_PRESENTATIONS, {
+            presentations: data.data._embedded.presentations,
+          }));
       }
     },
   },
