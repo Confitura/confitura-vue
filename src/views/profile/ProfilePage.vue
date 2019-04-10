@@ -164,6 +164,7 @@
         .then(it => {
           this.$store.dispatch(LOAD_CURRENT_PROFILE_PRESENTATIONS);
           this.$toasted.success("speaker added", { duration: 3000 });
+          this.closeModal();
         }, (error: AxiosError) => {
           let message = "Something went wrong";
           if (error.response!.status === 404) {
@@ -189,8 +190,13 @@
 
     public openModal(pres: Presentation) {
       this.selectedPresentation = pres;
-      const elems = document.querySelectorAll('.modal');
-      M.Modal.init(elems);
+      const elems = document.querySelector('.modal');
+      M.Modal.init(elems!);
+    }
+
+    private closeModal() {
+      const elem = document.querySelector('.modal');
+      M.Modal.getInstance(elem!).close();
     }
 
     public editProfile() {
