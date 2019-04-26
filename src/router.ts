@@ -13,6 +13,7 @@ import PresentationForm from '@/views/profile/PresentationForm.vue';
 import PrivacyPolicy from '@/views/PrivacyPolicy.vue';
 import Admin from '@/views/admin/Admin.vue';
 import Users from '@/views/admin/Users.vue';
+import Vote4Papers from "@/views/Vote4Papers.vue";
 
 Vue.use(Router);
 Vue.use(VueScrollTo, {
@@ -82,6 +83,11 @@ const router = new Router({
       children: [
         { path: 'users', component: Users },
       ],
+    },
+    {
+      path: '/v4p',
+      name: 'v4p',
+      component: Vote4Papers,
     },
   ],
   scrollBehavior(to, from, savedPosition) {

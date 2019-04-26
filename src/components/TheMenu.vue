@@ -26,6 +26,7 @@
       { label: 'my profile', url: '/profile', visible: () => this.isLogin },
       { label: 'logout', action: () => this.logout(), visible: () => this.isLogin },
       { label: 'C4P', url: '/login', visible: () => !this.isLogin },
+      { label: 'V4P', url: '/v4p' },
     ];
 
     public isVisible(item: MenuItem): boolean {
