@@ -1,6 +1,7 @@
 <template>
     <div class="workshops">
         <PageHeader title="Workshops" class="header">
+            <img src="../assets/small_planet.svg" class="header__planet">
             <img src="../assets/astronaut_comp.svg" class="header-img">
         </PageHeader>
         <Box class="content" color="white">
@@ -19,6 +20,8 @@
 
                     <p>The number of seats is limited to 30 per workshop. Registration is required. Workshop fee includes the entrance to
                         Confitura conference.</p>
+
+                    <p>In case of any further questions please contact Maria from Sages: <a  class="link--red" href="mailto:m.nowakowska@sages.com.pl">m.nowakowska@sages.com.pl</a> </p>
                 </div>
 
             </div>
@@ -248,6 +251,16 @@
     @import "../assets/media";
     @import "../assets/fonts";
 
+    .header__planet {
+        position: absolute;
+        left: -40px;
+        top: 60px;
+        @include md() {
+            position: unset;
+            margin-left: 200px;
+        }
+    }
+
     .header-img {
         position: absolute;
         left: 170px;
@@ -259,9 +272,6 @@
             margin-right: 150px;
             height: 350px;
 
-        }
-        @include lg() {
-            position: unset;
         }
 
     }
