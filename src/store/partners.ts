@@ -170,6 +170,84 @@ Thousands of leading companies — including Ford, Fox, Google, and Dow Jones �
           type: 'silver',
           logo: require('../assets/partners/nordea.svg'),
           orientation: 'horizontal',
+        },{
+          id: 'britenet',
+          name: 'Britenet',
+          description: `Britenet to software house realizujący projekty dla międzynarodowych klientów. Firma działa na rynku od 13 lat, zatrudnia obecnie ponad 500 pracowników i ma biura w Warszawie, Poznaniu, Lublinie, Kielcach oraz Białymstoku.  
+Rozwój zawodowy idzie w parze z dobrą atmosferą, o czym świadczy tytuł Najlepsze Miejsce Pracy IT w Polsce zdobyty przez firmę aż cztery razy w badaniach Computerworld - TNS.`,
+          www: 'https://britenet.com.pl',
+          type: 'silver',
+          logo: require('../assets/partners/britenet.svg'),
+          orientation: 'horizontal',
+        },{
+          id: 'kmd',
+          name: 'KMD',
+          description: `For more than 40 years, KMD has played a key role in digitizing the Danish state, helping make Denmark’s public sector one of the best run, most efficient and highly digitized in the world. KMD is a leading supplier of mission-critical software, solutions and IT services primarily to Denmark’s public sector, but with a growing footprint in the private sector both domestically and in Sweden and Norway. We have a broad portfolio of products and services, based predominantly on our own software solutions.
+
+We’ve been rapidly growing and we have more than 420 IT and business specialists in our Warsaw office. They translate complex processes and legislation into simple and effective IT solutions. KMD Poland is the largest foreign affiliated branch at KMD Group. Our mission is to provide new technologies and solutions as well as to maintain and develop our systems. We help Scandinavian business and public sector make another major leap in their digital evolution.`,
+          www: 'http://careers.kmdpoland.pl',
+          type: 'silver',
+          logo: require('../assets/partners/kmd.svg'),
+          orientation: 'horizontal',
+        },{
+          id: 'j-labs',
+          name: 'j-labs',
+          description: `We are polish software company founded by engineers for engineers in 2008 with all the best business practices and values.  
+We provide complete development teams, individual engineers and outsourcing of whole project in agile models in the field of software development.  
+Over 250 engineers work in our branches in Krakow and Warsaw. We support companies in the various sectors - such as banking, aviation, telco, as well as niches like machine learning, woodwork, and IoT.  
+Our activities based on technology, content, and reliability have been recognized by the Forbes Diamond 2017, and the distinction in the Business Gazelle 2018 ranking.
+ 
+Join us:  [https://www.j-labs.pl/open-positions/](https://www.j-labs.pl/open-positions/)`,
+          www: 'https://www.j-labs.pl',
+          type: 'silver',
+          logo: require('../assets/partners/jlabs.svg'),
+          orientation: 'horizontal',
+        },{
+          id: 'decerto',
+          name: 'decerto',
+          description: `#### W skrócie o nas:
+
+Decerto to polska firma informatyczna, specjalizująca się w budowie i wdrażaniu systemów dla biznesu. Na wysoką pozycję wśród dostawców IT składa się 12 letnie doświadczenie we współpracy z wiodącymi firmami na rynkach ubezpieczeniowym, finansowym i medialnym oraz wysoko wykwalifikowana kadra. 
+Posiadamy autorskie rozwiązania oraz tworzymy systemy dostosowane do indywidualnych potrzeb Klientów. Preferujemy długą i stabilną współpracę opartą na spełnianiu oczekiwań, zaufaniu i odpowiedniej kulturze pracy.
+
+#### Kultura  pracy:
+
+Największy nacisk kładziemy na odpowiednie kwalifikacje swoich współpracowników oraz ich satysfakcję z pracy. Poprzez pracę z najlepszymi oraz pozytywną atmosferę stwarzamy warunki do kreatywnej pracy i osiągania sukcesów.
+Nasz zespół liczy ok. 140 osób. Stawiamy na przyjazną atmosferę, wzajemny szacunek i pomoc. Cechuje nas nastawienie na cel, aktywne szukanie rozwiązań i elastyczne podejście do zagadnień.
+Praca to znacząca część naszego życia, dlatego dbamy o to, by w firmie wszyscy czuli się komfortowo. Lubimy też spotkać się po godzinach pracy ☺
+
+#### Nasza oferta:
+
+- Możliwość wyboru przydziału projektowego – różnorodne projekty, różne lokalizacje
+- Wewnętrzne szkolenia oraz TechFlashe
+- Dodatkowy, roczny budżet na rozwój
+- Dofinansowanie certyfikatów
+- Dowolny model współpracy
+- Pakiet benefitów 
+- Wyjazdy i spotkania integracyjne
+
+Stawiamy na wzajemną uczciwość, otwartość i zaufanie. Jesteśmy elastyczni wobec potrzeb naszych współpracowników i tego samego oczekujemy. 
+
+Poznaj nas i dołącz do zespołu: 
+
+[www.decerto.pl/kariera](http://www.decerto.pl/kariera)  
+[www.facebook.com/FirmaDecerto](https://www.facebook.com/FirmaDecerto )  
+[www.instagram.com/firmadecerto/](http://www.instagram.com/firmadecerto/)
+`,
+          www: 'https://decerto.pl/kariera.html',
+          type: 'silver',
+          logo: require('../assets/partners/decerto.svg'),
+          orientation: 'horizontal',
+        },{
+          id: 'roche',
+          name: 'roche',
+          description: `Founded in Switzerland in 1896, [Roche](https://it.roche.pl/) has helped millions of patients around the world with innovative pharmaceuticals and diagnostics. We have been at the forefront of cancer research and treatment for over 50 years. We invest around 9 billion Swiss francs in R&D every year because innovation is our lifeblood. We need advanced IT solutions to perform research, development, production and distribution of new medicines. 
+
+Roche Global IT Solution Centre is based in Poland, in two locations: Warsaw and Poznan, and uses the cutting-edge technologies to improve healthcare. We are more than 500 people who create solutions that help doctors, patients and scientist around the world.`,
+          www: 'https://it.roche.pl',
+          type: 'gold',
+          logo: require('../assets/partners/roche.svg'),
+
         },
 
       ];

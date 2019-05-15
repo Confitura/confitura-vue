@@ -25,7 +25,8 @@
       { label: 'FAQ', url: '/faq' },
       { label: 'my profile', url: '/profile', visible: () => this.isLogin },
       { label: 'logout', action: () => this.logout(), visible: () => this.isLogin },
-      { label: 'C4P', url: '/login', visible: () => !this.isLogin },
+      { label: 'C4P', url: '/c4p', visible: () => !this.isLogin },
+      { label: 'ADMIN', url: '/admin', visible: () => this.isAdmin },
       { label: 'V4P', url: '/v4p' },
     ];
 
@@ -39,6 +40,10 @@
 
     public get isLogin() {
       return this.$store.getters.isLogin;
+    }
+
+    public get isAdmin() {
+      return this.$store.getters.isAdmin;
     }
 
     public logout() {

@@ -13,6 +13,7 @@ import PresentationForm from '@/views/profile/PresentationForm.vue';
 import PrivacyPolicy from '@/views/PrivacyPolicy.vue';
 import Admin from '@/views/admin/Admin.vue';
 import Users from '@/views/admin/Users.vue';
+import Presentations from '@/views/admin/Presentations.vue';
 import Vote4Papers from "@/views/Vote4Papers.vue";
 
 Vue.use(Router);
@@ -53,21 +54,22 @@ const router = new Router({
     },
     {
       path: '/login/:service?',
+      alias: '/c4p/:service?',
       name: 'login',
       component: Login,
     },
     {
-      path: '/register',
+      path: '/register/:id?',
       name: 'register',
       component: RegisterPage,
     },
     {
-      path: '/profile',
+      path: '/profile/:id?',
       name: 'profile',
       component: ProfilePage,
     },
     {
-      path: '/presentation/:id?',
+      path: '/profile/:userId/presentation/:id?',
       name: 'presentation',
       component: PresentationForm,
     },
@@ -82,6 +84,7 @@ const router = new Router({
       component: Admin,
       children: [
         { path: 'users', component: Users },
+        { path: 'presentations', component: Presentations },
       ],
     },
     {
