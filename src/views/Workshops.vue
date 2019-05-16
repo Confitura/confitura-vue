@@ -15,13 +15,12 @@
                         Polish.</p>
 
                     <p>Workshop Day is hosted by our partner Sages. Sages cooperates with experts from different areas of IT who share their
-                        knowledge in conferences, community workshops and commercial trainings. If you have any questions regarding
-                        workshops, please check FAQ or contact Sages at biuro@sages.com.pl.</p>
+                        knowledge in conferences, community workshops and commercial trainings.</p>
 
                     <p>The number of seats is limited to 30 per workshop. Registration is required. Workshop fee includes the entrance to
                         Confitura conference.</p>
 
-                    <p>In case of any further questions please contact Maria from Sages: <a  class="link--red" href="mailto:m.nowakowska@sages.com.pl">m.nowakowska@sages.com.pl</a> </p>
+                    <p>If you have any questions please check our <router-link class="link--red" to="faq">FAQ</router-link> (for both trainers and trainees). If you did not find answer to your question there then please contact Maria from Sages: <a  class="link--red" href="mailto:m.nowakowska@sages.com.pl">m.nowakowska@sages.com.pl</a> </p>
                 </div>
 
             </div>
