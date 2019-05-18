@@ -33,7 +33,7 @@ export const authenticationModule: Module<AuthenticationState, RootState> = {
     [TOKEN](store, payload: { token: string }) {
       store.token = payload.token;
       if (payload.token == null) {
-        localStorage.removeItem(TOKEN)
+        localStorage.removeItem(TOKEN);
       } else {
         localStorage.setItem(TOKEN, payload.token);
       }

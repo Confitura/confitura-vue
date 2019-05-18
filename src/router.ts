@@ -14,7 +14,7 @@ import PrivacyPolicy from '@/views/PrivacyPolicy.vue';
 import Admin from '@/views/admin/Admin.vue';
 import Users from '@/views/admin/Users.vue';
 import Presentations from '@/views/admin/Presentations.vue';
-import Vote4Papers from "@/views/Vote4Papers.vue";
+import Vote4Papers from '@/views/Vote4Papers.vue';
 
 Vue.use(Router);
 Vue.use(VueScrollTo, {
