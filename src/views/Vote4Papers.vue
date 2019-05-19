@@ -15,30 +15,55 @@
                         </div>
                     </div>
                     <div class="presentation__metadata">
-                        <i class="presentation__icon fas fa-flag" title="language"></i>
-                        <div class="presentation__language">{{language}}</div>
-                        <i class="presentation__icon fas fa-graduation-cap" title="level"></i>
-                        <div class="presentation__level">{{presentation.level}}</div>
-                        <template v-if="hasTags">
-                            <i class="presentation__icon  fas fa-tags" title="tags"></i>
-                            <div class="presentation__tags">
-                                <span class="presentation__tag" v-for="tag in presentation.tags">{{tag.name}}</span>
-                            </div>
-                        </template>
+                        <div class="presentation__metadata-group">
+                            <i class="presentation__icon fas fa-flag" title="language"></i>
+                            <div class="presentation__language">{{language}}</div>
+                        </div>
+                        <div class="presentation__metadata-group">
+                            <i class="presentation__icon fas fa-graduation-cap" title="level"></i>
+                            <div class="presentation__level">{{presentation.level}}</div>
+                        </div>
+                        <div class="presentation__metadata-group">
+                            <template v-if="hasTags">
+                                <i class="presentation__icon  fas fa-tags" title="tags"></i>
+                                <div class="presentation__tags">
+                                    <span class="presentation__tag" v-for="tag in presentation.tags">{{tag.name}}</span>
+                                </div>
+                            </template>
+                        </div>
 
                     </div>
-                    <div class="presentation__description">{{presentation.shortDescription}}</div>
-                </div>
-                <div class="vote">
-                    <div
-                            class="vote-item"
-                            v-for="rate in rateValues"
-                            :class="[`vote-item--${rate.name}`]"
-                            :disabled="currentVote.rate ===rate.rate "
-                            @click="doVote(rate.rate)">
-                        <span>{{rate.label}}</span>
+                    <div class="presentation__description-type description-type">
+                        <span
+                                class="description-type__item"
+                                :class="{'description-type__item--active': descriptionType === 'short'}"
+                                @click="descriptionType = 'short'">short description</span>
+                        <span
+                                class="description-type__item"
+                                :class="{'description-type__item--active': descriptionType === 'full'}"
+                                @click="descriptionType = 'full'">full description</span>
                     </div>
+                    <div class="presentation__description">{{description}}</div>
                 </div>
+                <aside class="side">
+                    <div class="vote">
+                        <div
+                                class="vote-item"
+                                v-for="rate in rateValues"
+                                :class="{[`vote-item--${rate.name}`]: true, 'vote-item--active': isActive(rate.rate)}"
+                                :disabled="currentVote.rate ===rate.rate "
+                                @click="doVote(rate.rate)">
+                            <span>{{rate.label}}</span>
+                        </div>
+                    </div>
+                    <div class="previous" @click="previous()">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <div class="vote__counter">{{voteIndex + 1}} / {{total}}</div>
+                    <div class="next" @click="next()">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </aside>
             </div>
         </Box>
         <Box class="content" color="white" v-else="currentVote">
@@ -69,8 +94,8 @@
       { rate: -1, label: '-1', name: 'negative' },
     ];
     public presentation: Presentation | null = null;
-
-    private voteIndex = 0;
+    public voteIndex = 0;
+    public descriptionType: 'short' | 'full' = 'short';
 
 
     get currentVote(): Vote | null {
@@ -85,7 +110,32 @@
       return this.$store.state.v4p.votes;
     }
 
-    public doVote(rate: number) {
+    get total(): number {
+      return this.votes.length;
+    }
+
+    get description(): string {
+      if (this.presentation) {
+        return this.descriptionType === 'short' ? this.presentation.shortDescription : this.presentation.description;
+      } else {
+        return '';
+      }
+    }
+
+    public next(): void {
+      if (this.currentVote && this.voteIndex < this.total) {
+        this.doVote(this.currentVote.rate, +1);
+      }
+
+    }
+
+    public previous(): void {
+      if (this.currentVote && this.voteIndex > 0) {
+        this.doVote(this.currentVote.rate, -1);
+      }
+    }
+
+    public doVote(rate: number, direction = 1) {
       const vote = this.currentVote;
       if (vote == null) {
         return;
@@ -93,7 +143,8 @@
       vote.rate = rate;
       this.$store.dispatch(SAVE_VOTE, { vote })
         .then(() => {
-          this.changePage(this.voteIndex + 1);
+          this.changePage(this.voteIndex + direction);
+          window.scrollTo(0, 0);
         });
 
     }
@@ -109,6 +160,10 @@
       }
       this.$store.dispatch(LOAD_VOTES)
         .then(() => this.loadPresentationFor(this.currentVote));
+    }
+
+    public isActive(rate: number) {
+      return this.currentVote && this.currentVote.rate === rate;
     }
 
     get hasTags(): boolean | null {
@@ -141,6 +196,7 @@
       this.loadPresentationFor(this.currentVote);
     }
 
+
     private loadPresentationFor(vote: Vote | null) {
       if (vote == null) {
         this.presentation = null;
@@ -161,17 +217,97 @@
     @import "../assets/media";
     @import "../assets/fonts";
 
+    .v4p {
+        /*padding: 2rem;*/
+        background-color: #000000;
+        background-image: url('../assets/stars.png');
+        background-repeat: repeat;
+        min-height: 100vh;
+        box-sizing: border-box;
+    }
+
     .v4p-container {
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        background-color: black;
         color: #ffffff;
+        margin-top: 2rem;
+        padding-bottom: 7rem;
+        @include md() {
+            flex-direction: row;
+            padding-bottom: 0;
+        }
 
     }
 
+    .side {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        /*@formatter:off*/
+        grid-template-areas:
+                "counter counter counter"
+                "prev    vote    next";
+        /*@formatter:on*/
+
+        flex-direction: column-reverse;
+        position: fixed;
+        bottom: 0;
+        background-color: #000000;
+        box-sizing: border-box;
+        width: 100vw;
+        align-self: center;
+        @include md() {
+            background: transparent;
+            position: unset;
+            flex-direction: column;
+            width: unset;
+            align-self: start;
+            /*@formatter:off*/
+            grid-template-areas:
+                    ".    vote    ."
+                    "prev counter next";
+            /*@formatter:on*/
+        }
+    }
+
+    .previous {
+        grid-area: prev;
+    }
+
+    .next {
+        grid-area: next;
+    }
+
+    .next, .previous {
+        align-self: center;
+        justify-self: center;
+        font-size: 2rem;
+        cursor: pointer;
+
+        &:hover {
+            color: $brand;
+        }
+    }
+
     .vote {
+        grid-area: vote;
+        padding: 1rem;
         display: flex;
-        flex-direction: column;
+        flex-direction: row-reverse;
+        justify-content: center;
+        @include md() {
+            flex-direction: column;
+
+        }
+
+        &__counter {
+            grid-area: counter;
+            font-size: 1.2rem;
+            font-weight: bold;
+            justify-self: center;
+            align-self: center;
+            color: #4A4A4A;
+        }
     }
 
     .vote-item {
@@ -187,34 +323,51 @@
         margin: 1px;
         cursor: pointer;
 
-        &:hover {
+        &:hover, &--active {
             background-color: $brand;
             color: #ffffff;
-
         }
 
         &--positive {
-            border-radius: 30px 30px 0 0;
+            border-radius: 0 30px 30px 0;
+            @include md() {
+                border-radius: 30px 30px 0 0;
+            }
         }
 
         &--negative {
-            border-radius: 0 0 30px 30px;
+            border-radius: 30px 0 0 30px;
+            @include md() {
+                border-radius: 0 0 30px 30px;
+            }
         }
 
     }
 
     .presentation {
-        width: 840px;
+        @include md() {
+            width: 840px;
+        }
 
         &__title {
             color: $brand;
-            font-size: 3rem;
+            margin-top: 0;
+            font-size: 2rem;
+            @include md() {
+                font-size: 3rem;
+            }
         }
 
         &__metadata {
             display: flex;
+            flex-wrap: wrap;
             font-size: 1.5rem;
             margin-bottom: 2rem;
+        }
+
+        &__metadata-group {
+            display: flex;
+            margin-bottom: 0.5rem;
         }
 
         &__icon {
@@ -224,6 +377,7 @@
         &__language, &__level {
             margin-right: 1rem;
         }
+
         &__tag {
             &:not(:last-child)::after {
                 content: ', ';
@@ -233,11 +387,34 @@
         &__speakers {
             margin-bottom: 3rem;
             display: flex;
+            flex-direction: column;
+            @include md() {
+                flex-direction: row;
+            }
+        }
+
+        &__description-type {
+            margin-bottom: 1rem;
+            color: #4A4A4A;
+
         }
 
         &__description {
             font-size: 1.2rem;
+            line-height: 1.5rem;
         }
+    }
+
+    .description-type__item {
+        margin-right: 1rem;
+        cursor: pointer;
+        font-weight: bold;
+
+        &:hover, &--active {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
     }
 
     .speaker {
@@ -245,6 +422,11 @@
         justify-items: center;
         align-items: center;
         margin-right: 3rem;
+        margin-bottom: 2rem;
+        @include md() {
+            margin-bottom: 0;
+
+        }
 
         &__photo {
             flex-grow: 0;
@@ -254,7 +436,10 @@
             border-radius: 85px;
             border: 5px solid #979797;
             margin-right: 1rem;
-            background-color: $brand;
+            background-color: #000000;
+            background-image: url('../assets/astronaut.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
 
         }
 
