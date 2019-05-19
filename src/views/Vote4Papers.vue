@@ -1,7 +1,31 @@
 <template>
     <div class="v4p">
         <Box class="content" color="black" v-if="currentVote" :full="false">
-            <div class="v4p-container">
+            <div v-if="!started" :key="voteIndex">
+                <h2 class="v4p__header">Vote 4 Papers</h2>
+
+                <div class="v4p__info">
+                    <p>The moment you were waiting for is here!
+                        Vote 4 Papers is open. You have almost 100 presentations to choose from.
+                    </p>
+                    <p>For each and every presentation you can either say that you are very interested in seeing it (+1), not
+                        interested at all (-1), or you don't mind it (0).
+                    </p>
+                    <p>Since we know that you are very busy, we have asked our speakers to provide TL;DR version of the description of their
+                        presentations (max 300 characters). If it's not enough for you to make a decision you can switch to full
+                        description.
+                    </p>
+
+                    <p>We are waiting for
+                        your votes till end of Sunday, May 26</p>
+                </div>
+                <div class="v4p__start-button" @click="start()">
+                    start
+                </div>
+
+            </div>
+            <div class="v4p-container" v-if="started" :key="voteIndex">
+
                 <div v-if="presentation" class="presentation">
                     <h2 class="presentation__title">{{presentation.title}}</h2>
 
@@ -66,9 +90,16 @@
                 </aside>
             </div>
         </Box>
-        <Box class="content" color="white" v-else="currentVote">
-            ALL DONE
-            <button @click="startAgain()">start again</button>
+        <Box class="content" color="black" v-else="currentVote">
+            <h2 class="v4p__header">Thank you!</h2>
+            <div class="v4p_summary">
+                <p>
+                    For going through all presentations. We know it was not easy :)
+                </p>
+                <p>If fore some reason you want to review your votes, just click a button below</p>
+            </div>
+
+            <div class="v4p__start-again-button" @click="startAgain()">start again</div>
         </Box>
 
     </div>
@@ -97,6 +128,14 @@
     public voteIndex = 0;
     public descriptionType: 'short' | 'full' = 'short';
 
+    public mounted() {
+      const voteIndex = localStorage.getItem('VOTE_INDEX');
+      if (voteIndex != null) {
+        this.voteIndex = Number(voteIndex);
+      }
+      this.$store.dispatch(LOAD_VOTES)
+        .then(() => this.loadPresentationFor(this.currentVote));
+    }
 
     get currentVote(): Vote | null {
       if (this.voteIndex < this.votes.length) {
@@ -120,6 +159,15 @@
       } else {
         return '';
       }
+    }
+
+    get started(): boolean {
+      return localStorage.getItem('started') !== null;
+    }
+
+    public start(): void {
+      localStorage.setItem('started', 'true');
+      location.reload();
     }
 
     public next(): void {
@@ -153,14 +201,6 @@
       this.changePage(0);
     }
 
-    public mounted() {
-      const voteIndex = localStorage.getItem('VOTE_INDEX');
-      if (voteIndex != null) {
-        this.voteIndex = Number(voteIndex);
-      }
-      this.$store.dispatch(LOAD_VOTES)
-        .then(() => this.loadPresentationFor(this.currentVote));
-    }
 
     public isActive(rate: number) {
       return this.currentVote && this.currentVote.rate === rate;
@@ -385,7 +425,6 @@
         }
 
         &__speakers {
-            margin-bottom: 3rem;
             display: flex;
             flex-direction: column;
             @include md() {
@@ -424,7 +463,7 @@
         margin-right: 3rem;
         margin-bottom: 2rem;
         @include md() {
-            margin-bottom: 0;
+            margin-bottom: 3rem;
 
         }
 
@@ -449,6 +488,35 @@
             color: $brand;
             font-size: 1.5rem;
             font-weight: bold;
+        }
+    }
+
+    .v4p__header {
+        color: $brand;
+        font-family: $font-bold;
+        font-size: 3rem;
+    }
+
+    .v4p__info, .v4p_summary {
+        color: #ffffff;
+        font-size: 1.2rem;
+        line-height: 1.4;
+    }
+
+    .v4p__start-button, .v4p__start-again-button {
+        background-color: $brand;
+        color: #ffffff;
+        font-family: $font-bold;
+        font-size: 2rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        text-align: center;
+        border-radius: 2rem;
+        text-transform: uppercase;
+        cursor: pointer;
+        max-width: 300px;
+        @include md() {
+            margin-top: 3rem;
         }
     }
 </style>
