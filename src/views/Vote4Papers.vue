@@ -86,7 +86,7 @@
                     <div class="vote__counter">{{voteIndex + 1}} / {{total}}</div>
                     <div class="next" @click="next()">
                         <i class="fas fa-chevron-right"></i>
-                    </div>
+                    </div>git
                 </aside>
             </div>
         </Box>

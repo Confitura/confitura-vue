@@ -14,6 +14,7 @@ import PrivacyPolicy from '@/views/PrivacyPolicy.vue';
 import Admin from '@/views/admin/Admin.vue';
 import Users from '@/views/admin/Users.vue';
 import Presentations from '@/views/admin/Presentations.vue';
+import Workshops from '@/views/Workshops.vue';
 import Vote4Papers from '@/views/Vote4Papers.vue';
 
 Vue.use(Router);
@@ -86,6 +87,11 @@ const router = new Router({
         { path: 'users', component: Users },
         { path: 'presentations', component: Presentations },
       ],
+    },
+    {
+      path: '/workshops',
+      name: 'workshops',
+      component: Workshops,
     },
     {
       path: '/v4p',
