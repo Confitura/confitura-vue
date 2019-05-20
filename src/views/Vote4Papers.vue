@@ -86,7 +86,7 @@
                     <div class="vote__counter">{{voteIndex + 1}} / {{total}}</div>
                     <div class="next" @click="next()">
                         <i class="fas fa-chevron-right"></i>
-                    </div>git
+                    </div>
                 </aside>
             </div>
         </Box>
@@ -296,7 +296,9 @@
         box-sizing: border-box;
         width: 100vw;
         align-self: center;
+        padding-top: 0.5rem;
         @include md() {
+            padding-top: 0;
             background: transparent;
             position: unset;
             flex-direction: column;
