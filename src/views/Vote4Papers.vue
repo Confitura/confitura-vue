@@ -32,7 +32,7 @@
                     <h2 class="presentation__title">{{presentation.title}}</h2>
 
                     <div class="presentation__speakers">
-                        <div class="presentation__speaker speaker" v-for="speaker in presentation.speakers" :key="speaker.id">
+                        <div class="presentation__speaker speaker" v-for="speaker in presentation.speakers" :key="speaker.name">
                             <LazyImage
                                     :src="speaker.photo"
                                     class="speaker__photo"
@@ -51,6 +51,10 @@
                         <div class="presentation__metadata-group">
                             <i class="presentation__icon fas fa-graduation-cap" title="level"></i>
                             <div class="presentation__level">{{presentation.level}}</div>
+                        </div>
+                        <div class="presentation__metadata-group" v-if="presentation.workshop">
+                            <i class="presentation__icon fas fa-hammer" title="workshop"></i>
+                            <div class="presentation__workshop">workshop</div>
                         </div>
                         <div class="presentation__metadata-group">
                             <template v-if="hasTags">
