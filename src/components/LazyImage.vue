@@ -1,8 +1,8 @@
 <template>
     <div class="container">
-        <img :src="thumbnailSrc"
+        <img :src="fullSizeSrc"
              ref="image"
-             class="image thumbnail">
+             class="image">
     </div>
 </template>
 
@@ -22,24 +22,24 @@
     private loaded = false;
 
 
-    public mounted(): void {
-      if (!this.loaded) {
-        setTimeout(() => {
-          const fullImage = new Image();
-          fullImage.src = this.fullSizeSrc;
-          const refs = this.$refs;
-          fullImage.onload = () => {
-            this.loaded = true;
-            const image = refs.image;
-            image.src = fullImage.src;
-            image.classList.remove('thumbnail');
-          };
-        });
-      }
-    }
+    // public mounted(): void {
+    //   if (!this.loaded) {
+    //     setTimeout(() => {
+    //       const fullImage = new Image();
+    //       fullImage.src = this.fullSizeSrc;
+    //       const refs = this.$refs;
+    //       fullImage.onload = () => {
+    //         this.loaded = true;
+    //         const image = refs.image;
+    //         image.src = fullImage.src;
+    //         image.classList.remove('thumbnail');
+    //       };
+    //     });
+    //   }
+    // }
 
     public get fullSizeSrc(): string {
-      return this.resizeTo(300);
+      return this.resizeTo(90);
     }
 
     public get thumbnailSrc(): string {
