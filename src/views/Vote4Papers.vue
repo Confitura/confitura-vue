@@ -297,10 +297,10 @@
     });
   }
 
-  private changeVote(number: number) {
+  private changeVote(value: number) {
     const currentVote = this.currentVote;
     if (currentVote != null) {
-      let rate = (currentVote.rate || 0) + number;
+      let rate = (currentVote.rate || 0) + value;
       if (rate < -1) {
         rate = 1;
       } else if (rate > 1) {
