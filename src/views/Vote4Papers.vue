@@ -1,5 +1,5 @@
 <template>
-    <div class="v4p">
+    <div class="v4p" v-hotkey="keymap">
         <Box class="content" color="black" v-if="currentVote" :full="false">
             <div v-if="!started" :key="voteIndex">
                 <h2 class="v4p__header">Vote 4 Papers</h2>
@@ -18,6 +18,8 @@
 
                     <p>We are waiting for
                         your votes till end of Sunday, May 26</p>
+
+                    <p>(press ? to see shortcuts)</p>
                 </div>
                 <div class="v4p__start-button" @click="start()">
                     start
@@ -250,6 +252,63 @@
             params: { projection: 'inlineSpeaker' },
           })
           .then((it) => this.presentation = it.data);
+      }
+    }
+
+    private toggleDescription() {
+      this.descriptionType = (this.descriptionType === 'short') ? 'full' : 'short';
+    }
+
+    get keymap() {
+      return {
+        space: () => this.toggleDescription(),
+        enter: () => {
+          if (this.currentVote) {
+            this.start()
+          } else {
+            this.startAgain()
+          }
+        },
+        up: () => this.changeVote(1),
+        w: () => this.changeVote(1),
+        down: () => this.changeVote(-1),
+        s: () => this.changeVote(-1),
+        left: () => this.previous(),
+        a: () => this.previous(),
+        right: () => this.next(),
+        d: () => this.next(),
+        "shift+/": () => this.showHelp(),
+      }
+    }
+
+    private showHelp() {
+      this.$toasted.info("<pre>" +
+        "shortcuts:\n\n" +
+        "enter     -> start\n" +
+        "space     -> toggle description\n" +
+        "?         -> self\n\n" +
+        "w | up    -> +1\n" +
+        "s | down  -> -1\n" +
+        "d | right -> next\n" +
+        "a | left  -> go back\n\n" +
+        "</pre>", {
+        duration: 5000,
+        position: 'bottom-right',
+      })
+    }
+
+    private changeVote(number: number) {
+      let currentVote = this.currentVote;
+      if (currentVote != null) {
+        let rate = (currentVote.rate || 0) + number;
+        if (rate < -1) {
+          rate = 1;
+        } else if (rate > 1) {
+          rate = -1;
+        }
+        currentVote.rate = rate;
+
+
       }
     }
   }
