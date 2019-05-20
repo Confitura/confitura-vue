@@ -30,8 +30,11 @@
                     <h2 class="presentation__title">{{presentation.title}}</h2>
 
                     <div class="presentation__speakers">
-                        <div class="presentation__speaker speaker" v-for="speaker in presentation.speakers">
-                            <img :src="speaker.photo" alt="speaker photo" class="speaker__photo">
+                        <div class="presentation__speaker speaker" v-for="speaker in presentation.speakers" :key="speaker.id">
+                            <LazyImage
+                                    :src="speaker.photo"
+                                    class="speaker__photo"
+                            />
                             <div class="speaker__name">
                                 <span>{{getFirstNameOf(speaker)}}</span>
                                 <span>{{getLastNameOf(speaker)}}</span>
@@ -110,13 +113,14 @@
   import TheContact from '@/components/TheContact.vue';
   import Box from '../components/Box.vue';
   import PageHeader from '../components/PageHeader.vue';
+  import LazyImage from '../components/LazyImage.vue';
   import { LOAD_VOTES, SAVE_VOTE } from '@/store/vote4papers';
   import { Presentation, UserProfile, Vote } from '@/types';
   import VueScrollTo from 'vue-scrollto';
   import axios from 'axios';
 
   @Component({
-    components: { PageHeader, Box, TheContact, VueScrollTo },
+    components: { PageHeader, Box, TheContact, VueScrollTo, LazyImage },
   })
   export default class Vote4Papers extends Vue {
     public rateValues = [
@@ -258,7 +262,6 @@
     @import "../assets/fonts";
 
     .v4p {
-        /*padding: 2rem;*/
         background-color: #000000;
         background-image: url('../assets/stars.png');
         background-repeat: repeat;
@@ -478,9 +481,9 @@
             border: 5px solid #979797;
             margin-right: 1rem;
             background-color: #000000;
-            background-image: url('../assets/astronaut.svg');
-            background-repeat: no-repeat;
-            background-size: cover;
+            /*background-image: url('../assets/astronaut.svg');*/
+            /*background-repeat: no-repeat;*/
+            /*background-size: cover;*/
 
         }
 
