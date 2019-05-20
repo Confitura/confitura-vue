@@ -19,7 +19,7 @@
                     <p>We are waiting for
                         your votes till end of Sunday, May 26</p>
 
-                    <p>(press ? to see shortcuts)</p>
+                    <p>btw. you can also vote with keyboard shortcuts. Press ? to list of hotkeys.</p>
                 </div>
                 <div class="v4p__start-button" @click="start()">
                     start
@@ -138,184 +138,184 @@
     public voteIndex = 0;
     public descriptionType: 'short' | 'full' = 'short';
 
-  public mounted() {
-    const voteIndex = localStorage.getItem('VOTE_INDEX');
-    if (voteIndex != null) {
-      this.voteIndex = Number(voteIndex);
-    }
-    this.$store.dispatch(LOAD_VOTES)
-      .then(() => this.loadPresentationFor(this.currentVote));
-  }
-
-  get currentVote(): Vote | null {
-    if (this.voteIndex < this.votes.length) {
-      return this.votes[this.voteIndex];
-    } else {
-      return null;
-    }
-  }
-
-  get votes(): Vote[] {
-    return this.$store.state.v4p.votes;
-  }
-
-  get total(): number {
-    return this.votes.length;
-  }
-
-  get description(): string {
-    if (this.presentation) {
-      return this.descriptionType === 'short' ? this.presentation.shortDescription : this.presentation.description;
-    } else {
-      return '';
-    }
-  }
-
-  get started(): boolean {
-    return localStorage.getItem('started') !== null;
-  }
-
-  public start(): void {
-    localStorage.setItem('started', 'true');
-    location.reload();
-  }
-
-  public next(): void {
-    if (this.currentVote && this.voteIndex < this.total) {
-      this.doVote(this.currentVote.rate, +1);
-    }
-
-  }
-
-  public previous(): void {
-    if (this.currentVote && this.voteIndex > 0) {
-      this.doVote(this.currentVote.rate, -1);
-    }
-  }
-
-  public doVote(rate: number, direction = 1) {
-    const vote = this.currentVote;
-    if (vote == null) {
-      return;
-    }
-    vote.rate = rate;
-    this.$store.dispatch(SAVE_VOTE, { vote })
-      .then(() => {
-        this.changePage(this.voteIndex + direction);
-        window.scrollTo(0, 0);
-      });
-
-  }
-
-  public startAgain() {
-    this.changePage(0);
-  }
-
-
-  public isActive(rate: number) {
-    return this.currentVote && this.currentVote.rate === rate;
-  }
-
-  get hasTags(): boolean | null {
-    return this.presentation && this.presentation.tags.length > 0;
-  }
-
-  get language(): string {
-    let language = 'polish';
-    if (this.presentation && this.presentation.language === 'en') {
-      language = 'english';
-    }
-    return language;
-  }
-
-  public getFirstNameOf(speaker: UserProfile): string {
-    const name = speaker.name || '';
-    const idx = name.indexOf(' ');
-    return name.substring(0, idx);
-  }
-
-  public getLastNameOf(speaker: UserProfile): string {
-    const name = speaker.name || '';
-    const idx = name.indexOf(' ');
-    return name.substring(idx);
-  }
-
-  private changePage(pageNumber: number): void {
-    this.voteIndex = pageNumber;
-    localStorage.setItem('VOTE_INDEX', `${pageNumber}`);
-    this.loadPresentationFor(this.currentVote);
-  }
-
-
-  private loadPresentationFor(vote: Vote | null) {
-    if (vote == null) {
-      this.presentation = null;
-    } else {
-      axios
-        .get<Presentation>(`/api/votes/${vote.id}/presentation`, {
-          params: { projection: 'inlineSpeaker' },
-        })
-        .then((it) => this.presentation = it.data);
-    }
-  }
-
-  private toggleDescription() {
-    this.descriptionType = (this.descriptionType === 'short') ? 'full' : 'short';
-  }
-
-  get keymap() {
-    return {
-      'space': () => this.toggleDescription(),
-      'enter': () => {
-        if (this.currentVote) {
-          this.start();
-        } else {
-          this.startAgain();
-        }
-      },
-      'up': () => this.changeVote(1),
-      'w': () => this.changeVote(1),
-      'down': () => this.changeVote(-1),
-      's': () => this.changeVote(-1),
-      'left': () => this.previous(),
-      'a': () => this.previous(),
-      'right': () => this.next(),
-      'd': () => this.next(),
-      'shift+/': () => this.showHelp(),
-    };
-  }
-
-  private showHelp() {
-    this.$toasted.info('<pre>' +
-      'shortcuts:\n\n' +
-      'enter     -> start\n' +
-      'space     -> toggle description\n' +
-      '?         -> self\n\n' +
-      'w | up    -> +1\n' +
-      's | down  -> -1\n' +
-      'd | right -> next\n' +
-      'a | left  -> go back\n\n' +
-      '</pre>', {
-      duration: 5000,
-      position: 'bottom-right',
-    });
-  }
-
-  private changeVote(value: number) {
-    const currentVote = this.currentVote;
-    if (currentVote != null) {
-      let rate = (currentVote.rate || 0) + value;
-      if (rate < -1) {
-        rate = 1;
-      } else if (rate > 1) {
-        rate = -1;
+    public mounted() {
+      const voteIndex = localStorage.getItem('VOTE_INDEX');
+      if (voteIndex != null) {
+        this.voteIndex = Number(voteIndex);
       }
-      currentVote.rate = rate;
+      this.$store.dispatch(LOAD_VOTES)
+        .then(() => this.loadPresentationFor(this.currentVote));
+    }
 
+    get currentVote(): Vote | null {
+      if (this.voteIndex < this.votes.length) {
+        return this.votes[this.voteIndex];
+      } else {
+        return null;
+      }
+    }
+
+    get votes(): Vote[] {
+      return this.$store.state.v4p.votes;
+    }
+
+    get total(): number {
+      return this.votes.length;
+    }
+
+    get description(): string {
+      if (this.presentation) {
+        return this.descriptionType === 'short' ? this.presentation.shortDescription : this.presentation.description;
+      } else {
+        return '';
+      }
+    }
+
+    get started(): boolean {
+      return localStorage.getItem('started') !== null;
+    }
+
+    public start(): void {
+      localStorage.setItem('started', 'true');
+      location.reload();
+    }
+
+    public next(): void {
+      if (this.currentVote && this.voteIndex < this.total) {
+        this.doVote(this.currentVote.rate, +1);
+      }
 
     }
+
+    public previous(): void {
+      if (this.currentVote && this.voteIndex > 0) {
+        this.doVote(this.currentVote.rate, -1);
+      }
+    }
+
+    public doVote(rate: number, direction = 1) {
+      const vote = this.currentVote;
+      if (vote == null) {
+        return;
+      }
+      vote.rate = rate;
+      this.$store.dispatch(SAVE_VOTE, { vote })
+        .then(() => {
+          this.changePage(this.voteIndex + direction);
+          window.scrollTo(0, 0);
+        });
+
+    }
+
+    public startAgain() {
+      this.changePage(0);
+    }
+
+
+    public isActive(rate: number) {
+      return this.currentVote && this.currentVote.rate === rate;
+    }
+
+    get hasTags(): boolean | null {
+      return this.presentation && this.presentation.tags.length > 0;
+    }
+
+    get language(): string {
+      let language = 'polish';
+      if (this.presentation && this.presentation.language === 'en') {
+        language = 'english';
+      }
+      return language;
+    }
+
+    public getFirstNameOf(speaker: UserProfile): string {
+      const name = speaker.name || '';
+      const idx = name.indexOf(' ');
+      return name.substring(0, idx);
+    }
+
+    public getLastNameOf(speaker: UserProfile): string {
+      const name = speaker.name || '';
+      const idx = name.indexOf(' ');
+      return name.substring(idx);
+    }
+
+    private changePage(pageNumber: number): void {
+      this.voteIndex = pageNumber;
+      localStorage.setItem('VOTE_INDEX', `${pageNumber}`);
+      this.loadPresentationFor(this.currentVote);
+    }
+
+
+    private loadPresentationFor(vote: Vote | null) {
+      if (vote == null) {
+        this.presentation = null;
+      } else {
+        axios
+          .get<Presentation>(`/api/votes/${vote.id}/presentation`, {
+            params: { projection: 'inlineSpeaker' },
+          })
+          .then((it) => this.presentation = it.data);
+      }
+    }
+
+    private toggleDescription() {
+      this.descriptionType = (this.descriptionType === 'short') ? 'full' : 'short';
+    }
+
+    get keymap() {
+      return {
+        'space': () => this.toggleDescription(),
+        'enter': () => {
+          if (this.currentVote) {
+            this.start();
+          } else {
+            this.startAgain();
+          }
+        },
+        'up': () => this.changeVote(1),
+        'w': () => this.changeVote(1),
+        'down': () => this.changeVote(-1),
+        's': () => this.changeVote(-1),
+        'left': () => this.previous(),
+        'a': () => this.previous(),
+        'right': () => this.next(),
+        'd': () => this.next(),
+        'shift+/': () => this.showHelp(),
+      };
+    }
+
+    private showHelp() {
+      this.$toasted.info('<pre>' +
+        'shortcuts:\n\n' +
+        'enter     -> start\n' +
+        'space     -> toggle description\n' +
+        '?         -> self\n\n' +
+        'w | up    -> +1\n' +
+        's | down  -> -1\n' +
+        'd | right -> next\n' +
+        'a | left  -> go back\n\n' +
+        '</pre>', {
+        duration: 5000,
+        position: 'bottom-right',
+      });
+    }
+
+    private changeVote(value: number) {
+      const currentVote = this.currentVote;
+      if (currentVote != null) {
+        let rate = (currentVote.rate || 0) + value;
+        if (rate < -1) {
+          rate = 1;
+        } else if (rate > 1) {
+          rate = -1;
+        }
+        currentVote.rate = rate;
+
+
+      }
+    }
   }
-}
 </script>
 
 <style lang="scss" scoped>
