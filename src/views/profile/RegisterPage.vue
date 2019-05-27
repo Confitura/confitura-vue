@@ -94,6 +94,7 @@ import { User, UserProfile } from '@/types';
 import M from 'materialize-css';
 import axios from 'axios';
 import PageHeader from '@/components/PageHeader.vue';
+import { validEmail } from '@/validation-utils';
 
 @Component({
   components: { PageHeader, Box, TheContact },
@@ -108,10 +109,6 @@ export default class RegisterPage extends Vue {
   public profile: UserProfile | null = {};
   public errors: RegisterErrors = {};
   public activeUser: User | null = null;
-  // tslint:disable
-  private emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  // tslint:enable
 
   public mounted() {
     M.AutoInit();
@@ -144,10 +141,6 @@ export default class RegisterPage extends Vue {
     }
   }
 
-  public validEmail(email: string) {
-    return this.emailPattern.test(email);
-  }
-
   private loadProfile() {
     const userId = this.$route.params.id || this.$store.getters.user.jti;
     return this.$store.dispatch(LOAD_PROFILE_BY_ID, { id: userId });
@@ -159,7 +152,7 @@ export default class RegisterPage extends Vue {
     if (this.profile === null) {
       return;
     }
-    if (!this.profile.email || !this.validEmail(this.profile.email)) {
+    if (!this.profile.email || !validEmail(this.profile.email)) {
       errors.email = ['invalid email'];
       valid = false;
     }

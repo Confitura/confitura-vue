@@ -92,3 +92,41 @@ export interface Vote {
   id: string;
   order: number;
 }
+
+export interface Participant {
+  id?: string;
+  lastName?: string;
+  firstName?: string;
+  email?: string;
+  voucher?: string;
+  privacyPolicyAccepted?: boolean;
+  // t-hsirt:
+  gender?: string;
+  size?: string;
+
+  isAdmin?: boolean;
+  isVolunteer?: boolean;
+  isSpeaker?: boolean;
+  hasAcceptedPresentation?: boolean;
+  isParticipant?: boolean;
+}
+
+export interface RegistrationForm {
+  voucher: Voucher;
+
+  lastName?: string;
+  firstName?: string;
+  email?: string;
+  privacyPolicyAccepted?: boolean;
+
+  size?: string;
+  gender?: string;
+  mealOption?: string;
+  city?: string;
+  experience?: string;
+  role?: string;
+}
+
+export interface Voucher {
+  id?: string;
+}
