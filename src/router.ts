@@ -17,6 +17,7 @@ import Presentations from '@/views/admin/Presentations.vue';
 import Workshops from '@/views/Workshops.vue';
 import Vote4Papers from '@/views/Vote4Papers.vue';
 import RegistrationInfoPage from '@/views/RegistrationInfoPage.vue';
+import Speakers from '@/views/Speakers.vue';
 
 Vue.use(Router);
 Vue.use(VueScrollTo, {
@@ -98,10 +99,16 @@ const router = new Router({
       path: '/v4p',
       name: 'v4p',
       component: Vote4Papers,
-    },    {
+    },
+    {
       path: '/tickets',
       name: 'tickets',
       component: RegistrationInfoPage,
+    },
+    {
+      path: '/speakers',
+      name: 'speakers',
+      component: Speakers,
     },
   ],
   scrollBehavior(to, from, savedPosition) {

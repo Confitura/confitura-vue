@@ -2,17 +2,14 @@ import { Module } from 'vuex';
 import { EmbeddedPresentations, EmbeddedUserProfiles, Presentation, RootState, UserProfile } from '@/types';
 import axios from 'axios';
 
-export const LOAD_USERS = 'LOAD_USERS';
-export const LOAD_SPEAKERS = 'LOAD_USERS';
+export const LOAD_USERS = 'LOAD_S';
 export const LOAD_ALL_PRESENTATIONS = 'LOAD_ALL_PRESENTATIONS';
 const SET_USERS = 'SET_USERS';
-const SET_SPEAKERS = 'SET_SPEAKERS';
 const SET_PRESENTATIONS = 'SET_PRESENTATIONS ';
 
 export const adminModule: Module<AdminState, RootState> = {
   state: {
     users: [],
-    speakers: [],
     presentations: [],
   },
   getters: {
@@ -22,9 +19,6 @@ export const adminModule: Module<AdminState, RootState> = {
   mutations: {
     [SET_USERS](store, payload: { users: UserProfile[] }) {
       store.users = payload.users;
-    },
-    [SET_SPEAKERS](store, payload: { speakers: UserProfile[] }) {
-      store.speakers = payload.speakers;
     },
     [SET_PRESENTATIONS](store, payload: { presentations: Presentation[] }) {
       store.presentations = payload.presentations;
@@ -37,13 +31,7 @@ export const adminModule: Module<AdminState, RootState> = {
           commit(SET_USERS, { users: it.data._embedded.users });
         });
     },
-    [LOAD_SPEAKERS]({ commit }) {
-      return axios.get<EmbeddedUserProfiles>('/api/users/search/speakers')
-        .then((it) => {
-          commit(SET_SPEAKERS, { speakers: it.data._embedded.users });
-        });
-    },
-    [LOAD_ALL_PRESENTATIONS]({ commit }) {
+    [LOAD_ALL_PRESENTATIONS]({ commit}) {
       return axios.get<EmbeddedPresentations>('/api/presentations', { params: { projection: 'inlineSpeaker' } })
         .then((it) => {
           commit(SET_PRESENTATIONS, { presentations: it.data._embedded.presentations });
@@ -54,6 +42,5 @@ export const adminModule: Module<AdminState, RootState> = {
 
 export interface AdminState {
   users: UserProfile[];
-  speakers: UserProfile[];
   presentations: Presentation[];
 }
