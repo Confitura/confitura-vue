@@ -25,6 +25,7 @@ export const adminModule: Module<AdminState, RootState> = {
     },
     [SET_SPEAKERS](store, payload: { speakers: UserProfile[] }) {
       store.speakers = payload.speakers;
+      console.log(store.speakers);
     },
     [SET_PRESENTATIONS](store, payload: { presentations: Presentation[] }) {
       store.presentations = payload.presentations;
@@ -40,7 +41,7 @@ export const adminModule: Module<AdminState, RootState> = {
     [LOAD_SPEAKERS]({ commit }) {
       return axios.get<EmbeddedUserProfiles>('/api/users/search/speakers')
         .then((it) => {
-          commit(SET_SPEAKERS, { speakers: it.data._embedded.users });
+          commit(SET_SPEAKERS, { speakers: it.data._embedded.publicUsers });
         });
     },
     [LOAD_ALL_PRESENTATIONS]({ commit }) {

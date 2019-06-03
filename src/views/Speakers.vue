@@ -1,9 +1,18 @@
 <template>
     <div class="speakers">
         <PageHeader title="Speakers"/>
-        <Box class="content" color="white">
+        <Box class="content no-padding" color="white">
             <div class="speakers__grid">
-                {{speakers}}
+                <div class="speakers__speaker speaker" v-for="speaker in speakers">
+                    <!--                    <div class="speaker__photo">-->
+                    <img :src="speaker.photo" alt="" class="speaker__photo">
+                    <!--                    </div>-->
+                    <div class="speaker__name">
+                        <span>{{speaker.name | firstName}}</span>
+                        <span>{{speaker.name | lastName}}</span>
+
+                    </div>
+                </div>
             </div>
         </Box>
         <TheContact id="contact"/>
@@ -38,76 +47,43 @@
     @import "../assets/media";
     @import "../assets/fonts";
 
-    .faq {
+    .speakers {
         overflow: hidden;
-    }
 
-    .content {
-        .foreword {
-            text-align: left;
-            color: #000000;
-            font-size: 1.5rem;
-            @include md() {
-                width: 50%;
-            }
-
-            &__link {
-                color: $brand;
-            }
+        &__grid {
+            display: flex;
+            flex-direction: column;
         }
-
-
     }
+
+    .speaker {
+        display: flex;
+
+        &:nth-child(odd) {
+            flex-direction: row-reverse;
+
+            .speaker__name {
+                align-items: flex-end;
+            }
+
+        }
+    }
+
+    .speaker__photo {
+        width: 50vw;
+        height: 50vw;
+        object-fit: cover;
+    }
+
+    .speaker__name {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-family: $font-bold;
+        font-size: 1.7rem;
+        padding: 1rem;
+    }
+
+
 </style>
-<style lang="scss">
-    @import "../assets/colors";
-    @import "../assets/sizes";
-    @import "../assets/media";
-    @import "../assets/fonts";
 
-    .questions section {
-        display: grid;
-        text-align: left;
-        grid-template-columns: 1fr;
-        @include md() {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        h2 {
-            font-size: 2.2rem;
-            color: $brand;
-            @include md() {
-                grid-column: 1 / 2;
-                &, + h3 {
-                    margin-top: 4rem;
-                    margin-bottom: 1rem;
-                }
-            }
-
-
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            font-weight: bold;
-            align-self: center;
-            margin: 0 0 1rem;
-            @include md() {
-                grid-column: 2 / 3;
-            }
-        }
-
-        p, ul {
-            font-size: 1.5rem;
-            margin: 0;
-            @include md() {
-                grid-column: 2 / 3;
-            }
-
-            + h3 {
-                margin-top: 2em;
-            }
-        }
-
-    }
-</style>
