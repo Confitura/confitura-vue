@@ -53,6 +53,10 @@
         &__grid {
             display: flex;
             flex-direction: column;
+            @include md(){
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
         }
     }
 
@@ -60,7 +64,7 @@
         display: flex;
 
         &:nth-child(odd) {
-            flex-direction: row-reverse;
+            /*flex-direction: row-reverse;*/
 
             .speaker__name {
                 align-items: flex-end;
@@ -73,6 +77,10 @@
         width: 50vw;
         height: 50vw;
         object-fit: cover;
+        @include md(){
+            width: 200px;
+            height: 200px;
+        }
     }
 
     .speaker__name {
@@ -82,6 +90,11 @@
         font-family: $font-bold;
         font-size: 1.7rem;
         padding: 1rem;
+        box-sizing: border-box;
+        @include md(){
+            width: 200px;
+            height: 200px;
+        }
     }
 
 
