@@ -1,6 +1,6 @@
 <template>
     <div class="speakers">
-        <PageHeader title="Speakers"/>
+        <PageHeader title="Speakers" type="coder"/>
         <Box class="content no-padding" color="white">
             <div class="speakers__grid">
                 <div class="speakers__speaker speaker" v-for="speaker in speakers"
@@ -60,10 +60,10 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            margin-top: 4rem;
             @include md() {
                 flex-direction: row;
                 flex-wrap: wrap;
-                margin: auto;
             }
         }
     }

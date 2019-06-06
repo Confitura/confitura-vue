@@ -1,6 +1,6 @@
 <template>
     <a :href="url" v-if="id" target="_blank" rel="noopener" class="link">
-        <i class="fab" :class="icon"></i>
+        <i  :class="icon"></i>
     </a>
 </template>
 
@@ -19,16 +19,20 @@
 
     public social = {
       twitter: {
-        icon: 'fa-twitter-square',
+        icon: 'fab fa-twitter-square',
         url: 'https://twitter.com/',
       },
       facebook: {
-        icon: 'fa-facebook-square',
+        icon: 'fab fa-facebook-square',
         url: 'https://www.facebook.com/',
       },
       github: {
-        icon: 'fa-github-square',
+        icon: 'fab fa-github-square',
         url: 'https://www.github.com/',
+      },
+      www: {
+        icon: 'fas fa-globe',
+        url: '',
       },
     };
 

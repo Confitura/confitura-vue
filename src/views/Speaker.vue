@@ -1,17 +1,23 @@
 <template>
     <div class="speaker">
-        <PageHeader title="Speakers"/>
+        <PageHeader title="Speakers" type="coder">
+        </PageHeader>
         <Box class="content" color="white">
-            <div v-if="speaker">
-                <img :src="speaker.photo" class="speaker__photo">
-                <div class="speaker__social">
-                    <SocialLink class="speaker__social-link" type="twitter" :id="speaker.twitter"></SocialLink>
-                    <SocialLink type="facebook" :id="speaker.facebook"></SocialLink>
-                    <SocialLink type="github" :id="speaker.github"></SocialLink>
+            <div v-if="speaker" class="speaker__container">
+                <div class="speaker__left">
+                    <img :src="speaker.photo" class="speaker__photo">
+                    <div class="speaker__social">
+                        <SocialLink class="speaker__social-link" type="twitter" :id="speaker.twitter"></SocialLink>
+                        <SocialLink class="speaker__social-link" type="facebook" :id="speaker.facebook"></SocialLink>
+                        <SocialLink class="speaker__social-link" type="github" :id="speaker.github"></SocialLink>
+                        <SocialLink class="speaker__social-link" type="www" :id="speaker.www"></SocialLink>
+                    </div>
                 </div>
-                <div class="speaker__name">{{speaker.name}}</div>
-                <div class="speaker__bio">
-                    {{speaker.bio}}
+                <div class="speaker__right">
+                    <div class="speaker__name">{{speaker.name}}</div>
+                    <div class="speaker__bio">
+                        {{speaker.bio}}
+                    </div>
                 </div>
             </div>
         </Box>
@@ -49,8 +55,22 @@
     @import "../assets/media";
     @import "../assets/fonts";
 
+
     .speaker {
         overflow: hidden;
+    }
+
+    .speaker__container {
+        display: flex;
+        flex-direction: column;
+        @include md() {
+            flex-direction: row;
+        }
+    }
+    .speaker__right {
+        @include md(){
+            margin-left: 3rem;
+        }
     }
 
     .speaker__photo {
@@ -59,16 +79,20 @@
         object-fit: cover;
         box-sizing: border-box;
         @include md() {
-            width: 200px;
-            height: 200px;
+            width: 400px;
+            height: 400px;
         }
     }
 
     .speaker__name {
         font-family: $font-bold;
-        font-size: 2rem;
+        font-size: 2.5rem;
         color: $brand;
         margin-top: 2rem;
+        @include md() {
+            margin-top: 0;
+            font-size: 3rem;
+        }
 
     }
 
@@ -76,11 +100,18 @@
         font-size: 1.2rem;
         line-height: 1.7rem;
         margin-top: 2rem;
+        @include md() {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
     }
 
     .speaker__social {
         margin-top: 2rem;
         font-size: 3rem;
+        @include md(){
+            text-align: center;
+        }
 
         &-link {
             margin-right: 2rem;

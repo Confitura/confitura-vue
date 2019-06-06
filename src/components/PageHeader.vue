@@ -1,13 +1,18 @@
-<template xmlns:slot="http://www.w3.org/1999/xhtml">
+<template>
     <header class="page-header__container">
         <div class="page-header" :class="{'page-header--small': small}">
             <h1 class="page-title">
                 <template v-if="title">{{title}}</template>
                 <slot name="title"></slot>
             </h1>
-            <slot v-if="!small">
+            <slot v-if="!small && type === 'planets'">
                 <img class="page-image" src="../assets/planety_faq.svg" alt="planets">
             </slot>
+            <slot v-if="type === 'coder'">
+                <img src="../assets/small_planet.svg" class="header__planet" alt="small planet">
+                <img src="../assets/astronaut_comp.svg" class="header-img" alt="astronaut coder">
+            </slot>
+
         </div>
     </header>
 </template>
@@ -23,6 +28,8 @@
     public title?: string;
     @Prop({ type: Boolean, default: false })
     public small?: boolean;
+    @Prop({ default: 'planets' })
+    public type!: 'planets' | 'coder';
 
     private threshold: number[] = [];
 
@@ -51,6 +58,8 @@
       const observer = new IntersectionObserver(callback, options);
       observer.observe(this.$el);
     }
+
+
 
   }
 </script>
@@ -115,6 +124,29 @@
                 left: 0;
                 width: 600px;
             }
+        }
+    }
+
+    .header__planet {
+        position: absolute;
+        left: -40px;
+        top: 60px;
+        @include md() {
+            position: unset;
+            margin-left: 200px;
+        }
+    }
+
+    .header-img {
+        position: absolute;
+        left: 170px;
+        bottom: -50px;
+        height: 280px;
+        @include md() {
+            position: unset;
+            margin-top: 170px;
+            margin-right: 150px;
+            height: 350px;
         }
     }
 </style>
