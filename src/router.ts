@@ -18,6 +18,7 @@ import Workshops from '@/views/Workshops.vue';
 import Vote4Papers from '@/views/Vote4Papers.vue';
 import RegistrationInfoPage from '@/views/RegistrationInfoPage.vue';
 import Speakers from '@/views/Speakers.vue';
+import Speaker from '@/views/Speaker.vue';
 
 Vue.use(Router);
 Vue.use(VueScrollTo, {
@@ -109,11 +110,19 @@ const router = new Router({
       path: '/speakers',
       name: 'speakers',
       component: Speakers,
+    }, {
+      path: '/speakers/:id',
+      name: 'speaker',
+      component: Speaker,
     },
   ],
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
       return VueScrollTo.scrollTo(to.hash, 500);
+    } else if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { x: 0, y: 0 };
     }
   },
 
@@ -122,8 +131,7 @@ router.beforeEach((to, from, next) => {
   const isSessionActive = store.getters.isLogin;
   const accessingProtectedResource = ['/register', '/profile', '/presentation'].includes(to.path);
   if (accessingProtectedResource && !isSessionActive) {
-    // next('login');
-    next();
+    next('login');
   } else {
     next();
   }

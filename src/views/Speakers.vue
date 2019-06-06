@@ -3,7 +3,8 @@
         <PageHeader title="Speakers"/>
         <Box class="content no-padding" color="white">
             <div class="speakers__grid">
-                <div class="speakers__speaker speaker" v-for="speaker in speakers">
+                <div class="speakers__speaker speaker" v-for="speaker in speakers"
+                     @click="show(speaker)">
                     <img :src="speaker.photo" alt="" class="speaker__photo">
                     <div class="speaker__name">
                         <span>{{speaker.name | firstName}}</span>
@@ -23,6 +24,7 @@
   import PageHeader from '@/components/PageHeader.vue';
   import TheContact from '@/components/TheContact.vue';
   import { LOAD_SPEAKERS } from '@/store/admin';
+  import { UserProfile } from '@/types';
 
   @Component({
     components: { PageHeader, Box, TheContact },
@@ -30,6 +32,12 @@
   export default class Speakers extends Vue {
     public mounted() {
       this.$store.dispatch(LOAD_SPEAKERS);
+    }
+
+    public show(speaker: UserProfile) {
+      if (speaker.id) {
+        this.$router.push({ name: 'speaker', params: { 'id': speaker.id } });
+      }
     }
 
     public get speakers() {
@@ -62,6 +70,12 @@
 
     .speaker {
         display: flex;
+        cursor: pointer;
+        &:hover {
+            background-color: $brand;
+            color: #ffffff;
+            transition: all 0.3s linear;
+        }
 
         @include sm-only() {
             &:nth-child(odd) {
