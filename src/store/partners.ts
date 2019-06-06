@@ -428,6 +428,89 @@ Circle K is growing a team full of passionate, open-minded people with creative 
           orientation: 'horizontal',
           logo: require('../assets/partners/circleK.svg'),
 
+        },{
+          id: 'spartez',
+          name: 'Spartez',
+          description: `We at Spartez, are known for our experts, our partnership with Atlassian and our world-class products. We are growing exponentially and looking for talented, experienced and passionate professionals to join our team.
+
+If you are someone or you know someone who loves to take on challenges, work independently and make an impact, then read on!
+
+Spartez is a Gold Solution Partner of Atlassian. Our world-class products include Agile Cards for Jira, Agile Poker for Jira, Canned Responses Pro for Jira, Asset Tracker for Jira and TFS4JIRA amongst others. We are a truly international team with over 170 employees from over 11 countries who live and work mostly out of Gdansk. We believe that happy Spartans means happy customers and thus offer some of the best employee benefits and facilities in the region. We have some of the brightest minds working for us, an awesome office and a very low attrition rate. Like we said, once you are a Spartan, you never want to be anything else.
+
+Our company is deeply rooted in a few important values and principles - just a few, simple and meaningful rules: 
+
+\\# Don't Fuck The Customer
+
+\\# Be The Change You Seek
+
+\\# Open Company - No Bullshit
+
+\\# Great Place to Work
+
+\\# Simplicity`,
+          www: 'https://spartez.com/',
+          type: 'silver',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/spartez.svg'),
+
+        },{
+          id: 'touk',
+          name: 'Touk',
+          description: `Since 2002 we have been developing custom software. We offer creative solutions to customers' problems, implementing the riskiest projects. We outstrip the competition through the better use of technology and deep understanding of customers' needs.
+
+TouK is built by developers and for developers. We are professional, versatile and agile. If you start your professional journey at TouK, you are on a fast track to becoming very good at your job.
+
+Our recent projects include stream processing for marketing and fraud detection, content delivery network for vod operators, financial applications for top-ups and payments, GDPR support for large entities.
+
+We are looking for experienced developers and CS students.
+
+[https://touk.pl](https://touk.pl)
+
+[https://touk.pl/blog](https://touk.pl/blog)`,
+          www: 'https://touk.pl',
+          type: 'silver',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/touk.svg'),
+
+        },{
+          id: 'goldman-sachs',
+          name: 'Goldman Sachs',
+          description: `Working together, we see the potential in the world to create more. To turn big ideas into realities. To challenge ourselves to look ahead and make things possible. From automated trading to managing data, risk analysis to safeguarding information and promoting environmental responsibility, our commitment to best-in-class technology empowers everything we do.
+ 
+The Goldman Sachs Group, Inc. is a leading global investment banking, securities and investment management firm that provides a wide range of financial services to a substantial and diversified client base that includes corporations, financial institutions, governments and individuals. Founded in 1869, the firm is headquartered in New York and maintains offices in all major financial centers around the world.
+ 
+Make things possible at [goldmansachs.com/careers](https://www.goldmansachs.com/careers/)`,
+          www: 'https://www.goldmansachs.com/careers/',
+          type: 'gold',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/gs.svg'),
+        },{
+          id: 'rtb-house',
+          name: 'RTB House',
+          description: `[RTB House](https://www.rtbhouse.com/) is a global company that provides state-of-the-art retargeting technology for top brands worldwide. Its proprietary ad buying engine is the first and only in the world to be powered entirely by deep learning algorithms, enabling advertisers to generate outstanding results and reach their short, mid and long-term goals.
+
+Founded in 2012, RTB House serves over a thousand campaigns across EMEA, APAC and the Americas regions with main locations in New York, London, Tokyo, Singapore, São Paulo, Moscow, Istanbul, Dubai and Warsaw.`,
+          www: 'https://www.rtbhouse.com/',
+          type: 'gold',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/rtb.svg'),
+        },{
+          id: 'it-kontrakt',
+          name: 'IT Kontrakt',
+          description: `IT Kontrakt powstał w 2004 jako jedna z pierwszych w Polsce spółek wdrażających rozwiązania i usługi IT dla biznesu oraz kompleksowe wsparcie w budowaniu systemów informatycznych. Firma jest liderem w obszarze Managed Services, Nearshore/Offshore, Information Technology Outsourcing. Posiada siedem oddziałów w Polsce, a także oddział w Kuala Lumpur w Malezji, biuro handlowe w USA oraz własne Software Delivery Centers w pięciu lokalizacjach. Do portfolio klientów należą firmy głównie z branż: farmacja, automotive, finanse, IT i telekomunikacja.
+
+IT Kontrakt, w ramach inwestycji Oaktree Capital Management i Cornerstone Partners, realizuje budowę „IT Services Competence Platform”. Projekt opiera się na intensywnym programie Mergers & Acquisitions i szybkim wzroście organicznym spółek. Celem inwestycji jest stworzenie globalnej organizacji oferującej kompetencje, ekspertyzę i rozwiązania softwarowe dla korporacji międzynarodowych oraz klientów ze Skandynawii, krajów regionu DACH, UK i USA, i ich obsługa przez własne centra delivery zlokalizowane w krajach regionu CEE oraz Azji. Zatrudnienie w Grupie sięga blisko 2.400 inżynierów.`,
+          www: 'https://www.itkontrakt.com/',
+          type: 'silver',
+          logo: require('../assets/partners/it-kontrakt.svg'),
+        },{
+          id: 'fis',
+          name: 'FIS',
+          description: `FIS is the world’s largest provider of banking and payments technology solutions and a global leader in consulting and outsourcing solutions. With a long history deeply rooted in the financial services sector, FIS serves more than 14,000 institutions in over 130 countries. Headquartered in Jacksonville, Fla., FIS employs more than 55,000 people worldwide and holds leadership positions in payment processing and banking solutions, providing software, services and outsourcing of the technology that drives financial institutions. In October 2014 FIS completed acquisition of Brussels-based Clear2Pay. The transaction brings new corporate payment solutions and services, inclusive of high-value and cross-currency corporate payments, payments managed services, and payments processing utilities that will further bolster FIS’ payments portfolio across all geographies. Clear2Pay is now an FIS company.`,
+          www: 'https://www.fisglobal.com/',
+          type: 'gold',
+          logo: require('../assets/partners/fis.svg'),
+          orientation: 'horizontal',
         },
 
       ];
