@@ -4,9 +4,7 @@
         <Box class="content no-padding" color="white">
             <div class="speakers__grid">
                 <div class="speakers__speaker speaker" v-for="speaker in speakers">
-                    <!--                    <div class="speaker__photo">-->
                     <img :src="speaker.photo" alt="" class="speaker__photo">
-                    <!--                    </div>-->
                     <div class="speaker__name">
                         <span>{{speaker.name | firstName}}</span>
                         <span>{{speaker.name | lastName}}</span>
@@ -53,9 +51,11 @@
         &__grid {
             display: flex;
             flex-direction: column;
-            @include md(){
+            justify-content: center;
+            @include md() {
                 flex-direction: row;
                 flex-wrap: wrap;
+                margin: auto;
             }
         }
     }
@@ -63,21 +63,44 @@
     .speaker {
         display: flex;
 
-        &:nth-child(odd) {
-            /*flex-direction: row-reverse;*/
+        @include sm-only() {
+            &:nth-child(odd) {
+                flex-direction: row-reverse;
 
-            .speaker__name {
-                align-items: flex-end;
+                .speaker__name {
+                    align-items: flex-end;
+                }
+
+
             }
-
         }
+        @include md-to-xl() {
+            &:nth-child(4n+3), &:nth-child(4n+4) {
+                flex-direction: row-reverse;
+
+                .speaker__name {
+                    align-items: flex-end;
+                }
+            }
+        }
+        @include xl() {
+            &:nth-child(6n+4), &:nth-child(6n+5), &:nth-child(6n+6) {
+                flex-direction: row-reverse;
+
+                .speaker__name {
+                    align-items: flex-end;
+                }
+            }
+        }
+
+
     }
 
     .speaker__photo {
         width: 50vw;
         height: 50vw;
         object-fit: cover;
-        @include md(){
+        @include md() {
             width: 200px;
             height: 200px;
         }
@@ -91,7 +114,7 @@
         font-size: 1.7rem;
         padding: 1rem;
         box-sizing: border-box;
-        @include md(){
+        @include md() {
             width: 200px;
             height: 200px;
         }
