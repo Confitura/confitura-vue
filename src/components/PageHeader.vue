@@ -1,5 +1,5 @@
 <template>
-    <header class="page-header__container">
+    <header class="page-header__container" :class="{'page-header--crop': type === 'peace'}">
         <div class="page-header" :class="{'page-header--small': small}">
             <h1 class="page-title">
                 <template v-if="title">{{title}}</template>
@@ -11,6 +11,9 @@
             <slot v-if="type === 'coder'">
                 <img src="../assets/small_planet.svg" class="header__planet" alt="small planet">
                 <img src="../assets/astronaut_comp.svg" class="header-img" alt="astronaut coder">
+            </slot>
+            <slot v-if="type === 'peace'">
+                <img src="../assets/astronaut.svg" class="header__peace">
             </slot>
 
         </div>
@@ -29,7 +32,7 @@
     @Prop({ type: Boolean, default: false })
     public small?: boolean;
     @Prop({ default: 'planets' })
-    public type!: 'planets' | 'coder';
+    public type!: 'planets' | 'coder' | 'peace';
 
     private threshold: number[] = [];
 
@@ -73,6 +76,10 @@
         width: 100%;
         background-color: #000000;
         background-image: url('../assets/stars.png');
+    }
+
+    .page-header--crop {
+        overflow: hidden;
     }
 
     .page-header.page-header--small {
@@ -147,6 +154,20 @@
             margin-top: 170px;
             margin-right: 150px;
             height: 350px;
+        }
+    }
+
+    .header__peace {
+        width: 500px;
+        top: 50px;
+        left: 60px;
+        transform: rotate(-10deg);
+        position: absolute;
+        @include sm() {
+            width: 500px;
+            top: 0;
+            position: unset;
+            margin-top: 470px;
         }
     }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <a :href="url" v-if="id" target="_blank" rel="noopener" class="link">
-        <i  :class="icon"></i>
+        <i :class="icon"></i>
     </a>
 </template>
 
@@ -41,7 +41,7 @@
     }
 
     get url(): string {
-      return this.social[this.type].url+this.id;
+      return this.social[this.type].url + this.id;
     }
   }
 </script>
@@ -51,7 +51,8 @@
 
     .link {
         color: #000000;
-        &:hover{
+
+        &:hover {
             color: $brand;
         }
     }
