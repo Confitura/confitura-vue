@@ -1,6 +1,6 @@
 <template>
     <div class="speakers">
-        <PageHeader title="Speakers" type="coder"/>
+        <PageHeader title="Our speakers" type="coder"/>
         <Box class="content no-padding" color="white">
             <div class="speakers__grid">
                 <div class="speakers__speaker speaker" v-for="speaker in speakers"
@@ -34,9 +34,9 @@
       this.$store.dispatch(LOAD_SPEAKERS);
     }
 
-    public show(speaker: UserProfile) {
-      if (speaker.id) {
-        this.$router.push({ name: 'speaker', params: { 'id': speaker.id } });
+    public show({ id }: UserProfile) {
+      if (id) {
+        this.$router.push({ name: 'speaker', params: { id } });
       }
     }
 
@@ -71,6 +71,7 @@
     .speaker {
         display: flex;
         cursor: pointer;
+
         &:hover {
             background-color: $brand;
             color: #ffffff;

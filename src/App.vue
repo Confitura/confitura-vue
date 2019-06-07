@@ -32,6 +32,6 @@
     private resizedCallback = () => {
       const width = window.innerWidth;
       this.$store.commit(WINDOW_RESIZED, { width });
-    };
+    }
   }
 </script>

@@ -6,6 +6,7 @@ export const LOAD_USERS = 'LOAD_USERS';
 export const LOAD_SPEAKERS = 'LOAD_SPEAKERS';
 export const LOAD_SPEAKER = 'LOAD_SPEAKER';
 export const LOAD_ALL_PRESENTATIONS = 'LOAD_ALL_PRESENTATIONS';
+export const LOAD_ACCEPTED_PRESENTATIONS = 'LOAD_ACCEPTED_PRESENTATIONS';
 const SET_USERS = 'SET_USERS';
 const SET_SPEAKERS = 'SET_SPEAKERS';
 const SET_SPEAKER = 'SET_SPEAKER';
@@ -52,13 +53,22 @@ export const adminModule: Module<AdminState, RootState> = {
     [LOAD_SPEAKER]({ commit }, { id }) {
       return axios.get<UserProfile>(`/api/users/${id}/public`)
         .then((it) => {
-          commit(SET_SPEAKER, { speaker: it.data});
+          commit(SET_SPEAKER, { speaker: it.data });
         });
     },
     [LOAD_ALL_PRESENTATIONS]({ commit }) {
       return axios.get<EmbeddedPresentations>('/api/presentations', { params: { projection: 'inlineSpeaker' } })
         .then((it) => {
           commit(SET_PRESENTATIONS, { presentations: it.data._embedded.presentations });
+        });
+    },
+    [LOAD_ACCEPTED_PRESENTATIONS]({ commit }) {
+      return axios
+        .get<EmbeddedPresentations>('/api/presentations/search/accepted', { params: { projection: 'inlineSpeaker' } })
+        .then((it) => it.data._embedded.presentations)
+        .then((presentations) => presentations.filter((presentation) => !presentation.workshop))
+        .then((presentations) => {
+          commit(SET_PRESENTATIONS, { presentations });
         });
     },
   },
