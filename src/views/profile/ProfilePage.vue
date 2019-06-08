@@ -85,9 +85,10 @@
                         <div class="card" v-for="presentation in presentations">
                             <div class="card-content">
                                 <div class="card-title">
-                                    <div>
-                                        {{presentation.title}}
-                                        <span class="small">({{presentation.language}}, {{presentation.level}})</span>
+                                    <div class="presentation__title">
+                                        <span v-if="presentation.status == 'accepted'"class="new badge blue presentation__status" data-badge-caption="Accepted"></span>
+                                        <div>{{presentation.title}}
+                                            <span class="small">({{presentation.language}}, {{presentation.level}})</span></div>
                                     </div>
                                     <div class="tags">
                                 <span :data-badge-caption="tag.name" class="new badge"
@@ -115,6 +116,9 @@
                                         </li>
                                     </ul>
                                 </div>
+                                <div v-if="presentation.status === 'accepted'">
+
+                                </div>
                             </div>
                             <div class="card-action">
                                 <router-link :to="{name: 'presentation', params:{id:presentation.id}}">edit</router-link>
@@ -134,19 +138,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import {
-  LOAD_PROFILE_BY_ID,
-  LOAD_PROFILE_PRESENTATIONS_BY_ID,
-  LOAD_PROFILE_PARTICIPATION_BY_ID,
-} from '@/store/store.user-profile';
-import Box from '@/components/Box.vue';
-import TheContact from '@/components/TheContact.vue';
-import { EmbeddedPresentations, Presentation, REMOVE_PRESENTATION, UserProfile, PARTICIPATION_ID } from '@/types';
-import axios, { AxiosError } from 'axios';
-import PageHeader from '@/components/PageHeader.vue';
-import Toasted from 'vue-toasted';
-import M from 'materialize-css';
+  import { Component, Vue } from 'vue-property-decorator';
+  import { LOAD_PROFILE_BY_ID, LOAD_PROFILE_PRESENTATIONS_BY_ID , LOAD_PROFILE_PARTICIPATION_BY_ID} from '@/store/store.user-profile';
+  import Box from '@/components/Box.vue';
+  import TheContact from '@/components/TheContact.vue';
+  import { EmbeddedPresentations, Presentation, REMOVE_PRESENTATION, UserProfile } from '@/types';
+  import axios, { AxiosError } from 'axios';
+  import PageHeader from '@/components/PageHeader.vue';
+  import Toasted from 'vue-toasted';
+  import M from 'materialize-css';
 
 Vue.use(Toasted);
 
@@ -196,24 +196,23 @@ export default class ProfilePage extends Vue {
   }
 
 
-
-  public addSpeakerToPresentation() {
-    const userId = this.$route.params.id || this.$store.getters.user.jti;
-    axios.post(`/api/presentations/${this.selectedPresentation!.id}/cospeakers/${this.email}`)
-      .then((it) => {
-        this.reloadData();
-        this.$toasted.success('speaker added', { duration: 3000 });
-        this.closeModal();
-      }, (error: AxiosError) => {
-        let message = 'Something went wrong';
-        if (error.response!.status === 404) {
-          message = 'User not found';
-        } else if (error.response!.status === 409) {
-          message = 'Unable to add this user: conflict';
-        }
-        this.$toasted.error(message, { duration: 3000, className: 'error', fullWidth: true });
-      });
-  }
+    public addSpeakerToPresentation() {
+      const userId = this.$route.params.id || this.$store.getters.user.jti;
+      axios.post(`/api/presentations/${this.selectedPresentation!.id}/cospeakers/${this.email}`)
+        .then((it) => {
+          this.reloadData();
+          this.$toasted.success('speaker added', { duration: 3000 });
+          this.closeModal();
+        }, (error: AxiosError) => {
+          let message = 'Something went wrong';
+          if (error.response!.status === 404) {
+            message = 'User not found';
+          } else if (error.response!.status === 409) {
+            message = 'Unable to add this user: conflict';
+          }
+          this.$toasted.error(message, { duration: 3000, className: 'error', fullWidth: true });
+        });
+    }
 
   public deleteSpeaker(pres: Presentation, speaker: UserProfile, event: Event) {
     event.preventDefault();
@@ -346,6 +345,19 @@ export default class ProfilePage extends Vue {
 
     .tags {
         display: flex;
+    }
+
+    .presentation {
+        &__title {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        &__status {
+            margin-right: 1rem;
+            margin-left: 0;
+        }
     }
 </style>
 <style lang="scss">

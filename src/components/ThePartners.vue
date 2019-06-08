@@ -2,11 +2,19 @@
     <Box class="partners" color="white">
         <h1 class="header">our partners</h1>
         <div class="partners-grid">
-            <div class="platinum">
-                <a v-for="item in partners.platinum" :href="item.www" class="link" rel="noopener" target="_blank">
-                    <img :src="item.logo" :alt="item.name" class="logo__img--platinum" :class="item.id">
-                </a>
-                <span class="type--platinum">Platinum</span>
+            <div class="partners-main">
+                <div class="platinum">
+                    <a v-for="item in partners.platinum" :href="item.www" class="link" rel="noopener" target="_blank">
+                        <img :src="item.logo" :alt="item.name" class="logo__img--platinum" :class="item.id">
+                    </a>
+                    <span class="type--platinum">Platinum</span>
+                </div>
+                <div class="path">
+                    <a v-for="item in partners.path" :href="item.www" class="link" rel="noopener" target="_blank">
+                        <img :src="item.logo" :alt="item.name" class="logo__img--platinum" :class="item.id">
+                    </a>
+                    <span class="type--path">Path</span>
+                </div>
             </div>
             <div class="other-types">
                 <transition name="fade" mode="out-in">
@@ -17,7 +25,7 @@
                                  class="logo"
                                  :class="{[`logo--${item.orientation}`]: item.orientation, [`logo--${active}`]: active}">
                                 <a :href="item.www" class="link" rel="noopener" target="_blank">
-                                    <img :src="item.logo" :alt="item.name" class="logo__img">
+                                    <img :src="item.logo" :alt="item.name" class="logo__img" :title="item.name">
                                 </a>
                             </div>
                         </div>
@@ -29,7 +37,7 @@
                          :key="type"
                          @click="activate(type)"
                          @mouseenter="pauseIfActive(type)"
-                         @mouseleave="start()"
+                         @mouseleave="startCarousel()"
                          :class="{[`type--${type}`]: true, [`type--active`]: type === active}">{{type}}
                     </div>
                 </div>
@@ -50,26 +58,34 @@
   })
   export default class ThePartners extends Vue {
     public platinum: Partner[] = [];
-    public silver: Partner[] = [];
+    public path: Partner[] = [];
     public gold: Partner[] = [];
-    public types: PartnerType[] = ['gold', 'silver', 'bronze'];
-    public partners: Partners = { platinum: [], gold: [], silver: [], bronze: [] };
+    public silver: Partner[] = [];
+    public types: PartnerType[] = ['gold', 'silver'];
+    public partners: Partners = { platinum: [], path: [], gold: [], silver: [], bronze: [] };
     public active: PartnerType = 'gold';
-    private pause = false;
+    private intervalId: number = 0;
 
     public pauseIfActive(type: string) {
       if (this.active === type) {
-        this.pause = true;
+        this.stopCarousel();
       }
     }
 
-    public start() {
-      this.pause = false;
-    }
 
     public activate(type: PartnerType) {
       this.active = type;
-      this.pause = true;
+      this.stopCarousel();
+    }
+
+    public startCarousel() {
+      if (this.intervalId === 0) {
+        this.intervalId = setInterval(() => {
+          const currentIdx = this.types.indexOf(this.active);
+          const newIdx = (currentIdx + 1) % 2;
+          this.active = this.types[newIdx];
+        }, 5000);
+      }
     }
 
 
@@ -77,22 +93,23 @@
       this.$store.dispatch(LOAD_PARTNERS)
         .then(() => {
           this.partners.platinum = this.$store.getters.platinum;
+          this.partners.path = this.$store.getters.path;
           this.partners.silver = this.$store.getters.silver;
           this.partners.gold = this.$store.getters.gold;
-          setInterval(() => {
-            if (!this.pause) {
-              const currentIdx = this.types.indexOf(this.active);
-              const newIdx = (currentIdx + 1) % 2;
-              this.active = this.types[newIdx];
-            }
-          }, 5000);
+          this.startCarousel();
         });
+    }
+
+    private stopCarousel() {
+      clearInterval(this.intervalId);
+      this.intervalId = 0;
     }
 
   }
 
   interface Partners {
     platinum: Partner[];
+    path: Partner[];
     gold: Partner[];
     silver: Partner[];
     bronze: Partner[];
@@ -134,7 +151,16 @@
         .type--platinum {
             font-size: 2rem;
             color: $brand;
-            padding-top: 3rem;
+            padding-top: 1rem;
+            @include md() {
+                font-size: 1.5rem;
+            }
+        }
+
+        .type--path {
+            font-size: 2rem;
+            color: $brand;
+            padding-top: 2rem;
             @include md() {
                 font-size: 1.5rem;
             }
@@ -151,22 +177,33 @@
             flex-grow: 1;
             transition: all 0.3s linear;
             max-width: 1000px;
+            @include md() {
+                margin-left: 2rem;
+            }
         }
 
         .logo {
-            margin-top: 1rem;
-            margin-bottom: 1rem;
+            margin-top: 1.2rem;
+            margin-bottom: 1.2rem;
 
             &.logo--horizontal {
-                margin-top: 1.5rem;
-                margin-bottom: 1.5rem;
+                margin-top: 1.2rem;
+                margin-bottom: 1.2rem;
+
+                &.logo--gold {
+                    margin: 2.5rem;
+                }
             }
 
         }
 
-        .logo--silver, .logo--gold {
-            margin-left: 2rem;
-            margin-right: 2rem;
+        .logo--silver {
+            margin-left: 1.2rem;
+            margin-right: 1.2rem;
+        }
+
+        .logo--gold {
+            margin: 2.5rem;
         }
 
 
@@ -191,9 +228,10 @@
         }
 
         .logo__img--platinum {
-            width: 300px;
-            &.ey{
-                padding: 4rem 0;
+            width: 250px;
+
+            &.ey, &.softwareplant {
+                padding: 0 0 3rem 0;
                 box-sizing: border-box;
             }
         }
@@ -222,7 +260,7 @@
             flex-shrink: 0;
         }
 
-        .platinum {
+        .platinum, .path {
             display: flex;
             flex-direction: column;
             align-items: center;

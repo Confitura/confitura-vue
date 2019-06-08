@@ -7,6 +7,7 @@ export const partnersModule: Module<PartnersState, RootState> = {
   },
   getters: {
     platinum: ({ partners }): Partner[] => shuffle(partners.filter((partner) => partner.type === 'platinum')),
+    path: ({ partners }): Partner[] => shuffle(partners.filter((partner) => partner.type === 'path')),
     silver: ({ partners }): Partner[] => shuffle(partners.filter((partner) => partner.type === 'silver')),
     gold: ({ partners }): Partner[] => shuffle(partners.filter((partner) => partner.type === 'gold')),
   },
@@ -40,6 +41,7 @@ export const partnersModule: Module<PartnersState, RootState> = {
           www: 'https://softwareplant.com/',
           type: 'platinum',
           logo: require('../assets/partners/softwareplant.svg'),
+          orientation: 'horizontal',
         }, {
           id: 'ey',
           description: `EY Global Delivery Services (GDS) is a network of EY competence centers located in five countries: India, China, Poland, Argentina, and the Philippines. [EY GDS Poland](www.workatgds.pl) provides high quality and value-added support to our customers who are EY firms and other companies, working to agreed principles of exceptional client service. The technology departments of EY GDS Poland include teams working for external clients from around the world, as well as specialists who create and develop internal EY apps.`,
@@ -47,6 +49,7 @@ export const partnersModule: Module<PartnersState, RootState> = {
           www: 'https://workatgds.pl/pl/',
           type: 'platinum',
           logo: require('../assets/partners/ey.svg'),
+          orientation: 'horizontal',
         }, {
           id: '7n',
           description: `[7N](https://www.7n.com/) to duńska firma konsultingowa, zajmująca się
@@ -255,6 +258,259 @@ Roche Global IT Solution Centre is based in Poland, in two locations: Warsaw and
           type: 'gold',
           logo: require('../assets/partners/roche.svg'),
 
+        }, {
+          id: '4finance',
+          name: '4finance',
+          description: `
+We are one of Europe’s largest digital consumer lending groups. We get money to people when they need it – quickly, conveniently and responsibly.  
+We use cutting edge technology and data to offer fast and convenient loans to customers across 16 countries.  
+
+Since we were established in 2008, we have provided more than 15,000,000 Single Payment, Line of Credit and Instalment Loans totalling over EUR 6.0 billion.
+
+4finance IT is part of 4finance Group. We focus on bringing the right mix of technologies to deliver a great service for our customers, making sure our customers receive a simple and fast service. Our IT teams work across Europe to develop global products and support local initiatives with skill and insight.
+ 
+[https://www.4financeit.com/](https://www.4financeit.com/)  
+[https://www.4finance.com](https://www.4finance.com)  
+[https://www.4finance.com/jobs](https://www.4finance.com/jobs)  `,
+          www: 'https://www.4financeit.com/',
+          type: 'silver',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/4finance.svg'),
+
+        }, {
+          id: 'evojam',
+          name: 'evojam',
+          description: `Evojam is an unique blend of flexibility & quality. Strong technology with lightweight approach. Small team who can deliver difficult projects.  
+Our motto is KEEP GROWING. That's why Evojam's core values are learning and doing good quality work. This means we use every opportunity to learn, and we know how important teamwork is in growing and learning.  
+We build applications that work, that scale, that can be maintained over a longer time. We use Scrum and modern tech-stack: Scala, Java8+, NodeJS, Angular, TypeScript, React, MongoDB and plenty more.  
+Our primary customers are startups in the scaling phase from around the globe.
+
+For growth, fun & building stuff that works, join Evojam!`,
+          www: 'https://www.evojam.com',
+          type: 'silver',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/evojam.svg'),
+
+        },{
+          id: 'nbc',
+          name: 'NBC',
+          description: `Robimy projekty. Budujemy zespoły.  
+Tworzenie oprogramowania i ciągłe szukanie innowacyjnych rozwiązań to coś co nas nakręca i motywuje do działania.   
+Pomagamy klientom z branży finansów, bankowości, mediów i nowych technologii poprzez m.in. rozbudowę zespołów deweloperskich, utrzymanie oprogramowania czy też rozwój systemów.
+
+Co nas cechuje?  
+* pracujemy z grupą najlepszych programistów, projektantów i specjalistów IT w Polsce. 
+* dbamy o to by szybko i rzetelnie dobierać osoby odpowiedzialne za projekt IT 
+* łączymy pasję z profesjonalizmem. 
+* w doborze i selekcji pracowników kierujemy się doświadczeniem. Aż 40 % naszego zespołu stanowią eksperci, kolejne 45% to wysoko wykwalifikowani specjaliści. 
+* realizujemy innowacyjne i różnorodne projekty. Uwzględniając wszystkie preferencje oferujemy elastyczną formę zatrudnienia i wybór świadczeń. Prace zdalną w naszym biurze lub bezpośrednio u klienta.
+
+Do współpracy zapraszamy:   
+* programistów, 
+* analityków, 
+* administratorów, 
+* projektantów, 
+* kierowników projektów, 
+* konsultantów, 
+* testerów oraz IT managerów
+
+Satysfakcja ludzi, z którymi pracujemy, jest dla nas kluczowa. Dlatego indywidualnie podchodzimy zarówno do swoich partnerów biznesowych, jak i do naszych pracowników. Chcemy zrozumieć Twoje cele oraz plany i pomóc Ci w ich osiągnięciu.   
+Jesteśmy w całości samofinansującą się polską firmą, która wszystkie swoje działania opiera na konkretnych wartościach przyświecających nam od początku istnienia. Dzięki konsekwencji i niesamowitemu zespołowi zdobyliśmy uznanie w wielu prestiżowych rankingach, takich jak: Gazele Biznesu, ComputerWorld Top200 i IT@Bank.   
+Adresy naszych biur:
+* Wrocław - siedziba główna NBC - ul. Grabiszyńska 251a. 
+* Warszawa - Chmielna Business Center, ul. Chmielna 132/ 134. 
+* Gdańsk - Tryton Business House, ul. Jana z Kolna 11
+* Kraków - ul. Basztowa 3/16. 
+* Katowice - ul. Zabrska 16/3 
+
+Zapraszamy na naszą stronę: [www.nbc.com.pl](https://www.nbc.com.pl)`,
+          www: 'https://www.nbc.com.pl',
+          type: 'silver',
+          logo: require('../assets/partners/nbc.svg'),
+
+        }, {
+          id: 'alior',
+          name: 'Alior Bank',
+          description: `[Alior Bank](https://www.aliorbank.pl/dodatkowe-informacje/kariera/praca-w-it.html) jest jednym z najdynamiczniej rozwijających się banków uniwersalnych, świadczącym pełen zakres usług skierowanych do klientów detalicznych i biznesowych.  
+Bank systematycznie umacnia pozycję rynkową, skutecznie łącząc zasady tradycyjnej bankowości z innowacyjnymi rozwiązaniami i produktami. O najwyższą jakość produktów i usług Banku dba ponad 8000 pracowników. W 2017r. została ogłoszona strategia banku na lata 2017-2020 pod hasłem "Cyfrowy buntownik", co oznacza technologiczną transformację każdego obszaru działania banku. W ramach przyjętej strategii są już realizowane projekty w obszarze:
+
+automatyzacji  
+robotyzacji  
+blockchain  
+chmura  
+PSD2/API  
+sztuczna inteligencja DRONN  
+biometria  
+Alior Bank jest jedną z najbardziej rozpoznawalnych marek na polskim rynku bankowym. Ikoną Banku, która łączy świat tradycyjnej bankowości i nowatorskich rozwiązań jest postać Bankiera w meloniku. Dodatkowo podkreśla to hasło „WYŻSZA KULTURA. BANK NOWOŚCI.”.
+
+Dzięki bliskiej współpracy pomiędzy działami, szybkości działania, skracaniu dystansu między szeregowymi pracownikami a zarządem, mamy poczucie, że pracujemy w wyjątkowej firmie. To miejsce dla ludzi, którzy mają pomysły i odwagę biznesową, by wyznaczać nowe standardy bankowości.
+
+Od 2014 r. akcje Alior Banku wchodzą w skład indeksu WIG20 skupiającego największe i najbardziej płynne spółki notowane na Giełdzie Papierów Wartościowych w Warszawie.
+
+Alior Bank jest wielokrotnym laureatem prestiżowych nagród oraz zwycięzcą rankingów o zasięgu międzynarodowym. Ważniejsze osiągnięcia z 2018 roku:
+
+ 1\\. miejsce w rankingu „Przyjazny Bank Newsweeka 2018” w kategorii „Bankowość internetowa”,  
+1\\. miejsce w kategorii „New Digital Venture” w konkursie The Heart Corporate Innovation Awards 2018 za partnerstwo Alior Banku i cyfrowej platformy pośrednictwa finansowego online Bancovo,
+tytuł Lidera Informatyki 2018 w 22. edycji konkursu organizowanego przez magazyn „Computerworld”. Głównymi kryteriami wyboru jest biznesowa wartość projektów dostarczanych przez IT oraz ich innowacyjność,
+nagroda honorowa w kategorii „Banki innowacyjne” w rankingu 50. największych banków w Polsce 2018 roku.`,
+          www: 'https://www.aliorbank.pl/dodatkowe-informacje/kariera/praca-w-it.html',
+          type: 'silver',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/alior.svg'),
+
+        },{
+          id: 'coi',
+          name: 'Centralny Ośrodek Informatyki',
+          description: `Są tacy, dla których przy tworzeniu usług cyfrowych najważniejszy jest człowiek. Jest miejsce, gdzie dzięki technologii rozproszone instytucje łączą się w proste usługi przyjazne dla obywateli – tak wygląda kod do cyfryzacji. W Centralnym Ośrodku Informatyki realizujemy projekty dla Ministerstwa Cyfryzacji.  
+Jesteśmy unikalnym w skali państwa zespołem liczącym ponad 500 specjalistów.  
+Zatrudniamy ekspertów IT  
+Zarządzamy Systemem Rejestrów Państwowych  
+Projektujemy e-usługi  
+Prowadzimy projekty  
+Dzielimy się wiedzą  
+ 
+Mamy swoje biura w  Warszawie, Lublinie, Katowicach, Łodzi, Rzeszowie, Poznaniu, Bydgoszczy i Gorzowie Wielkopolskim.  
+\\#cyfryzacjatofrajda  
+My już jesteśmy częścią cyfryzacji, a Ty? Przetestuj [coi.gov.pl](https://www.coi.gov.pl/).`,
+          www: 'https://www.coi.gov.pl/',
+          type: 'silver',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/coi.svg'),
+
+        },{
+          id: 'sml',
+          name: 'SoftwareMill',
+          description: `SoftwareMill is a consulting & custom software development company, delivering services remotely, worldwide for 10 years. Being experts in Scala (Akka, Play, Spark), Java, Kotlin we specialize in distributed, big data systems, blockchain, machine learning, IoT, and data analytics. 
+
+Our focus on quality, self-improvement and a true engineering approach results in systems that do their job, bring value to clients, help them scale and grow.`,
+          www: 'https://softwaremill.com/',
+          type: 'silver',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/sml.svg'),
+
+        },{
+          id: 'netcompany',
+          name: 'netcompany',
+          description: `Netcompany has gone from being a small start-up in 2000 to more than 2000 skilled IT consultants and developers located in offices in Poland, Denmark, Norway, the United Kingdom and Vietnam. Over 240 of our employees is located at our office in Warsaw. Currently we’re conducting over 160 various projects for the biggest private companies as well as for public sector entities from Denmark, Norway and United Kingdom – world’s leaders of information and communication technologies usage. At Netcompany we rely on one another and we develop quickly. We are team players
+ 
+IT people leading IT people  
+That is the core of Netcompany's decentralized management model. From top to bottom, our organization consists of IT professionals with extensive expertise. We understand that our employees are the key to maintaining our position as the most skilled and fastest growing IT consulting firm. That is why we have created a business model where we constantly focus on developing our employees to becoming the best in the industry. Currently we are looking for talented Java Developers for our Polish office that will help us achieve our goals and continuous growth. You can become a part of exciting projects working closely together with your Polish, Danish and Norwegian colleagues.`,
+          www: 'https://www.netcompany.com/pl',
+          type: 'gold',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/netcompany.svg'),
+
+        },{
+          id: 'sages',
+          name: 'Sages',
+          description: `Sages sp. z o.o. jest firmą szkoleniową i doradczą działającą od 10 lat w branży IT. Misją firmy jest wspieranie procesu projektowania, wytwarzania i wdrażania oprogramowania w przedsiębiorstwach i instytucjach publicznych, aby zminimalizować koszty, czas i ryzyko, związane z tymi przedsięwzięciami. Naszym celem jest łączenie wiedzy pochodzącej ze środowisk akademickich i doświadczenia ekspertów z obszaru praktycznych zastosowań w biznesie, aby budować kompetencje kadr w Polsce, a w szczególności przyczynić się do wzrostu efektywności i innowacyjności krajowej branży IT. 
+
+Specjalizuje się w prowadzeniu szkoleń i kursów technologicznych, których cechą wspólną jest warsztatowa formuła zajęć koncentrująca się na przekazaniu praktycznych umiejętności uczestnikom. Współpracuje także z uczelniami wyższymi wspierając realizację zaawansowanych przedmiotów programistycznych, a także prowadząc studia podyplomowe (Politechnika Warszawska, Akademia Leona Koźmińskiego w Warszawie). Ponadto jest stałym organizatorem eventów branżowych dla profesjonalistów IT w ramach inicjatywy Stacja IT. 
+
+Podczas tegorocznej edycji Confitury firma Sages jest oficjalnym opiekunem ścieżki Big Data & AI.`,
+          www: 'http://www.sages.com.pl',
+          type: 'path',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/sages.svg'),
+
+        },{
+          id: 'circleK',
+          name: 'Circle K',
+          description: `You´ve probably already met us. Maybe you´ve stopped by for a coffee, fueled up your car or grabbed something to eat on the go. Then you know what Circle K is all about. Making everyday life easier for people all over the world.
+
+We´ve grown into a successful global company with over 15.000 stores in 24 countries, serving more than 6 million customers each day. In all, we have more than 120.000 people working at our stores and support offices.
+
+In Circle K Business Centre, in Warszawa, which is part of our SSC structures, we provide IT services for Circle K in Europe, US and Canada. We have different functions here: Service Desk, Infrastructure, Network Operations, Development but what we have in common is the fact that no matter what we do, we understand the world we live in. We can see how fast it changes and how fascinating this can be. Curiosity and openness drives us towards new ideas, innovations, new technologies.
+
+Circle K is growing a team full of passionate, open-minded people with creative energy to handle our custom built products in the digital area.`,
+          www: 'https://circlekeurope.com/',
+          type: 'silver',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/circleK.svg'),
+
+        },{
+          id: 'spartez',
+          name: 'Spartez',
+          description: `We at Spartez, are known for our experts, our partnership with Atlassian and our world-class products. We are growing exponentially and looking for talented, experienced and passionate professionals to join our team.
+
+If you are someone or you know someone who loves to take on challenges, work independently and make an impact, then read on!
+
+Spartez is a Gold Solution Partner of Atlassian. Our world-class products include Agile Cards for Jira, Agile Poker for Jira, Canned Responses Pro for Jira, Asset Tracker for Jira and TFS4JIRA amongst others. We are a truly international team with over 170 employees from over 11 countries who live and work mostly out of Gdansk. We believe that happy Spartans means happy customers and thus offer some of the best employee benefits and facilities in the region. We have some of the brightest minds working for us, an awesome office and a very low attrition rate. Like we said, once you are a Spartan, you never want to be anything else.
+
+Our company is deeply rooted in a few important values and principles - just a few, simple and meaningful rules: 
+
+\\# Don't Fuck The Customer
+
+\\# Be The Change You Seek
+
+\\# Open Company - No Bullshit
+
+\\# Great Place to Work
+
+\\# Simplicity`,
+          www: 'https://spartez.com/',
+          type: 'silver',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/spartez.svg'),
+
+        },{
+          id: 'touk',
+          name: 'Touk',
+          description: `Since 2002 we have been developing custom software. We offer creative solutions to customers' problems, implementing the riskiest projects. We outstrip the competition through the better use of technology and deep understanding of customers' needs.
+
+TouK is built by developers and for developers. We are professional, versatile and agile. If you start your professional journey at TouK, you are on a fast track to becoming very good at your job.
+
+Our recent projects include stream processing for marketing and fraud detection, content delivery network for vod operators, financial applications for top-ups and payments, GDPR support for large entities.
+
+We are looking for experienced developers and CS students.
+
+[https://touk.pl](https://touk.pl)
+
+[https://touk.pl/blog](https://touk.pl/blog)`,
+          www: 'https://touk.pl',
+          type: 'silver',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/touk.svg'),
+
+        },{
+          id: 'goldman-sachs',
+          name: 'Goldman Sachs',
+          description: `Working together, we see the potential in the world to create more. To turn big ideas into realities. To challenge ourselves to look ahead and make things possible. From automated trading to managing data, risk analysis to safeguarding information and promoting environmental responsibility, our commitment to best-in-class technology empowers everything we do.
+ 
+The Goldman Sachs Group, Inc. is a leading global investment banking, securities and investment management firm that provides a wide range of financial services to a substantial and diversified client base that includes corporations, financial institutions, governments and individuals. Founded in 1869, the firm is headquartered in New York and maintains offices in all major financial centers around the world.
+ 
+Make things possible at [goldmansachs.com/careers](https://www.goldmansachs.com/careers/)`,
+          www: 'https://www.goldmansachs.com/careers/',
+          type: 'gold',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/gs.svg'),
+        },{
+          id: 'rtb-house',
+          name: 'RTB House',
+          description: `[RTB House](https://www.rtbhouse.com/) is a global company that provides state-of-the-art retargeting technology for top brands worldwide. Its proprietary ad buying engine is the first and only in the world to be powered entirely by deep learning algorithms, enabling advertisers to generate outstanding results and reach their short, mid and long-term goals.
+
+Founded in 2012, RTB House serves over a thousand campaigns across EMEA, APAC and the Americas regions with main locations in New York, London, Tokyo, Singapore, São Paulo, Moscow, Istanbul, Dubai and Warsaw.`,
+          www: 'https://www.rtbhouse.com/',
+          type: 'gold',
+          orientation: 'horizontal',
+          logo: require('../assets/partners/rtb.svg'),
+        },{
+          id: 'it-kontrakt',
+          name: 'IT Kontrakt',
+          description: `IT Kontrakt powstał w 2004 jako jedna z pierwszych w Polsce spółek wdrażających rozwiązania i usługi IT dla biznesu oraz kompleksowe wsparcie w budowaniu systemów informatycznych. Firma jest liderem w obszarze Managed Services, Nearshore/Offshore, Information Technology Outsourcing. Posiada siedem oddziałów w Polsce, a także oddział w Kuala Lumpur w Malezji, biuro handlowe w USA oraz własne Software Delivery Centers w pięciu lokalizacjach. Do portfolio klientów należą firmy głównie z branż: farmacja, automotive, finanse, IT i telekomunikacja.
+
+IT Kontrakt, w ramach inwestycji Oaktree Capital Management i Cornerstone Partners, realizuje budowę „IT Services Competence Platform”. Projekt opiera się na intensywnym programie Mergers & Acquisitions i szybkim wzroście organicznym spółek. Celem inwestycji jest stworzenie globalnej organizacji oferującej kompetencje, ekspertyzę i rozwiązania softwarowe dla korporacji międzynarodowych oraz klientów ze Skandynawii, krajów regionu DACH, UK i USA, i ich obsługa przez własne centra delivery zlokalizowane w krajach regionu CEE oraz Azji. Zatrudnienie w Grupie sięga blisko 2.400 inżynierów.`,
+          www: 'https://www.itkontrakt.com/',
+          type: 'silver',
+          logo: require('../assets/partners/it-kontrakt.svg'),
+        },{
+          id: 'fis',
+          name: 'FIS',
+          description: `FIS is the world’s largest provider of banking and payments technology solutions and a global leader in consulting and outsourcing solutions. With a long history deeply rooted in the financial services sector, FIS serves more than 14,000 institutions in over 130 countries. Headquartered in Jacksonville, Fla., FIS employs more than 55,000 people worldwide and holds leadership positions in payment processing and banking solutions, providing software, services and outsourcing of the technology that drives financial institutions. In October 2014 FIS completed acquisition of Brussels-based Clear2Pay. The transaction brings new corporate payment solutions and services, inclusive of high-value and cross-currency corporate payments, payments managed services, and payments processing utilities that will further bolster FIS’ payments portfolio across all geographies. Clear2Pay is now an FIS company.`,
+          www: 'https://www.fisglobal.com/',
+          type: 'gold',
+          logo: require('../assets/partners/fis.svg'),
+          orientation: 'horizontal',
         },
 
       ];

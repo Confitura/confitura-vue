@@ -16,6 +16,7 @@ import Users from '@/views/admin/Users.vue';
 import Presentations from '@/views/admin/Presentations.vue';
 import Workshops from '@/views/Workshops.vue';
 import Vote4Papers from '@/views/Vote4Papers.vue';
+import RegistrationInfoPage from '@/views/RegistrationInfoPage.vue';
 import ParticipatePage from '@/views/participant/ParticipatePage.vue';
 import ParticipantPage from '@/views/participant/ParticipantPage.vue';
 
@@ -99,6 +100,10 @@ const router = new Router({
       path: '/v4p',
       name: 'v4p',
       component: Vote4Papers,
+    },    {
+      path: '/tickets',
+      name: 'tickets',
+      component: RegistrationInfoPage,
     },
     {
       path: '/participate',
