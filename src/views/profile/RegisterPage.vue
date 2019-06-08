@@ -90,7 +90,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { LOAD_PROFILE_BY_ID } from '@/store/store.user-profile';
 import Box from '@/components/Box.vue';
 import TheContact from '@/components/TheContact.vue';
-import { User, UserProfile } from '@/types';
+import { User, UserProfile, PARTICIPATION_ID, Participant } from '@/types';
 import M from 'materialize-css';
 import axios from 'axios';
 import PageHeader from '@/components/PageHeader.vue';
@@ -117,6 +117,9 @@ export default class RegisterPage extends Vue {
       .then(() => {
         this.profile = this.$store.state.userProfile.currentProfile;
         setTimeout(() => M.textareaAutoResize(this.$refs.bio));
+        if (localStorage.getItem(PARTICIPATION_ID)) {
+          this.suggestDataFromParticipant();
+        }
       });
   }
 
@@ -131,7 +134,7 @@ export default class RegisterPage extends Vue {
         .post<any>('/api/users', this.profile)
         .then((it) => {
           if (this.profile && this.profile.id) {
-            this.$router.push('/profile/byId/' + this.profile.id);
+            this.$router.push('/profile/' + this.profile.id);
           } else {
             this.$router.push('/profile');
           }
@@ -139,6 +142,19 @@ export default class RegisterPage extends Vue {
         })
         .catch((error: any) => this.uploadFailed(error));
     }
+  }
+
+  private suggestDataFromParticipant() {
+    const participationId = localStorage.getItem(PARTICIPATION_ID);
+    axios.get<Participant>(`/api/participants/${participationId}`)
+      .then((it) => {
+        const name = (it.data.firstName || '') + ' ' + (it.data.lastName || '');
+        if (this.profile) {
+          this.profile.name = name;
+          this.profile.email = it.data.email || '';
+          this.profile.participationDataId = participationId;
+        }
+      });
   }
 
   private loadProfile() {

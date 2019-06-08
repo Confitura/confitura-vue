@@ -18,6 +18,7 @@ export const TOKEN = 'TOKEN';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const REMOVE_PRESENTATION = 'REMOVE_PRESENTATION';
+export const PARTICIPATION_ID = 'participationId';
 
 export interface User {
   sub: string;
@@ -55,6 +56,7 @@ export interface UserProfile {
   volunteer?: boolean;
   speaker?: boolean;
   privacyPolicyAccepted?: boolean;
+  participationDataId?: string;
   // presentations: Presentation[];
 }
 

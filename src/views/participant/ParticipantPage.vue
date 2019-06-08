@@ -4,8 +4,9 @@
         <Box :full="false" class="content " color="white">
             <div v-if="participant">
                 <p>
-                    You are all setup to come to conference!
-                    Create account and you will be able to create personal agenda and also rate presentation after
+                    Congrats {{participant.firstName}} {{participant.lastName}} !!! <br/>
+                    You are all setup to come to conference! <br/>
+                    Create account and you will be able to create personal agenda and also rate presentation after <br/>
                     seeing them :)
                 </p>
                 <p>
@@ -22,31 +23,31 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
-  import Box from '@/components/Box.vue';
-  import TheContact from '@/components/TheContact.vue';
-  import axios from 'axios';
-  import PageHeader from '@/components/PageHeader.vue';
-  import { Participant } from '@/types';
+import { Component, Vue } from 'vue-property-decorator';
+import Box from '@/components/Box.vue';
+import TheContact from '@/components/TheContact.vue';
+import axios from 'axios';
+import PageHeader from '@/components/PageHeader.vue';
+import { Participant, PARTICIPATION_ID } from '@/types';
 
-  @Component({
-    components: { PageHeader, Box, TheContact },
-  })
-  export default class ParticipantPage extends Vue {
+@Component({
+  components: { PageHeader, Box, TheContact },
+})
+export default class ParticipantPage extends Vue {
 
-    public participant: Participant | null = null;
-    public qrcode: string = "";
+  public participant: Participant | null = null;
+  public qrcode: string = '';
 
-    public mounted() {
-      const { id } = this.$route.params;
-      axios.get<Participant>(`/api/participants/${id}`)
-        .then(it => {
-          this.participant = it.data;
-          this.qrcode = `/api/participants/${this.participant.id}/ticket`;
-        })
-    }
+  public mounted() {
+    const { id } = this.$route.params;
+    axios.get<Participant>(`/api/participants/${id}`)
+      .then((it) => {
+        localStorage.setItem(PARTICIPATION_ID, id);
+        this.participant = it.data;
+        this.qrcode = `/api/participants/${this.participant.id}/ticket`;
+      });
   }
-
+}
 </script>
 
 <style lang="scss" scoped>

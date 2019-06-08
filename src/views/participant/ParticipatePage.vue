@@ -169,83 +169,81 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
-  import Box from '@/components/Box.vue';
-  import TheContact from '@/components/TheContact.vue';
-  import M from 'materialize-css';
-  import axios from 'axios';
-  import PageHeader from '@/components/PageHeader.vue';
-  import { RegistrationForm, Participant } from '@/types';
-  import { validEmail } from '@/validation-utils';
-  import { RawLocation } from "vue-router";
+import { Component, Vue } from 'vue-property-decorator';
+import Box from '@/components/Box.vue';
+import TheContact from '@/components/TheContact.vue';
+import M from 'materialize-css';
+import axios from 'axios';
+import PageHeader from '@/components/PageHeader.vue';
+import { RegistrationForm, Participant } from '@/types';
+import { validEmail } from '@/validation-utils';
 
-  @Component({
-    components: { PageHeader, Box, TheContact },
-  })
-  export default class ParticipatePage extends Vue {
-    public form: RegistrationForm | null = null;
-    public errors: any = {};
+@Component({
+  components: { PageHeader, Box, TheContact },
+})
+export default class ParticipatePage extends Vue {
+  public form: RegistrationForm | null = null;
+  public errors: any = {};
 
-    public mounted() {
-      M.AutoInit();
-      const { voucher } = this.$route.query;
-      axios.get(`/api/vouchers/${voucher}/check`).then(value => {
-        this.form = { voucher: { id: <string>voucher } };
+  public mounted() {
+    M.AutoInit();
+    const { voucher } = this.$route.query;
+    axios.get(`/api/vouchers/${voucher}/check`).then((value) => {
+      this.form = { voucher: { id: voucher as string } };
 
-        setTimeout(() => {
-          M.updateTextFields();
-          M.FormSelect.init(document.querySelectorAll('select'))
-        });
-      }, reason => {
-        this.errors = { voucher: [reason.response.data] };
+      setTimeout(() => {
+        M.updateTextFields();
+        M.FormSelect.init(document.querySelectorAll('select'));
       });
-    }
+    }, (reason) => {
+      this.errors = { voucher: [reason.response.data] };
+    });
+  }
 
-    public updated() {
-      M.updateTextFields();
-    }
+  public updated() {
+    M.updateTextFields();
+  }
 
-    public save(event: Event) {
-      event.preventDefault();
-      if (this.validate()) {
-        // do save
-        axios.post<Participant>("/api/participants", this.form)
-          .then(it => {
-            let id: string = <string>it.data.id;
-            this.$router.push({ name: 'participant', params: { id: id } })
-          })
-      }
-    }
-
-
-    private validate() {
-      const errors: any = {};
-      if (this.form == null) {
-        return false;
-      }
-      let valid = true;
-
-      if (!this.form.email || !validEmail(this.form.email)) {
-        errors.email = ['invalid email'];
-        valid = false;
-      }
-      if (!this.form.firstName) {
-        errors.name = ['Name is required'];
-        valid = false;
-      }
-      if (!this.form.lastName) {
-        errors.name = ['Last name is required'];
-        valid = false;
-      }
-      if (!this.form.privacyPolicyAccepted) {
-        errors.privacyPolicyAccepted = ['Agreeing to our policy is required'];
-        valid = false;
-      }
-      this.errors = errors;
-      return valid;
+  public save(event: Event) {
+    event.preventDefault();
+    if (this.validate()) {
+      // do save
+      axios.post<Participant>('/api/participants', this.form)
+        .then((it) => {
+          const id: string = it.data.id as string;
+          this.$router.push({ name: 'participant', params: { id } });
+        });
     }
   }
 
+
+  private validate() {
+    const errors: any = {};
+    if (this.form == null) {
+      return false;
+    }
+    let valid = true;
+
+    if (!this.form.email || !validEmail(this.form.email)) {
+      errors.email = ['invalid email'];
+      valid = false;
+    }
+    if (!this.form.firstName) {
+      errors.name = ['Name is required'];
+      valid = false;
+    }
+    if (!this.form.lastName) {
+      errors.name = ['Last name is required'];
+      valid = false;
+    }
+    if (!this.form.privacyPolicyAccepted) {
+      errors.privacyPolicyAccepted = ['Agreeing to our policy is required'];
+      valid = false;
+    }
+    this.errors = errors;
+    return valid;
+  }
+}
 </script>
 
 <style lang="scss" scoped>

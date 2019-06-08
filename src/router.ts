@@ -17,7 +17,7 @@ import Presentations from '@/views/admin/Presentations.vue';
 import Workshops from '@/views/Workshops.vue';
 import Vote4Papers from '@/views/Vote4Papers.vue';
 import ParticipatePage from '@/views/participant/ParticipatePage.vue';
-import ParticipantPage from "@/views/participant/ParticipantPage.vue";
+import ParticipantPage from '@/views/participant/ParticipantPage.vue';
 
 Vue.use(Router);
 Vue.use(VueScrollTo, {
