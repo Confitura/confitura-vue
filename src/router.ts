@@ -19,6 +19,9 @@ import Vote4Papers from '@/views/Vote4Papers.vue';
 import RegistrationInfoPage from '@/views/RegistrationInfoPage.vue';
 import ParticipatePage from '@/views/participant/ParticipatePage.vue';
 import ParticipantPage from '@/views/participant/ParticipantPage.vue';
+import Speakers from '@/views/Speakers.vue';
+import Speaker from '@/views/Speaker.vue';
+import AcceptedPresentations from '@/views/AcceptedPresentations.vue';
 
 Vue.use(Router);
 Vue.use(VueScrollTo, {
@@ -100,7 +103,8 @@ const router = new Router({
       path: '/v4p',
       name: 'v4p',
       component: Vote4Papers,
-    },    {
+    },
+    {
       path: '/tickets',
       name: 'tickets',
       component: RegistrationInfoPage,
@@ -115,10 +119,27 @@ const router = new Router({
       name: 'participant',
       component: ParticipantPage,
     },
+    {
+      path: '/speakers',
+      name: 'speakers',
+      component: Speakers,
+    }, {
+      path: '/speakers/:id',
+      name: 'speaker',
+      component: Speaker,
+    }, {
+      path: '/presentations',
+      name: 'presentations',
+      component: AcceptedPresentations,
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
       return VueScrollTo.scrollTo(to.hash, 500);
+    } else if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { x: 0, y: 0 };
     }
   },
 
@@ -127,8 +148,7 @@ router.beforeEach((to, from, next) => {
   const isSessionActive = store.getters.isLogin;
   const accessingProtectedResource = ['/register', '/profile', '/presentation'].includes(to.path);
   if (accessingProtectedResource && !isSessionActive) {
-    // next('login');
-    next();
+    next('login');
   } else {
     next();
   }

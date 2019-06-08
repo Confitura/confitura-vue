@@ -40,7 +40,7 @@ export interface Partner {
 }
 
 export interface EmbeddedUserProfiles {
-  _embedded: { users: UserProfile[] };
+  _embedded: { users: UserProfile[], publicUsers: UserProfile[] };
 }
 
 export interface UserProfile {
@@ -78,6 +78,7 @@ export interface Presentation {
   shortDescription: string;
   description: string;
   status?: string;
+  workshop: boolean;
 }
 
 export interface Tag {
