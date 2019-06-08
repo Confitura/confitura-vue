@@ -138,15 +138,19 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
-  import { LOAD_PROFILE_BY_ID, LOAD_PROFILE_PRESENTATIONS_BY_ID , LOAD_PROFILE_PARTICIPATION_BY_ID} from '@/store/store.user-profile';
-  import Box from '@/components/Box.vue';
-  import TheContact from '@/components/TheContact.vue';
-  import { EmbeddedPresentations, Presentation, REMOVE_PRESENTATION, UserProfile } from '@/types';
-  import axios, { AxiosError } from 'axios';
-  import PageHeader from '@/components/PageHeader.vue';
-  import Toasted from 'vue-toasted';
-  import M from 'materialize-css';
+import { Component, Vue } from 'vue-property-decorator';
+import {
+  LOAD_PROFILE_BY_ID,
+  LOAD_PROFILE_PRESENTATIONS_BY_ID,
+  LOAD_PROFILE_PARTICIPATION_BY_ID,
+} from '@/store/store.user-profile';
+import Box from '@/components/Box.vue';
+import TheContact from '@/components/TheContact.vue';
+import { Presentation, REMOVE_PRESENTATION, UserProfile, PARTICIPATION_ID } from '@/types';
+import axios, { AxiosError } from 'axios';
+import PageHeader from '@/components/PageHeader.vue';
+import Toasted from 'vue-toasted';
+import M from 'materialize-css';
 
 Vue.use(Toasted);
 
