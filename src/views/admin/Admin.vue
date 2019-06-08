@@ -15,6 +15,9 @@
                             </router-link>
                             <span class="new badge">{{presentationCount}}</span>
                         </div>
+                        <div class="admin__menu-item">
+                            <a href="/console">Old Version</a>
+                        </div>
                     </div>
                 </div>
 

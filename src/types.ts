@@ -93,3 +93,8 @@ export interface Vote {
   id: string;
   order: number;
 }
+
+export interface Like {
+  id: string;
+  presentationId: string;
+}
