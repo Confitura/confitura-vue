@@ -56,7 +56,7 @@ export interface UserProfile {
   volunteer?: boolean;
   speaker?: boolean;
   privacyPolicyAccepted?: boolean;
-  participationDataId?: string;
+  participationDataId?: string | null;
   // presentations: Presentation[];
 }
 
