@@ -28,6 +28,7 @@
     "v-hotkey": "^0.4.0",
     "vue": "^2.6.8",
     "vue-class-component": "^7.0.1",
+    "vue-material": "^1.0.0-beta-11",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.1",
     "vue-scrollto": "^2.13.0",
