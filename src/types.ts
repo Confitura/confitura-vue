@@ -93,3 +93,15 @@ export interface Vote {
   id: string;
   order: number;
 }
+
+export interface Voucher {
+  id: string;
+  originalBuyer: string;
+  comment: string;
+  emailSent: boolean;
+  type: string;
+  createdBy: string;
+  createdDate: string;
+  lastModifiedBy: string;
+  lastModifiedDate: string;
+}

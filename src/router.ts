@@ -20,6 +20,7 @@ import RegistrationInfoPage from '@/views/RegistrationInfoPage.vue';
 import Speakers from '@/views/Speakers.vue';
 import Speaker from '@/views/Speaker.vue';
 import AcceptedPresentations from '@/views/AcceptedPresentations.vue';
+import Vouchers from '@/views/admin/Vouchers.vue';
 
 Vue.use(Router);
 Vue.use(VueScrollTo, {
@@ -90,6 +91,7 @@ const router = new Router({
       children: [
         { path: 'users', component: Users },
         { path: 'presentations', component: Presentations },
+        { path: 'vouchers', component: Vouchers },
       ],
     },
     {
