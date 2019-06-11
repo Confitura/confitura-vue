@@ -223,23 +223,6 @@
         line-height: 2.7rem;
     }
 
-    .tshirtCut__label {
-        padding-left: 0.75rem;
-        font-size: 1rem;
-    }
-
-    .tshirtCut__select {
-        display: flex;
-    }
-
-    .tshirtCut__selectItem {
-        flex-basis: 50%;
-    }
-
-    .tshirtSize__label {
-
-    }
-
     .participate__statisticsInfo {
         font-size: 1.2rem;
         line-height: 1.4rem;
