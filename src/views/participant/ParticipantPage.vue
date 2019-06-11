@@ -5,20 +5,26 @@
             <div v-if="participant" class="confirmation">
                 <h2 class="header">Success!</h2>
                 <div class="message">
+                    <h4>
+                        Congrats {{participant.firstName}} {{participant.lastName}} !!!
+                    </h4>
+                    <p>You are all setup to come to Confitura 2019!</p>
+                    <p>Want to get a maximum from Confitura experience? If you sign up into our system,
+                        you will be able to  create personal agenda, and rate presentations as you hear them!</p>
                     <p>
-                        Congrats {{participant.firstName}} {{participant.lastName}} !!! <br/>
-                        You are all setup to come to Confitura 2019!
-                    </p>
-                    <p>Please consider create an account and you will be able to create personal agenda and also rate presentation during the conference.
                     Click <router-link to="/login">here</router-link> to do so.</p>
                     <p>
-                        Here is your ticket. Show it at the registration desk and enjoy the conference!
-                        <img :src="qrcode" alt="b0999fbb-408c-4442-93fb-5b81e8a3265a"
-                             v-if="qrcode"/>
+                        Here is your ticket. Show it at the registration desk and enjoy the conference! You can save current URL in your browser to return to that page any time.
+                        But don't worry if you don't do that - our small helpers are just preparing an email for you that will include your qr-code as well.
+                        If you dont get that e-mail in few minutes then it means that they did very poor job. It's not us - it's them, but still - sorry!<br/>
+                        Before contacting us, please make sure that our e-mail did not end up in spam, or any other folder. <br/>
+                        Please also make sure that the e-mail address that you have registered ({{participant.email}}) is the correct one,
                     </p>
-                    <p>
-                        You will also receive it on your email address so don't worry if you loose this address :)
-                    </p></div>
+
+                    <div class="barCode">
+                        <img :src="qrcode" alt="b0999fbb-408c-4442-93fb-5b81e8a3265a" v-if="qrcode"/>
+                    </div>
+                </div>
             </div>
         </Box>
     </div>
@@ -78,8 +84,10 @@
         flex-basis: 50%;
         font-size: 1.3rem;
         line-height: 1.5rem;
+    }
 
-
+    .barCode {
+        text-align: center;
     }
 
 </style>
