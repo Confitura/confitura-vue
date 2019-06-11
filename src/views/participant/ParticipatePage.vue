@@ -38,7 +38,7 @@
                         </div>
                         <div class="row">
                             <md-field :class="{'md-invalid': errors.has('t-shirt cut')}">
-                                <label for="t-shirt-cut">t-shirt size</label>
+                                <label for="t-shirt-cut">t-shirt cut</label>
                                 <md-select v-model="form.gender" name="t-shirt cut" id="t-shirt-cut" required
                                            v-validate="'required'">
                                     <md-option value="m">male</md-option>
