@@ -2,12 +2,14 @@
     <div class="particiate">
         <PageHeader title="Registration" type="peace"></PageHeader>
         <Box class="content " color="white" :full="false">
-            <p v-if="!form" class="fatalError">
-                <strong>Unable to register as participant: </strong>
-                <span v-if="loadError === 'INVALID'">invalid voucher</span>
-                <span v-if="loadError === 'TAKEN'">voucher already used</span>
-                <span v-else>unknown error {{loadError}}</span>
-            </p>
+            <div v-if="!form">
+                <h2 class="error__header">Ups.... something is wrong...</h2>
+                <p class="error__message">
+                    <span v-if="loadError === 'INVALID'">We cannot find this voucher. Please make sure that the URL is correct.</span>
+                    <span v-else-if="loadError === 'TAKEN'">Looks like this voucher is already registered. We cannot tell you by whom (GDPR and stuff...) so please make sure if you are using correct link</span>
+                    <span v-else>But we dont know what... don't worry, it's not you - it's us. Try one more time (or maybe even 3) - if it doesn't help then contact us!</span>
+                </p>
+            </div>
             <div v-else>
                 <h4 class="participate__info">All fields required</h4>
                 <h2 class="participate__title">Personal information</h2>
@@ -247,9 +249,16 @@
         color: #ff1744;
         font-size: 12px;
     }
-    .fatalError {
-        color: #ff1744;
 
+    .error__header {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #ff1744;
+    }
+
+    .error__message {
+        font-size: 1.2rem;
+        padding-left: 4rem;
     }
 
 
