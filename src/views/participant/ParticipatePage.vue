@@ -10,7 +10,7 @@
                     <span v-else>But we dont know what... don't worry, it's not you - it's us. Try one more time (or maybe even 3) - if it doesn't help then contact us!</span>
                 </p>
             </div>
-            <div v-else>
+            <div>
                 <h4 class="participate__info">All fields required</h4>
                 <h2 class="participate__title">Personal information</h2>
                 <div class="row">
@@ -18,14 +18,19 @@
                         <div class="row">
                             <md-field :class="{'md-invalid': errors.has('firstName')}">
                                 <label>first name</label>
-                                <md-input v-model="form.firstName" required v-validate="'required'" name="firstName"></md-input>
+                                <md-input
+                                        v-model="form.firstName"
+                                        required v-validate="'required'"
+                                        name="firstName"
+                                        maxlength="100"></md-input>
                                 <span class="md-error">{{ errors.first('firstName') }}</span>
                             </md-field>
                         </div>
                         <div class="row">
                             <md-field :class="{'md-invalid': errors.has('last name')}">
                                 <label>last name</label>
-                                <md-input v-model="form.lastName" required v-validate="'required'" name="last name"></md-input>
+                                <md-input v-model="form.lastName" required v-validate="'required'" name="last name"
+                                          maxlength="100"></md-input>
                                 <span class="md-error">{{ errors.first('last name') }}</span>
                             </md-field>
                         </div>
@@ -33,7 +38,7 @@
                             <md-field :class="{'md-invalid': errors.has('e-mail address')}">
                                 <label>e-mail address</label>
                                 <md-input type="email" v-model="form.email" required v-validate="'required|email'"
-                                          name="e-mail address"></md-input>
+                                          name="e-mail address" maxlength="100"></md-input>
                                 <span class="md-error">{{ errors.first('e-mail address') }}</span>
 
                             </md-field>
@@ -101,7 +106,7 @@
                         </div>
                         <div class="row">
                             <md-field :class="{'md-invalid': errors.has('experience')}">
-                                <label for="experience">experience</label>
+                                <label for="experience">your experience</label>
                                 <md-select v-model="form.experience" name="experience" id="experience" required
                                            v-validate="'required'">
                                     <md-option value="I am just learning">I am just learning</md-option>
@@ -116,7 +121,7 @@
                         </div>
                         <div class="row">
                             <md-field :class="{'md-invalid': errors.has('experience')}">
-                                <label for="role">role</label>
+                                <label for="role">your role</label>
                                 <md-select v-model="form.role" name="role" id="role" required
                                            v-validate="'required'">
                                     <md-option value="student">Student</md-option>
@@ -139,7 +144,7 @@
                             <div class="error" v-if="errors.has('privacy policy')">Privacy Policy has to be accepted</div>
                         </div>
                         <div class="row">
-                            <md-button type="submit" class="md-raised md-accent">Save</md-button>
+                            <md-button type="submit" class="md-raised md-accent" :disabled="savingInProgress">Save</md-button>
                         </div>
                     </form>
                 </div>
@@ -171,6 +176,7 @@
   export default class ParticipatePage extends Vue {
     public form: RegistrationForm | null = null;
     public loadError: string = '';
+    public savingInProgress = false;
 
     public mounted() {
       const { voucher } = this.$route.query;
@@ -187,11 +193,13 @@
       event.preventDefault();
       const isValid = await this.$validator.validate();
       if (isValid) {
+        this.savingInProgress = true;
         axios.post<Participant>('/api/participants', this.form)
           .then((it) => {
             const id: string = it.data.id as string;
             this.$router.push({ name: 'participant', params: { id } });
-          });
+          })
+          .finally(() => this.savingInProgress = false);
       }
     }
   }
