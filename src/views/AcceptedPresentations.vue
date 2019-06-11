@@ -19,6 +19,9 @@
             <div class="presentation__description">
                 {{presentation.description}}
             </div>
+            <div>
+                <LikeButton :presentationId="presentation.id"></LikeButton>
+            </div>
         </Box>
 
         <TheContact id="contact"/>
@@ -33,13 +36,16 @@
   import { LOAD_ACCEPTED_PRESENTATIONS } from '@/store/admin';
   import PresentationSpeakers from '@/components/PresentationSpeakers.vue';
   import PresentationMetadata from '@/components/PresentationMetadata.vue';
+  import { LOAD_LIKES } from '@/store/vote4papers';
+  import LikeButton from '@/components/LikeButton.vue';
 
   @Component({
-    components: { PresentationMetadata, PresentationSpeakers, PageHeader, Box, TheContact },
+    components: { PresentationMetadata, PresentationSpeakers, PageHeader, Box, TheContact, LikeButton },
   })
   export default class AcceptedPresentations extends Vue {
     public mounted() {
       this.$store.dispatch(LOAD_ACCEPTED_PRESENTATIONS);
+      this.$store.dispatch(LOAD_LIKES);
     }
 
 
