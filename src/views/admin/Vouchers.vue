@@ -76,50 +76,50 @@
 
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
-  import { Voucher } from '@/types';
-  import axios from 'axios';
-  import { LOAD_VOUCHERS } from '@/store/admin';
+import { Component, Vue } from 'vue-property-decorator';
+import { Voucher } from '@/types';
+import axios from 'axios';
+import { LOAD_VOUCHERS } from '@/store/admin';
 
-  @Component({
-    components: {},
-  })
-  export default class Vouchers extends Vue {
+@Component({
+  components: {},
+})
+export default class Vouchers extends Vue {
 
-    email: string | null = null;
-    comment: string | null = null;
-    sponsorVouchers: number = 0;
-    participantVouchers: number = 0;
+  public email: string | null = null;
+  public comment: string | null = null;
+  public sponsorVouchers: number = 0;
+  public participantVouchers: number = 0;
 
-    generatedVouchers: Voucher[] = [];
-    page: any;
+  public generatedVouchers: Voucher[] = [];
+  public page: any;
 
-    mounted() {
-      this.page = window.location.origin;
-    }
+  public mounted() {
+    this.page = window.location.origin;
+  }
 
-    get vouchers() {
-      return this.$store.state.admin.vouchers;
-    }
+  get vouchers() {
+    return this.$store.state.admin.vouchers;
+  }
 
-    generateVouchers() {
-      axios.post<Voucher[]>('/api/vouchers', {
-        email: this.email,
-        comment: this.comment,
-        sponsorVouchers: this.sponsorVouchers,
-        participantVouchers: this.participantVouchers,
-      })
-        .then((it) => this.generatedVouchers = it.data)
-        .then(() => this.$store.dispatch(LOAD_VOUCHERS));
-    }
-
-
+  public generateVouchers() {
+    axios.post<Voucher[]>('/api/vouchers', {
+      email: this.email,
+      comment: this.comment,
+      sponsorVouchers: this.sponsorVouchers,
+      participantVouchers: this.participantVouchers,
+    })
+      .then((it) => this.generatedVouchers = it.data)
+      .then(() => this.$store.dispatch(LOAD_VOUCHERS));
   }
 
 
-  interface GenerateVouchersRequest {
-    email: string;
-    sponsorVouchers: number;
-    participantVouchers: number;
-  }
+}
+
+
+interface GenerateVouchersRequest {
+  email: string;
+  sponsorVouchers: number;
+  participantVouchers: number;
+}
 </script>
