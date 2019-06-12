@@ -186,7 +186,7 @@ Thousands of leading companies — including Ford, Fox, Google, and Dow Jones �
           description: `Britenet to software house realizujący projekty dla międzynarodowych klientów. Firma działa na rynku od 13 lat, zatrudnia obecnie ponad 500 pracowników i ma biura w Warszawie, Poznaniu, Lublinie, Kielcach oraz Białymstoku.  
 Rozwój zawodowy idzie w parze z dobrą atmosferą, o czym świadczy tytuł Najlepsze Miejsce Pracy IT w Polsce zdobyty przez firmę aż cztery razy w badaniach Computerworld - TNS.`,
           www: 'https://britenet.com.pl',
-          type: 'silver',
+          type: 'gold',
           logo: require('../assets/partners/britenet.svg'),
           orientation: 'horizontal',
         }, {
@@ -423,7 +423,7 @@ We´ve grown into a successful global company with over 15.000 stores in 24 coun
 In Circle K Business Centre, in Warszawa, which is part of our SSC structures, we provide IT services for Circle K in Europe, US and Canada. We have different functions here: Service Desk, Infrastructure, Network Operations, Development but what we have in common is the fact that no matter what we do, we understand the world we live in. We can see how fast it changes and how fascinating this can be. Curiosity and openness drives us towards new ideas, innovations, new technologies.
 
 Circle K is growing a team full of passionate, open-minded people with creative energy to handle our custom built products in the digital area.`,
-          www: 'https://circlekeurope.com/',
+          www: 'https://business-centre-europe.circlek.com/',
           type: 'silver',
           orientation: 'horizontal',
           logo: require('../assets/partners/circleK.svg'),
