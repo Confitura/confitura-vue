@@ -22,8 +22,11 @@
                 </div>
             </div>
         </Box>
-        <Box color="white">
-
+        <Box color="white" class="no-padding">
+            <div class="volunteers__headerContainer">
+                <h3 class="volunteers__header">volunteers</h3>
+            </div>
+            <UsersGrid :users="volunteers"></UsersGrid>
         </Box>
         <TheContact id="contact"/>
     </div>
@@ -38,17 +41,23 @@
   import axios from 'axios';
   import { EmbeddedUserProfiles, UserProfile } from '@/types';
   import SocialLink from '@/components/SocialLink.vue';
+  import UsersGrid from '@/views/UsersGrid.vue';
 
   @Component({
-    components: { SocialLink, PageHeader, Box, TheContact, PageFragment },
+    components: { UsersGrid, SocialLink, PageHeader, Box, TheContact, PageFragment },
   })
   export default class About extends Vue {
     public committee: UserProfile[] = [];
+    public volunteers: UserProfile[] = [];
 
     public mounted(): void {
       axios.get<EmbeddedUserProfiles>('/api/users/search/admins')
         .then((it) => it.data._embedded.publicUsers)
-        .then((committee) => this.committee = committee);
+        .then((users) => this.committee = users);
+
+      axios.get<EmbeddedUserProfiles>('/api/users/search/admins')
+        .then((it) => it.data._embedded.publicUsers)
+        .then((users) => this.volunteers = users);
     }
   }
 
@@ -85,10 +94,11 @@
         color: #ffffff;
     }
 
-    .committee__header {
+    .committee__header, .volunteers__header {
         font-weight: bold;
         font-size: 2rem;
         margin: 2rem;
+        padding: 0;
     }
 
     .member__photo {
@@ -120,5 +130,12 @@
         margin-right: 0.7rem;
     }
 
+
+    .volunteers__headerContainer{
+        background-color: $brand;
+        display: flex;
+        color: #ffffff;
+        padding-top: 2rem;
+    }
 </style>
 
