@@ -525,7 +525,6 @@ IT Kontrakt, w ramach inwestycji Oaktree Capital Management i Cornerstone Partne
 
 function shuffle<T>(array: T[]): T[] {
   return array.sort(() => 0.5 - Math.random());
-
 }
 
 export interface PartnersState {

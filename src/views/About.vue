@@ -28,6 +28,17 @@
             </div>
             <UsersGrid :users="volunteers"></UsersGrid>
         </Box>
+        <Box color="white">
+            <h3 class="bcc__header">Brain Change Continental</h3>
+            <div class="bcc">
+                <img src="../assets/bcc.png" alt="bcc" class="bcc__logo">
+                <PageFragment name="bcc" class="bcc__info"/>
+                <div class="bcc__video">
+                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/NLD0btOtFbg?controls=0" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </Box>
         <TheContact id="contact"/>
     </div>
 </template>
@@ -51,13 +62,21 @@
     public volunteers: UserProfile[] = [];
 
     public mounted(): void {
-      axios.get<EmbeddedUserProfiles>('/api/users/search/admins')
-        .then((it) => it.data._embedded.publicUsers)
+      this.fetch('admins')
         .then((users) => this.committee = users);
 
-      axios.get<EmbeddedUserProfiles>('/api/users/search/admins')
-        .then((it) => it.data._embedded.publicUsers)
+      this.fetch('volunteers')
         .then((users) => this.volunteers = users);
+    }
+
+    private fetch(type:string) {
+      return axios.get<EmbeddedUserProfiles>(`/api/users/search/${type}`)
+        .then((it) => it.data._embedded.publicUsers)
+        .then((it) => this.shuffle(it));
+    }
+
+    private  shuffle<T>(array: T[]): T[] {
+      return array.sort(() => 0.5 - Math.random());
     }
   }
 
@@ -94,7 +113,9 @@
         color: #ffffff;
     }
 
-    .committee__header, .volunteers__header {
+    .committee__header,
+    .volunteers__header,
+    .bcc__header {
         font-weight: bold;
         font-size: 2rem;
         margin: 2rem;
@@ -131,11 +152,25 @@
     }
 
 
-    .volunteers__headerContainer{
+    .volunteers__headerContainer {
         background-color: $brand;
         display: flex;
         color: #ffffff;
         padding-top: 2rem;
+    }
+
+    .bcc__header {
+        color: $brand;
+        margin: 0 0 2rem;
+    }
+
+    .bcc__logo {
+        width: 100%;
+    }
+
+    .bcc__info {
+        font-size: 1.2rem;
+        line-height: 1.4rem;
     }
 </style>
 
