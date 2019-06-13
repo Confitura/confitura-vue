@@ -95,16 +95,27 @@
     .about__info {
         display: flex;
         flex-direction: column;
+        @include md(){
+            flex-direction: row;
+        }
 
         .about__header {
             font-size: 2.5rem;
             color: $brand;
-
+            @include md(){
+                flex-basis: 50%;
+                padding-right: 2rem;
+            }
         }
 
         .about__infoContent {
             font-size: 1.2rem;
             line-height: 1.4rem;
+            @include md(){
+                flex-basis: 50%;
+                font-size: 1.8rem;
+                line-height: 2rem;
+            }
         }
     }
 
