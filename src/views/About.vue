@@ -9,15 +9,17 @@
         </Box>
         <Box color="red" class="about__committee no-padding">
             <h3 class="committee__header">organizers</h3>
-            <div class="committee__member" v-for="member in committee">
-                <img :src="member.photo" :alt="member.name" class="member__photo">
-                <div class="member__info">
-                    <div class="member__name">{{member.name}}</div>
-                    <div class="member__bio">{{member.bio}}</div>
-                    <div class="member__social">
-                        <SocialLink type="twitter" :id="member.twitter" theme="white" class="member__socialLink"></SocialLink>
-                        <SocialLink type="github" :id="member.github" theme="white" class="member__socialLink"></SocialLink>
-                        <SocialLink type="www" :id="member.www" theme="white" class="member__socialLink"></SocialLink>
+            <div class="committee__members">
+                <div class="committee__member" v-for="member in committee">
+                    <img :src="member.photo" :alt="member.name" class="member__photo">
+                    <div class="member__info">
+                        <div class="member__name">{{member.name}}</div>
+                        <div class="member__bio">{{member.bio}}</div>
+                        <div class="member__social">
+                            <SocialLink type="twitter" :id="member.twitter" theme="white" class="member__socialLink"></SocialLink>
+                            <SocialLink type="github" :id="member.github" theme="white" class="member__socialLink"></SocialLink>
+                            <SocialLink type="www" :id="member.www" theme="white" class="member__socialLink"></SocialLink>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,13 +71,13 @@
         .then((users) => this.volunteers = users);
     }
 
-    private fetch(type:string) {
+    private fetch(type: string) {
       return axios.get<EmbeddedUserProfiles>(`/api/users/search/${type}`)
         .then((it) => it.data._embedded.publicUsers)
         .then((it) => this.shuffle(it));
     }
 
-    private  shuffle<T>(array: T[]): T[] {
+    private shuffle<T>(array: T[]): T[] {
       return array.sort(() => 0.5 - Math.random());
     }
   }
@@ -95,14 +97,14 @@
     .about__info {
         display: flex;
         flex-direction: column;
-        @include md(){
+        @include md() {
             flex-direction: row;
         }
 
         .about__header {
             font-size: 2.5rem;
             color: $brand;
-            @include md(){
+            @include md() {
                 flex-basis: 50%;
                 padding-right: 2rem;
             }
@@ -111,7 +113,7 @@
         .about__infoContent {
             font-size: 1.2rem;
             line-height: 1.4rem;
-            @include md(){
+            @include md() {
                 flex-basis: 50%;
                 font-size: 1.8rem;
                 line-height: 2rem;
@@ -133,14 +135,44 @@
         padding: 0;
     }
 
+    .committee__members {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        @include md() {
+            flex-direction: row;
+        }
+    }
+
+    .committee__member {
+        display: flex;
+        flex-direction: column;
+        @include md() {
+            flex-basis: 50%;
+            flex-direction: row;
+            &:nth-child(4n+3), &:nth-child(4n+4) {
+                flex-direction: row-reverse;
+            }
+            margin-bottom: 3rem;
+            /*flex-basis: 40%;*/
+        }
+    }
+
     .member__photo {
         width: 100vw;
         height: 100vw;
         object-fit: cover;
+        @include md() {
+            width: 360px;
+            height: 360px;
+        }
     }
 
     .member__info {
         padding: 1.5rem;
+        @include md() {
+            width: 360px;
+        }
     }
 
     .member__name {
