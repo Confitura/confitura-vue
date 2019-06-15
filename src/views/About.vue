@@ -11,7 +11,7 @@
             <h3 class="committee__header">organizers</h3>
             <div class="committee__members">
                 <div class="committee__member" v-for="member in committee">
-                    <img :src="member.photo" :alt="member.name" class="member__photo">
+                    <img :src="member.photo | crop(500)" :alt="member.name" class="member__photo">
                     <div class="member__info">
                         <div class="member__name">{{member.name}}</div>
                         <div class="member__bio">{{member.bio}}</div>
@@ -23,11 +23,12 @@
                     </div>
                 </div>
             </div>
-        </Box>
-        <Box color="white" class="no-padding">
             <div class="volunteers__headerContainer">
                 <h3 class="volunteers__header">volunteers</h3>
             </div>
+        </Box>
+        <Box color="white" class="no-padding">
+
             <UsersGrid :users="volunteers"></UsersGrid>
         </Box>
         <Box color="white">
@@ -136,42 +137,58 @@
     }
 
     .committee__members {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        @include md() {
-            flex-direction: row;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-row-gap: 3rem;
+        @include xl() {
+            grid-template-columns: 1fr 1fr;
         }
     }
 
     .committee__member {
-        display: flex;
-        flex-direction: column;
-        @include md() {
-            flex-basis: 50%;
-            flex-direction: row;
-            &:nth-child(4n+3), &:nth-child(4n+4) {
-                flex-direction: row-reverse;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+                "photo"
+                "info";
+        @include md-to-xl() {
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas:
+                    "photo info";
+            &:nth-child(odd){
+                grid-template-areas:
+                        "info photo";
+                text-align: end;
             }
-            margin-bottom: 3rem;
-            /*flex-basis: 40%;*/
+        }
+        @include xl() {
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas:
+                    "photo info";
+            &:nth-child(4n+3), &:nth-child(4n+4){
+                /*justify-items: ;*/
+                /*grid-auto-flow: column;*/
+                grid-template-areas:
+                        "info photo";
+                text-align: end;
+
+            }
         }
     }
 
     .member__photo {
-        width: 100vw;
-        height: 100vw;
+        width: 100%;
+        height: auto;
+        grid-area: photo;
         object-fit: cover;
-        @include md() {
-            width: 360px;
-            height: 360px;
-        }
     }
 
     .member__info {
         padding: 1.5rem;
+        width: 100%;
+        grid-area: info;
         @include md() {
-            width: 360px;
+            padding: 1rem;
         }
     }
 
@@ -182,9 +199,14 @@
     }
 
     .member__bio {
-        font-size: 1.1rem;
-        line-height: 1.3rem;
+        font-size: 1.3rem;
+        line-height: 1.5rem;
         margin-bottom: 1rem;
+        @include xl(){
+            font-size: 1rem;
+            line-height: 1.2rem;
+
+        }
 
     }
 

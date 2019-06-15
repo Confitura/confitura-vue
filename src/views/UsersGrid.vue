@@ -2,7 +2,7 @@
     <div class="usersGrid">
         <div class="user" v-for="user in users"
              @click="show(user)">
-            <img :src="user.photo" alt="" class="user__photo">
+            <img :src="user.photo | crop(300)" alt="" class="user__photo">
             <div class="user__name">
                 <span>{{user.name | firstName}}</span>
                 <span>{{user.name | lastName}}</span>
