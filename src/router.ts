@@ -126,15 +126,18 @@ const router = new Router({
       path: '/speakers',
       name: 'speakers',
       component: Speakers,
-    }, {
+    },
+    {
       path: '/speakers/:id',
       name: 'speaker',
       component: Speaker,
-    }, {
+    },
+    {
       path: '/presentations',
       name: 'presentations',
       component: AcceptedPresentations,
-    },{
+    },
+    {
       path: '/about',
       name: 'about',
       component: About,

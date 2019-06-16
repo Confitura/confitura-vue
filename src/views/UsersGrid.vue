@@ -19,8 +19,9 @@
     components: {},
   })
   export default class UsersGrid extends Vue {
-    @Prop({required: true})
-    public users!:UserProfile[];
+
+    @Prop({ required: true })
+    public users!: UserProfile[];
 
     public show({ id }: UserProfile) {
       if (id) {

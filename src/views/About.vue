@@ -32,12 +32,13 @@
             <UsersGrid :users="volunteers"></UsersGrid>
         </Box>
         <Box color="white">
-            <h3 class="bcc__header">Brain Change Continental</h3>
             <div class="bcc">
+                <h3 class="bcc__header">Brain Change Continental</h3>
                 <img src="../assets/bcc.png" alt="bcc" class="bcc__logo">
-                <PageFragment name="bcc" class="bcc__info"/>
-                <div class="bcc__video">
-                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/NLD0btOtFbg?controls=0" frameborder="0"
+                <div class="bcc__info">
+                    <PageFragment name="bcc"/>
+                    <iframe class="bcc__video" width="560" height="315" src="https://www.youtube-nocookie.com/embed/NLD0btOtFbg?controls=0"
+                            frameborder="0"
                             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
@@ -134,6 +135,10 @@
         font-size: 2rem;
         margin: 2rem;
         padding: 0;
+        @include md(){
+            font-size: 3rem;
+
+        }
     }
 
     .committee__members {
@@ -148,28 +153,20 @@
     .committee__member {
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-areas:
-                "photo"
-                "info";
+        grid-template-areas: "photo" "info";
         @include md-to-xl() {
             grid-template-columns: 1fr 1fr;
-            grid-template-areas:
-                    "photo info";
-            &:nth-child(odd){
-                grid-template-areas:
-                        "info photo";
+            grid-template-areas: "photo info";
+            &:nth-child(odd) {
+                grid-template-areas: "info photo";
                 text-align: end;
             }
         }
         @include xl() {
             grid-template-columns: 1fr 1fr;
-            grid-template-areas:
-                    "photo info";
-            &:nth-child(4n+3), &:nth-child(4n+4){
-                /*justify-items: ;*/
-                /*grid-auto-flow: column;*/
-                grid-template-areas:
-                        "info photo";
+            grid-template-areas: "photo info";
+            &:nth-child(4n+3), &:nth-child(4n+4) {
+                grid-template-areas: "info photo";
                 text-align: end;
 
             }
@@ -202,8 +199,8 @@
         font-size: 1.3rem;
         line-height: 1.5rem;
         margin-bottom: 1rem;
-        @include xl(){
-            font-size: 1rem;
+        @include xl() {
+            font-size: 1.1rem;
             line-height: 1.2rem;
 
         }
@@ -224,18 +221,45 @@
         padding-top: 2rem;
     }
 
+    .bcc {
+        display: grid;
+        grid-template-columns: 1fr;
+        @include md() {
+            grid-column-gap: 2rem;
+            grid-template-columns: 2fr 1fr;
+            grid-template-areas: "bcc-info bcc-header" "bcc-info bcc-logo";
+        }
+    }
+
     .bcc__header {
         color: $brand;
         margin: 0 0 2rem;
+        grid-area: bcc-header;
+        font-weight: bold;
+        @include md() {
+            font-size: 3rem;
+        }
     }
 
     .bcc__logo {
         width: 100%;
+        grid-area: bcc-logo;
+        justify-self: center;
+        @include md() {
+            width: 80%;
+
+        }
     }
 
     .bcc__info {
-        font-size: 1.2rem;
-        line-height: 1.4rem;
+        font-size: 1.4rem;
+        line-height: 1.6rem;
+        grid-area: bcc-info;
+    }
+
+    .bcc__video {
+        height: 315px;
+        grid-area: bcc-info;
     }
 </style>
 
