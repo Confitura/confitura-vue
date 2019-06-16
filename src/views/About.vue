@@ -28,7 +28,6 @@
             </div>
         </Box>
         <Box color="white" class="no-padding">
-
             <UsersGrid :users="volunteers"></UsersGrid>
         </Box>
         <Box color="white">
@@ -224,6 +223,10 @@
     .bcc {
         display: grid;
         grid-template-columns: 1fr;
+        grid-template-areas:
+                "bcc-header"
+                "bcc-logo"
+                "bcc-info";
         @include md() {
             grid-column-gap: 2rem;
             grid-template-columns: 2fr 1fr;

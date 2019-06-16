@@ -94,6 +94,7 @@
         width: 50vw;
         height: 50vw;
         object-fit: cover;
+        background-color: $brand;
         @include md() {
             width: 200px;
             height: 200px;
