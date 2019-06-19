@@ -1,16 +1,17 @@
 <template>
     <div class="agendaPage">
-        <PageHeader title="Agenda" type="peace"/>
+        <PageHeader title="Schedule" type="peace"/>
 
-        <Box color="white" class="no-padding">
+        <Box color="white">
             <div class="agenda">
                 <div class="agendaItem--empty"></div>
                 <div v-for="room in rooms" class="agendaItem__room">
-                    {{room.label}}
+                    <span>{{room.label | name}}</span>
+                    <span class="room__subname">{{room.label | subname}}</span>
                 </div>
                 <template v-for="slot in slots">
                     <div class="agendaItem__slot">
-                        {{slot.label}}
+                        <span>{{slot.label}}</span>
                     </div>
                     <template v-for="room in rooms">
                         <template v-if="hasSingleEntryFor(slot)">
@@ -49,12 +50,25 @@
 
   @Component({
     components: { AgendaItem, UsersGrid, SocialLink, PageHeader, Box, TheContact, PageFragment },
+    filters: {
+      name: (room: string) => {
+        if (room.includes(' ')) {
+          return room.split(' ')[0];
+        }
+        return room;
+      },
+      subname: (room: string) => {
+        if (room.includes(' ')) {
+          return room.substring(room.indexOf(' '));
+        }
+        return null;
+      },
+    },
   })
   export default class Agenda extends Vue {
     public rooms: Room[] = [];
     public slots: TimeSlot[] = [];
     public agenda: AgendaEntry[] = [];
-    private sortByOrder = (a: WithOrder, b: WithOrder) => a.displayOrder - b.displayOrder;
 
     public mounted(): void {
       axios.get<EmbeddedRooms>(`/api/rooms`)
@@ -73,31 +87,31 @@
     }
 
     public getEntryFor(room: Room, slot: TimeSlot): AgendaEntry {
-      // debugger;
       const entry = this.agenda
-        .find((entry) => entry.timeSlotId === slot.id && (entry.roomId === null || entry.roomId === room.id));
-      // console.log(entry);
+        .find((it) => it.timeSlotId === slot.id && (it.roomId === null || it.roomId === room.id));
       return entry || { id: 'empty', label: 'empty' };
     }
 
     public hasSingleEntryFor(slot: TimeSlot): boolean {
-      const entry = this.agenda.find((entry) => entry.timeSlotId === slot.id);
+      const entry = this.agenda.find((it) => it.timeSlotId === slot.id);
       return entry !== undefined && entry.roomId === null;
     }
+
+    private sortByOrder = (a: WithOrder, b: WithOrder) => a.displayOrder - b.displayOrder;
 
 
   }
 
   interface EmbeddedRooms {
-    _embedded: { rooms: Room[] }
+    _embedded: { rooms: Room[] };
   }
 
   interface EmbeddedTimeSlots {
-    _embedded: { timeSlots: TimeSlot[] }
+    _embedded: { timeSlots: TimeSlot[] };
   }
 
   interface EmbeddedAgenda {
-    _embedded: { agendaEntries: AgendaEntry[] }
+    _embedded: { agendaEntries: AgendaEntry[] };
   }
 
   interface Room extends WithOrder {
@@ -125,7 +139,6 @@
     timeSlotId?: string;
     timeSlotLabel?: string;
   }
-
 </script>
 
 <style lang="scss" scoped>
@@ -136,27 +149,65 @@
 
     .agenda {
         display: grid;
-        grid-template-columns: 100px 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 120px 1fr 1fr 1fr 1fr 1fr;
+        margin-bottom: 5rem;
     }
+
     .agendaItem__room, .agendaItem--empty {
         font-size: 1.5rem;
         line-height: 1.7rem;
         font-weight: bold;
-        padding: 2rem;
+        padding: 1.5rem;
         justify-self: stretch;
         align-self: stretch;
         text-align: center;
         border-bottom: 4px solid $brand;
-        border-left: 1px solid #DFDFDF;;
-        border-right: 1px solid #DFDFDF;;
+        border-left: 1px solid #DFDFDF;
+        display: flex;
+        justify-content: center;
     }
+
+    .agendaItem__room {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .room__subname {
+        font-size: 1.1rem;
+        font-weight: normal;
+    }
+
     .agendaItem--empty {
         border-left: none;
     }
 
+    .agendaItem__slot {
+        display: flex;
+        justify-content: left;
+        font-size: 1.2rem;
+        line-height: 1.4rem;
+        border-bottom: 2px solid #000000;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .agendaItem__entry {
+        font-size: 1.2rem;
+        line-height: 1.4rem;
+        justify-self: stretch;
+        align-self: stretch;
+        border-bottom: 2px solid #000000;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-left: 1px solid #DFDFDF;;
+
+    }
+
     .agendaItem__entry--all {
         grid-column: 2 / -1;
-        &:not([class$="--0"]){
+
+        &:not([class$="--0"]) {
             display: none;
         }
     }

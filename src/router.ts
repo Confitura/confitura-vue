@@ -144,8 +144,8 @@ const router = new Router({
       component: About,
     },
     {
-      path: '/agenda',
-      name: 'agenda',
+      path: '/schedule',
+      name: 'schedule',
       component: Agenda,
     },
   ],
