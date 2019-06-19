@@ -1,5 +1,6 @@
 <template>
     <div class="agendaItem">
+        <div v-if="entry.roomLabel" class="agendaItem__room">{{entry.roomLabel}}</div>
         <div v-if="entry.presentationId">
             <div class="agendaItem__title">{{entry.presentation.title}}</div>
             <div class="agendaItem__speakers">
@@ -31,8 +32,20 @@
     @import "../assets/colors";
 
     .agendaItem {
-        padding: 1rem;
         font-size: 1rem;
+        padding: .7rem;
+        @include md() {
+            padding: 1.5rem;
+        }
+
+        &__room {
+            color: $brand;
+            font-size: .8rem;
+            margin-bottom: .5rem;
+            @include md() {
+                display: none;
+            }
+        }
 
         &__entry--all, &__label {
             color: $brand;

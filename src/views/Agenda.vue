@@ -2,7 +2,7 @@
     <div class="agendaPage">
         <PageHeader title="Schedule" type="peace"/>
 
-        <Box color="white">
+        <Box color="white" >
             <div class="agenda">
                 <div class="agendaItem--empty"></div>
                 <div v-for="room in rooms" class="agendaItem__room">
@@ -10,7 +10,10 @@
                     <span class="room__subname">{{room.label | subname}}</span>
                 </div>
                 <template v-for="slot in slots">
-                    <div class="agendaItem__slot">
+                    <div
+                            class="agendaItem__slot"
+                            :class="{'agendaItem__slot--all': hasSingleEntryFor(slot)}"
+                    >
                         <span>{{slot.label}}</span>
                     </div>
                     <template v-for="room in rooms">
@@ -149,28 +152,36 @@
 
     .agenda {
         display: grid;
-        grid-template-columns: 120px 1fr 1fr 1fr 1fr 1fr;
-        margin-bottom: 5rem;
+        grid-template-columns: 60px 1fr;
+        @include md() {
+            grid-template-columns: 120px 1fr 1fr 1fr 1fr 1fr;
+            margin-bottom: 5rem;
+        }
     }
 
     .agendaItem__room, .agendaItem--empty {
-        font-size: 1.5rem;
-        line-height: 1.7rem;
-        font-weight: bold;
-        padding: 1.5rem;
-        justify-self: stretch;
-        align-self: stretch;
-        text-align: center;
-        border-bottom: 4px solid $brand;
-        border-left: 1px solid #DFDFDF;
-        display: flex;
-        justify-content: center;
+        display: none;
+        @include md() {
+            font-size: 1.5rem;
+            line-height: 1.7rem;
+            font-weight: bold;
+            padding: 1.5rem;
+            justify-self: stretch;
+            align-self: stretch;
+            text-align: center;
+            border-bottom: 4px solid $brand;
+            border-left: 1px solid #DFDFDF;
+            display: flex;
+            justify-content: center;
+        }
     }
 
     .agendaItem__room {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
+        @include md() {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
     }
 
     .room__subname {
@@ -188,18 +199,29 @@
         font-size: 1.2rem;
         line-height: 1.4rem;
         border-bottom: 2px solid #000000;
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
+        padding-top: .7rem;
+        padding-bottom: .7rem;
+        grid-row: auto / span 5;
+        @include md(){
+            grid-row: unset;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+    }
+
+    .agendaItem__slot--all {
+        grid-row: auto / span 1;
+        @include md(){
+            grid-row: unset;
+        }
     }
 
     .agendaItem__entry {
-        font-size: 1.2rem;
-        line-height: 1.4rem;
+        /*font-size: 1.2rem;*/
+        /*line-height: 1.4rem;*/
         justify-self: stretch;
         align-self: stretch;
         border-bottom: 2px solid #000000;
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
         border-left: 1px solid #DFDFDF;;
 
     }
@@ -211,6 +233,8 @@
             display: none;
         }
     }
+
+
 
 
 </style>
