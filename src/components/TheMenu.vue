@@ -104,9 +104,9 @@
             color: $brand;
             font-size: 1.1rem;
             cursor: pointer;
-            @include xl() {
-                font-size: 1.4rem;
 
+            @include xl() {
+                font-size: 1.3rem;
             }
 
             &:hover, &.router-link-active {

@@ -2,7 +2,7 @@
     <div class="agendaPage">
         <PageHeader title="Schedule" type="peace"/>
 
-        <Box color="white" >
+        <Box color="white">
             <div class="agenda">
                 <div class="agendaItem--empty"></div>
                 <div v-for="room in rooms" class="agendaItem__room">
@@ -12,8 +12,7 @@
                 <template v-for="slot in slots">
                     <div
                             class="agendaItem__slot"
-                            :class="{'agendaItem__slot--all': hasSingleEntryFor(slot)}"
-                    >
+                            :class="{'agendaItem__slot--all': hasSingleEntryFor(slot)}">
                         <span>{{slot.label}}</span>
                     </div>
                     <template v-for="room in rooms">
@@ -202,7 +201,7 @@
         padding-top: .7rem;
         padding-bottom: .7rem;
         grid-row: auto / span 5;
-        @include md(){
+        @include md() {
             grid-row: unset;
             padding-top: 1.5rem;
             padding-bottom: 1.5rem;
@@ -211,7 +210,7 @@
 
     .agendaItem__slot--all {
         grid-row: auto / span 1;
-        @include md(){
+        @include md() {
             grid-row: unset;
         }
     }
@@ -233,8 +232,6 @@
             display: none;
         }
     }
-
-
 
 
 </style>

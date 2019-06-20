@@ -34,6 +34,9 @@
     .agendaItem {
         font-size: 1rem;
         padding: .7rem;
+        display: flex;
+        flex-direction: column;
+
         @include md() {
             padding: 1.5rem;
         }
@@ -53,6 +56,11 @@
             font-size: 1.2rem;
             text-transform: capitalize;
         }
+
+        &__label {
+            justify-self: center;
+        }
+
     }
 
     .agendaItem__speakers {
