@@ -6,6 +6,10 @@
             <div class="agendaItem__speakers">
                 <span class="agendaItem__speaker" v-for="speaker in entry.speaker">{{speaker.name}}</span>
             </div>
+            <PresentationMetadata
+                    :presentation="entry.presentation"
+                    :showTags="false"
+                    class="agendaItem__metadata"></PresentationMetadata>
         </div>
         <div v-else class="agendaItem__label">
             {{entry.label}}
@@ -16,8 +20,11 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { AgendaEntry } from '@/views/Agenda.vue';
+  import PresentationMetadata from '@/components/PresentationMetadata.vue';
 
-  @Component({})
+  @Component({
+    components: { PresentationMetadata },
+  })
   export default class AgendaItem extends Vue {
     @Prop({ required: true })
     public entry!: AgendaEntry;
@@ -74,5 +81,11 @@
         &:not(:last-child):after {
             content: ', ';
         }
+    }
+
+    .agendaItem__metadata {
+        font-size: 1rem;
+        line-height: 1.2rem;
+        margin-top: 0.3rem;
     }
 </style>
