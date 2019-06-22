@@ -1,5 +1,5 @@
 <template>
-    <div class="presentationBox">
+    <div class="presentationBox" v-if="presentation">
         <div class="presentationBox__header">
             <h2 class="presentationBox__title">{{presentation.title}}</h2>
             <div class="presentationBox__infoGroup">
@@ -7,7 +7,7 @@
                 <PresentationMetadata :presentation="presentation"></PresentationMetadata>
             </div>
         </div>
-        <div class="presentation__description">
+        <div class="presentationBox__description">
             {{presentation.description}}
         </div>
     </div>
@@ -18,7 +18,6 @@
   import PresentationSpeakers from '@/components/PresentationSpeakers.vue';
   import PresentationMetadata from '@/components/PresentationMetadata.vue';
   import { Presentation } from '@/types';
-  import axios from 'axios';
 
 
   @Component({
@@ -26,17 +25,8 @@
   })
   export default class AcceptedPresentations extends Vue {
     @Prop({ required: false, default: null })
-    public presentation!: Presentation;
+    public readonly presentation!: Presentation;
 
-    @Prop({ required: false, default: null })
-    public presentationId!: number;
-
-    public mounted() {
-      if (this.presentationId) {
-        axios.get<Presentation>(`/api/presentations/${this.presentationId}`)
-          .then((result) => this.presentation = result.data);
-      }
-    }
   }
 </script>
 

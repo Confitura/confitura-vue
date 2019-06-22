@@ -1,7 +1,7 @@
 <template>
     <div class="agendaItem">
         <div v-if="entry.roomLabel" class="agendaItem__room">{{entry.roomLabel}}</div>
-        <div v-if="entry.presentationId">
+        <div v-if="entry.presentationId" @click="select(entry.presentation)">
             <div class="agendaItem__title">{{entry.presentation.title}}</div>
             <div class="agendaItem__speakers">
                 <span class="agendaItem__speaker" v-for="speaker in entry.speaker">{{speaker.name}}</span>
@@ -18,18 +18,23 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
   import { AgendaEntry } from '@/views/Agenda.vue';
   import PresentationMetadata from '@/components/PresentationMetadata.vue';
+  import PresentationModal from '@/components/PresentationModal.vue';
+  import { Presentation } from '@/types';
 
   @Component({
-    components: { PresentationMetadata },
+    components: { PresentationModal, PresentationMetadata },
   })
   export default class AgendaItem extends Vue {
     @Prop({ required: true })
     public entry!: AgendaEntry;
 
-
+    @Emit()
+    public select(presentation: Presentation) {
+      return presentation;
+    }
   }
 </script>
 

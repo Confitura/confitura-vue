@@ -27,6 +27,7 @@
                         <AgendaItem
                                 v-else
                                 :entry="getEntryFor(room, slot)"
+                                @select="(presentation) => selectPresentation(presentation)"
                                 class="agendaItem__entry"></AgendaItem>
                     </template>
                 </template>
@@ -35,6 +36,7 @@
         </Box>
 
         <TheContact id="contact"/>
+        <PresentationModal :presentationId="selectedPresentationId" @close="modalClosed()"></PresentationModal>
     </div>
 </template>
 
@@ -49,9 +51,10 @@
   import UsersGrid from '@/views/UsersGrid.vue';
   import { Presentation } from '@/types';
   import AgendaItem from '@/components/AgendaItem.vue';
+  import PresentationModal from '@/components/PresentationModal.vue';
 
   @Component({
-    components: { AgendaItem, UsersGrid, SocialLink, PageHeader, Box, TheContact, PageFragment },
+    components: { AgendaItem, UsersGrid, SocialLink, PageHeader, Box, TheContact, PageFragment, PresentationModal },
     filters: {
       name: (room: string) => {
         if (room.includes(' ')) {
@@ -71,6 +74,7 @@
     public rooms: Room[] = [];
     public slots: TimeSlot[] = [];
     public agenda: AgendaEntry[] = [];
+    public selectedPresentationId: string | null = null;
 
     public mounted(): void {
       axios.get<EmbeddedRooms>(`/api/rooms`)
@@ -97,6 +101,16 @@
     public hasSingleEntryFor(slot: TimeSlot): boolean {
       const entry = this.agenda.find((it) => it.timeSlotId === slot.id);
       return entry !== undefined && entry.roomId === null;
+    }
+
+    public selectPresentation(presentation: Presentation) {
+      if (presentation && presentation.id) {
+        this.selectedPresentationId = presentation.id;
+      }
+    }
+
+    public modalClosed(){
+      this.selectedPresentationId = null;
     }
 
     private sortByOrder = (a: WithOrder, b: WithOrder) => a.displayOrder - b.displayOrder;
