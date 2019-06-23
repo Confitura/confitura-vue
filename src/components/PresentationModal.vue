@@ -22,15 +22,19 @@
     components: { PresentationBox },
   })
   export default class PresentationModal extends Vue {
+    public presentation: Presentation | null = null;
+
     @Prop({ required: true, default: null })
     public readonly presentationId!: string;
 
     @Emit()
     public close() {
+      return this.presentationId;
     }
 
+
     @Watch('presentationId')
-    onChildChanged() {
+    private onChildChanged() {
       if (this.presentationId) {
         axios.get<Presentation>(`/api/presentations/${this.presentationId}?projection=inlineSpeaker`)
           .then((result) => this.presentation = result.data);
@@ -39,7 +43,6 @@
       }
     }
 
-    public presentation: Presentation | null = null;
 
   }
 </script>
@@ -58,7 +61,7 @@
         z-index: 1000;
         box-sizing: border-box;
         overflow: scroll;
-        background-color: rgba(0, 0, 0, 0.3);
+        background-color: rgba(0, 0, 0, 0.2);
         @include md() {
 
             display: flex;
@@ -70,6 +73,7 @@
     .modal {
         background-color: #ffffff;
         min-height: 100vh;
+        box-shadow: 10px 10px 20px #767676;
 
         @include md() {
             width: 800px;

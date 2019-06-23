@@ -1,5 +1,5 @@
 <template>
-    <div class="agendaItem">
+    <div class="agendaItem" :class="{'agendaItem--withPresentation': entry.presentationId}">
         <div v-if="entry.roomLabel" class="agendaItem__room">{{entry.roomLabel}}</div>
         <div v-if="entry.presentationId" @click="select(entry.presentation)">
             <div class="agendaItem__title">{{entry.presentation.title}}</div>
@@ -48,6 +48,14 @@
         padding: .7rem;
         display: flex;
         flex-direction: column;
+
+        &--withPresentation {
+            cursor: pointer;
+
+            &:hover {
+                background-color: #DFDFDF;
+            }
+        }
 
         @include md() {
             padding: 1.5rem;

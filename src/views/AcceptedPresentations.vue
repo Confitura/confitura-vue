@@ -3,6 +3,7 @@
         <PageHeader title="Presentations" type="coder"/>
         <Box
                 v-for="(presentation, $index) in presentations"
+                :key="presentation.id"
                 class="presentation"
                 :class="{'presentation--odd': odd($index)}"
                 color="white"

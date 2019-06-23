@@ -2,7 +2,7 @@
     <div class="agendaPage">
         <PageHeader title="Schedule" type="peace"/>
 
-        <Box color="white">
+        <Box color="white" class="min-padding">
             <div class="agenda">
                 <div class="agendaItem--empty"></div>
                 <div v-for="room in rooms" class="agendaItem__room">
@@ -109,7 +109,7 @@
       }
     }
 
-    public modalClosed(){
+    public modalClosed() {
       this.selectedPresentationId = null;
     }
 
@@ -166,7 +166,7 @@
     .agenda {
         display: grid;
         grid-template-columns: 60px 1fr;
-        @include md() {
+        @include lg() {
             grid-template-columns: 120px 1fr 1fr 1fr 1fr 1fr;
             margin-bottom: 5rem;
         }
@@ -174,7 +174,7 @@
 
     .agendaItem__room, .agendaItem--empty {
         display: none;
-        @include md() {
+        @include lg() {
             font-size: 1.5rem;
             line-height: 1.7rem;
             font-weight: bold;
@@ -190,7 +190,7 @@
     }
 
     .agendaItem__room {
-        @include md() {
+        @include lg() {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -215,7 +215,7 @@
         padding-top: .7rem;
         padding-bottom: .7rem;
         grid-row: auto / span 5;
-        @include md() {
+        @include lg() {
             grid-row: unset;
             padding-top: 1.5rem;
             padding-bottom: 1.5rem;
@@ -224,14 +224,12 @@
 
     .agendaItem__slot--all {
         grid-row: auto / span 1;
-        @include md() {
+        @include lg() {
             grid-row: unset;
         }
     }
 
     .agendaItem__entry {
-        /*font-size: 1.2rem;*/
-        /*line-height: 1.4rem;*/
         justify-self: stretch;
         align-self: stretch;
         border-bottom: 2px solid #000000;
