@@ -1,5 +1,8 @@
 <template>
-    <div class="agendaItem" :class="{'agendaItem--withPresentation': entry.presentationId}">
+    <div class="agendaItem" :class="{
+    'agendaItem--withPresentation': entry.presentationId,
+    'loggedIn': isLogin,
+    'selected': isSelected}">
         <div v-if="entry.roomLabel" class="agendaItem__room">{{entry.roomLabel}}</div>
         <div v-if="entry.presentationId" @click="select(entry.presentation)">
             <div class="agendaItem__title">{{entry.presentation.title}}</div>
@@ -14,6 +17,10 @@
         <div v-else class="agendaItem__label">
             {{entry.label}}
         </div>
+        <div class="agendaItem__personal" v-if="isLogin && entry.presentationId">
+            <i v-if="isSelected" class="fas fa-calendar-check" @click="addToPersonalAgenda"></i>
+            <i v-else class="fa fa-calendar-plus" @click="addToPersonalAgenda"></i>
+        </div>
     </div>
 </template>
 
@@ -23,19 +30,39 @@
   import PresentationMetadata from '@/components/PresentationMetadata.vue';
   import PresentationModal from '@/components/PresentationModal.vue';
   import { Presentation } from '@/types';
+  import { ADD_TO_PERSONAL_AGENDA } from '@/store/store.user-profile';
 
-  @Component({
-    components: { PresentationModal, PresentationMetadata },
-  })
-  export default class AgendaItem extends Vue {
-    @Prop({ required: true })
-    public entry!: AgendaEntry;
+@Component({
+  components: { PresentationModal, PresentationMetadata },
+})
+export default class AgendaItem extends Vue {
 
-    @Emit()
-    public select(presentation: Presentation) {
-      return presentation;
-    }
+  get personalAgenda(): AgendaEntry[] {
+    return this.$store.state.userProfile.personalAgenda;
   }
+
+  @Prop({ required: true })
+  public entry!: AgendaEntry;
+
+  @Emit()
+  public select(presentation: Presentation) {
+    return presentation;
+  }
+
+  public get isLogin() {
+    return this.$store.getters.isLogin;
+  }
+
+  public get isSelected(): boolean {
+    return !!this.personalAgenda.find((it) => it.id === this.entry.id);
+  }
+
+  public addToPersonalAgenda(event: Event) {
+    event.preventDefault();
+    const id = this.$store.getters.user.jti;
+    this.$store.dispatch(ADD_TO_PERSONAL_AGENDA, { id, agendaEntryId: this.entry.id });
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -48,6 +75,7 @@
         padding: .7rem;
         display: flex;
         flex-direction: column;
+        position: relative;
 
         &--withPresentation {
             cursor: pointer;
@@ -96,9 +124,25 @@
         }
     }
 
+    .agendaItem__personal {
+        color: $brand;
+        position: absolute;
+        top: 1em;
+        right: 1em;
+        cursor: pointer;
+    }
+
     .agendaItem__metadata {
         font-size: 1rem;
         line-height: 1.2rem;
         margin-top: 0.3rem;
+    }
+
+    .loggedIn {
+        opacity: 0.5;
+    }
+
+    .selected {
+        opacity: 1;
     }
 </style>
