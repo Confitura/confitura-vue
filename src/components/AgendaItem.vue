@@ -19,7 +19,7 @@
         </div>
         <div class="agendaItem__personal" v-if="isLogin && entry.presentationId">
             <i v-if="isSelected" class="fas fa-calendar-check" @click="addToPersonalAgenda"></i>
-            <i v-else class="fa fa-calendar-plus" @click="addToPersonalAgenda"></i>
+            <i v-else class="fa fa-calendar-plus"></i>
         </div>
     </div>
 </template>
