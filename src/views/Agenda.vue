@@ -52,6 +52,7 @@
   import { Presentation } from '@/types';
   import AgendaItem from '@/components/AgendaItem.vue';
   import PresentationModal from '@/components/PresentationModal.vue';
+  import { LOAD_PROFILE_PERSONAL_AGENDA } from '@/store/store.user-profile';
 
   @Component({
     components: { AgendaItem, UsersGrid, SocialLink, PageHeader, Box, TheContact, PageFragment, PresentationModal },
@@ -90,6 +91,9 @@
       axios.get<EmbeddedAgenda>(`/api/agenda`)
         .then((it) => it.data._embedded.agendaEntries)
         .then((agenda) => this.agenda = agenda);
+
+      const id = this.$store.getters.user.jti;
+      this.$store.dispatch(LOAD_PROFILE_PERSONAL_AGENDA, { id });
     }
 
     public getEntryFor(room: Room, slot: TimeSlot): AgendaEntry {
