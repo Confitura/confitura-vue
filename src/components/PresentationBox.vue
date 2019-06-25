@@ -68,9 +68,9 @@
             line-height: 1.5rem;
             word-wrap: break-word;
             @include md() {
-                font-size: 1.5rem;
-                line-height: 1.7rem;
                 padding-left: 4rem;
+                line-height: 1.7rem;
+
             }
         }
     }
