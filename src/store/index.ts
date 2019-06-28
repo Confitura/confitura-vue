@@ -7,6 +7,7 @@ import axios from 'axios';
 import { partnersModule } from '@/store/partners';
 import { adminModule } from '@/store/admin';
 import { vote4PapersModule } from '@/store/vote4papers';
+import { presentationsModule } from '@/store/presentations';
 
 
 Vue.use(Vuex);
@@ -17,6 +18,7 @@ const storeOptions: StoreOptions<RootState> = {
     partners: partnersModule,
     admin: adminModule,
     v4p: vote4PapersModule,
+    presentations: presentationsModule,
   },
   state: {
     headerTheme: 'default',

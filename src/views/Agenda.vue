@@ -3,6 +3,8 @@
         <PageHeader title="Schedule" type="peace"/>
 
         <Box color="white" class="min-padding">
+            <button @click="open">open modal</button>
+
             <div class="agenda">
                 <div class="agendaItem--empty"></div>
                 <div v-for="room in rooms" class="agendaItem__room">
@@ -37,6 +39,7 @@
 
         <TheContact id="contact"/>
         <PresentationModal :presentationId="selectedPresentationId" @close="modalClosed()"></PresentationModal>
+        <PresentationRateModal></PresentationRateModal>
     </div>
 </template>
 
@@ -52,9 +55,21 @@
   import { Presentation } from '@/types';
   import AgendaItem from '@/components/AgendaItem.vue';
   import PresentationModal from '@/components/PresentationModal.vue';
+  import PresentationRateModal from '@/components/PresentationRateModal.vue';
+  import { SET_PRESENTATION_UNDER_RATE } from '@/store/presentations';
 
   @Component({
-    components: { AgendaItem, UsersGrid, SocialLink, PageHeader, Box, TheContact, PageFragment, PresentationModal },
+    components: {
+      PresentationRateModal,
+      AgendaItem,
+      UsersGrid,
+      SocialLink,
+      PageHeader,
+      Box,
+      TheContact,
+      PageFragment,
+      PresentationModal,
+    },
     filters: {
       name: (room: string) => {
         if (room.includes(' ')) {
@@ -111,6 +126,12 @@
 
     public modalClosed() {
       this.selectedPresentationId = null;
+    }
+
+    public open() {
+      console.log('abc');
+      this.$store.commit(SET_PRESENTATION_UNDER_RATE,
+        { presentationRate: { rate: 3, presentation: { title: 'hello world!' } } });
     }
 
     private sortByOrder = (a: WithOrder, b: WithOrder) => a.displayOrder - b.displayOrder;

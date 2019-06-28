@@ -81,6 +81,11 @@ export interface Presentation {
   workshop: boolean;
 }
 
+export interface WithTitle{
+  id: string;
+  title: string;
+}
+
 export interface Tag {
   id: string;
   name: string;
@@ -102,7 +107,7 @@ export interface Participant {
   lastName?: string;
   firstName?: string;
   email?: string;
-  voucher?: string;
+  voucher?: Voucher;
   privacyPolicyAccepted?: boolean;
   // t-hsirt:
   gender?: string;
@@ -141,4 +146,9 @@ export interface Voucher {
   createdDate?: string;
   lastModifiedBy?: string;
   lastModifiedDate?: string;
+}
+
+export interface PresentationRate {
+  presentation?: WithTitle;
+  rate: number;
 }

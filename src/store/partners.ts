@@ -120,7 +120,6 @@ Akcje Ework są notowane na giełdzie NASDAQ OMX w Sztokholmie. W Polsce istniej
           www: 'https://www.nofluffjobs.com ',
           type: 'silver',
           logo: require('../assets/partners/nfj.svg'),
-          orientation: 'horizontal',
         }, {
           id: 'viacom',
           description: `As a part of leading global entertainment company Viacom.tech offers challenging projects for iconic brands like MTV, Nickelodeon, Nick Jr, COMEDY CENTRAL, and Paramount Channel. Focusing on Viacom’s global engineering organization, the Warsaw Software Development Center plays a crucial role in the creation of highly efficient, advanced systems which are implemented by millions of users around the world. Our excellence center in Warsaw builds scalable and efficient systems, serving high volume traffic. We are an Agile and growing team of software engineers who use modern development and deployment technologies (Java 11, Kotlin, Swift, TypeScript, Docker, Kubernetes, clouds).
@@ -565,7 +564,7 @@ Nie uzależniamy awansów od stażu pracy, ale od kompetencji. Awansować w Isol
 Cenimy sobie ponadto transparentność, wzajemne docenienie, współpracę, ale także wspólną, dobrą zabawę.
 
 Jesteśmy dumni nie tylko z tego, co robimy, ale również z tego kim jesteśmy i jaką kulturę budujemy, co przekłada się również na atmosferę pracy oraz ambitne cele, które przy takim zespole możemy sobie stawiać.`,
-          www: 'https://isolution.pl/en/',
+          www: 'https://isolution.pl/kariera/',
           type: 'silver',
           logo: require('../assets/partners/is.png'),
           orientation: 'horizontal'
@@ -580,8 +579,8 @@ Jesteśmy dumni nie tylko z tego, co robimy, ale również z tego kim jesteśmy 
           orientation: 'horizontal',
         },{
           id: 'ppl',
-          name: 'Porty Lotnicze',
-          description: `*Polish Airports* State Enterprise (PPL) is one of the top aviation infrastructure companies in Poland, taking active part in the shaping and development of this strategic branch of the industry. PPL resources include Warsaw Chopin Airport (EPWA) – the biggest Polish airport and one of the biggest airports in Central and Eastern Europe.`,
+          name: `'Polish Airports' State Enterprise`,
+          description: `'Polish Airports' State Enterprise (PPL) is one of the top aviation infrastructure companies in Poland, taking active part in the shaping and development of this strategic branch of the industry. PPL resources include Warsaw Chopin Airport (EPWA) – the biggest Polish airport and one of the biggest airports in Central and Eastern Europe.`,
           www: 'https://www.polish-airports.com/',
           type: 'silver',
           logo: require('../assets/partners/ppl.svg'),
@@ -613,6 +612,29 @@ We act within the Scandinavian business culture focused on achieving goals while
           www: 'https://www.itconsultants.pl/',
           type: 'silver',
           logo: require('../assets/partners/prodata.png'),
+          orientation: 'horizontal',
+        },{
+          id: 'cgi',
+          name: 'CGI',
+          description: `Firma CGI jest wiodącą na rynku polskim firmą konsultingową w branży IT. Efektem ponad dwudziestoletniej działalności jest nawiązanie silnych relacji z naszymi klientami - czołowymi polskimi firmami z sektora telekomunikacyjnego, mediów, usług finansowych, produkcji, handlu, dystrybucji oraz przedsiębiorstw użyteczności publicznej. Polscy specjaliści w CGI łączą znajomość polskiego rynku oraz międzynarodowe doświadczenie. Dzięki temu jesteśmy w stanie dostarczać usługi end-to-end z zakresu doradztwa, integracji systemów, jak i rozwiązań specyficznych dla danego sektora.
+
+Nasze główne doświadczenie na rynku polskim obejmuje strategie IT, dopasowanie IT do biznesu, zarządzanie procesami biznesowymi i aplikacjami, zarządzanie zmianą organizacji, architekturę IT, prowadzenie biura projektów oraz zarządzanie kosztami IT. Posiadamy bogate doświadczenie w rozwiązaniach biznesowych end-to-end dla danych sektorów.`,
+          www: 'https://www.cgi.com',
+          type: 'silver',
+          logo: require('../assets/partners/cgi.svg'),
+        },{
+          id: 'luxoft',
+          name: 'CGI',
+          description: `Luxoft, a DXC Technology Company, is a digital strategy and software engineering firm providing bespoke technology solutions that drive business change for customers globally. As part of DXC Technology (NYSE: DXC), Luxoft enables business transformation, enhances customer experiences, and boosts operational efficiency through its strategy, consulting, and engineering services.
+
+Luxoft combines a unique blend of engineering excellence and deep industry expertise to serve clients globally, specializing in automotive, financial services, travel and hospitality, healthcare, life sciences, media and telecommunications.
+
+We offer a full stack of digital expertise including edge computing, server-less computing, AI and Machine Learning, plus we leverage both open source and native cloud platforms and APIs (mainly Big Data, Information Security, Cloud, DevOps, Mobile, Blockchain and IoT). We work using various agile methodologies (Kanban, Scrum, Waterfall) and our experienced project teams design, implement, maintain, and develop our clients’ digital assets.
+
+We have a relaxed corporate culture that’s highlighted by the best employees this side of Jupiter who always make fun a priority. But don’t get us wrong, it’s not all fun and games. We take our work and coding seriously and our ever-expanding global reach offers you a whole new world of opportunities that help you to \\#GoFarwithLuxoft. Go to: [www.poland.luxoft.com](https://www.poland.luxoft.com)`,
+          www: 'https://career.luxoft.com/',
+          type: 'silver',
+          logo: require('../assets/partners/luxoft.svg'),
           orientation: 'horizontal',
         },
 

@@ -13,10 +13,13 @@
             <div class="agendaItem__separator"></div>
             <div class="agendaItem__rate">rate it!
                 <div>
-                    <star-rating star-size="30"
-                                 :show-rating="false"
-                                 :rounded-corners="true"
-                                 :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
+                    <star-rating
+                            @click="startRating(entry.presentation)"
+                            v-model="rate"
+                            star-size="30"
+                            :show-rating="false"
+                            :rounded-corners="true"
+                            :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
                 </div>
             </div>
 
@@ -24,7 +27,6 @@
         <div v-else class="agendaItem__label">
             {{entry.label}}
         </div>
-        <PresentationRateModal></PresentationRateModal>
     </div>
 </template>
 
@@ -33,21 +35,27 @@
   import { AgendaEntry } from '@/views/Agenda.vue';
   import PresentationMetadata from '@/components/PresentationMetadata.vue';
   import PresentationModal from '@/components/PresentationModal.vue';
-  import { Presentation } from '@/types';
-  import PresentationRateModal from '@/components/PresentationRateModal.vue';
+  import { Presentation, PresentationRate } from '@/types';
   import StarRating from 'vue-star-rating';
+  import { SET_PRESENTATION_UNDER_RATE } from '@/store/presentations';
 
   @Component({
-    components: { PresentationRateModal, PresentationModal, PresentationMetadata, StarRating },
+    components: { PresentationModal, PresentationMetadata, StarRating },
   })
   export default class AgendaItem extends Vue {
     @Prop({ required: true })
     public entry!: AgendaEntry;
+    public rate: number = 0;
 
 
     @Emit()
     public select(presentation: Presentation) {
       return presentation;
+    }
+
+    public startRating(presentation: Presentation) {
+      const presentationRate: PresentationRate = { presentation, rate: this.rate };
+      this.$store.dispatch(SET_PRESENTATION_UNDER_RATE, { presentationRate });
     }
   }
 </script>
@@ -96,7 +104,7 @@
         }
 
     }
-    
+
     .agendaItem__presentation {
         display: flex;
         flex-direction: column;

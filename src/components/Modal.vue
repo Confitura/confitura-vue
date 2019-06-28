@@ -56,6 +56,8 @@
         background-color: #ffffff;
         min-height: 100vh;
         box-shadow: 10px 10px 20px #767676;
+        display: flex;
+        flex-direction: column;
 
         @include md() {
             width: 800px;
@@ -71,6 +73,9 @@
 
     .modal__body {
         padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
     }
 
     .closeButton {
