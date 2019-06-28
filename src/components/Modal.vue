@@ -72,7 +72,7 @@
     }
 
     .modal__body {
-        padding: 2rem;
+        padding: 0 2rem 2rem;
         display: flex;
         flex-direction: column;
         flex-grow: 1;

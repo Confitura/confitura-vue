@@ -29,7 +29,7 @@
                         <AgendaItem
                                 v-else
                                 :entry="getEntryFor(room, slot)"
-                                @select="(presentation) => selectPresentation(presentation)"
+                                @start-rating="startRatingPresentation"
                                 class="agendaItem__entry"></AgendaItem>
                     </template>
                 </template>
@@ -39,7 +39,7 @@
 
         <TheContact id="contact"/>
         <PresentationModal :presentationId="selectedPresentationId" @close="modalClosed()"></PresentationModal>
-        <PresentationRateModal></PresentationRateModal>
+        <PresentationRateModal :presentationRate="presentationRate" @close="modalClosed()"></PresentationRateModal>
     </div>
 </template>
 
@@ -52,7 +52,7 @@
   import axios from 'axios';
   import SocialLink from '@/components/SocialLink.vue';
   import UsersGrid from '@/views/UsersGrid.vue';
-  import { Presentation } from '@/types';
+  import { Presentation, PresentationRate } from '@/types';
   import AgendaItem from '@/components/AgendaItem.vue';
   import PresentationModal from '@/components/PresentationModal.vue';
   import PresentationRateModal from '@/components/PresentationRateModal.vue';
@@ -90,6 +90,7 @@
     public slots: TimeSlot[] = [];
     public agenda: AgendaEntry[] = [];
     public selectedPresentationId: string | null = null;
+    public presentationRate: PresentationRate | null = null;
 
     public mounted(): void {
       axios.get<EmbeddedRooms>(`/api/rooms`)
@@ -124,12 +125,17 @@
       }
     }
 
+    public startRatingPresentation(presentationRate: PresentationRate) {
+      console.log('bc asda');
+      this.presentationRate = presentationRate;
+    }
+
     public modalClosed() {
       this.selectedPresentationId = null;
+      this.presentationRate = null;
     }
 
     public open() {
-      console.log('abc');
       this.$store.commit(SET_PRESENTATION_UNDER_RATE,
         { presentationRate: { rate: 3, presentation: { title: 'hello world!' } } });
     }
