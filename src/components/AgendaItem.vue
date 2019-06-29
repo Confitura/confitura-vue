@@ -1,7 +1,7 @@
 <template>
     <div class="agendaItem" :class="{'agendaItem--withPresentation': entry.presentationId}">
         <div v-if="entry.roomLabel" class="agendaItem__room">{{entry.roomLabel}}</div>
-        <div class="agendaItem__presentation" v-if="entry.presentationId" @click.stop="select(entry.presentation)">
+        <div class="agendaItem__presentation" v-if="entry.presentationId" @click="select(entry.presentation)">
             <div class="agendaItem__title">{{entry.presentation.title}}</div>
             <div class="agendaItem__speakers">
                 <span class="agendaItem__speaker" v-for="speaker in entry.speaker">{{speaker.name}}</span>
@@ -11,7 +11,7 @@
                     :showTags="false"
                     class="agendaItem__metadata"></PresentationMetadata>
             <div class="agendaItem__separator"></div>
-            <div class="agendaItem__rate" @click.stop="">rate it!
+            <div class="agendaItem__rate" >rate it!
                 <div >
                     <star-rating
                             @rating-selected="startRating(entry.presentation)"

@@ -56,7 +56,7 @@
     public save() {
       if (this.presentation) {
         axios
-          .put(`/api/presentations/${this.presentation.id}/ratings`, { value: this.rate, comment: this.comment })
+          .post(`/api/presentations/${this.presentation.id}/ratings`, { value: this.rate, comment: this.comment })
           .then(() => this.close());
       }
     }
