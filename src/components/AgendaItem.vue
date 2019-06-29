@@ -11,7 +11,7 @@
                     :showTags="false"
                     class="agendaItem__metadata"></PresentationMetadata>
             <div class="agendaItem__separator"></div>
-            <div class="agendaItem__rate" >rate it!
+            <div class="agendaItem__rate" @click.stop="">rate it!
                 <div >
                     <star-rating
                             @rating-selected="startRating(entry.presentation)"
@@ -54,7 +54,6 @@
 
     @Emit()
     public startRating(presentation: WithTitle): PresentationRate {
-      console.log('asdmaskd');
       return { presentation, rate: this.rate };
     }
 

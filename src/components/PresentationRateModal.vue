@@ -47,7 +47,7 @@
 
     @Watch('presentationRate')
     private changed(newValue: PresentationRate) {
-      if (newValue.presentation) {
+      if (newValue && newValue.presentation) {
         this.presentation = newValue.presentation;
         this.rate = newValue.rate;
       }

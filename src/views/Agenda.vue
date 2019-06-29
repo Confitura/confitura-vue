@@ -29,6 +29,7 @@
                         <AgendaItem
                                 v-else
                                 :entry="getEntryFor(room, slot)"
+                                @select="selectPresentation"
                                 @start-rating="startRatingPresentation"
                                 class="agendaItem__entry"></AgendaItem>
                     </template>
