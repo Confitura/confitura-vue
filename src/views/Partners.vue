@@ -45,6 +45,8 @@
             gold: this.$store.getters.gold,
             silver: this.$store.getters.silver,
             bronze: this.$store.getters.bronze,
+            media: this.$store.getters.media,
+            tech: this.$store.getters.tech,
           };
         });
     }
@@ -117,11 +119,11 @@
         }
     }
 
-    .logo--bronze {
-        width: 60px;
+    .logo--bronze, .logo--media, .logo--tech {
+        width: 120px;
 
         &.logo--horizontal {
-            width: 120px;
+            width: 160px;
         }
     }
 
