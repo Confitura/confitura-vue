@@ -1,28 +1,49 @@
 import { Module } from 'vuex';
 import { Presentation, PresentationRate, RootState } from '@/types';
+import axios from 'axios';
 
-export const LOAD_VOTES = 'LOAD_VOTES';
-export const SAVE_VOTE = 'SAVE_VOTE';
-
-const SET_VOTES = 'SET_VOTES';
-const V4P_TOKEN = 'V4P_TOKEN';
 
 export const SET_PRESENTATION_UNDER_RATE = 'SET_PRESENTATION_UNDER_RATE';
+export const RATE = 'RATE';
 export const presentationsModule: Module<PresentationsState, RootState> = {
   state: {
-    underRating: {rate:0, presentation: {id:'', title: ''}},
+    underRating: { rate: 0, presentation: { id: '', title: '' } },
+    rates: JSON.parse(localStorage.getItem('rate') || '[]'),
   },
-  getters: {},
+  getters: {
+    isRated(state) {
+      return (id: string) => state.rates.includes(id);
+    },
+  },
   mutations: {
     [SET_PRESENTATION_UNDER_RATE](store, payload: { presentationRate: PresentationRate }) {
       store.underRating = payload.presentationRate;
     },
+    [RATE](store, payload: { presentation: Presentation, id: string }) {
+      const { presentation, id } = payload;
+      if (presentation.id) {
+        store.rates = [presentation.id, ...store.rates];
+        localStorage.setItem(`rate`, JSON.stringify(store.rates));
+      }
+    },
   },
-  actions: {},
+  actions: {
+    [RATE]({ commit }, { presentation, rate, comment }: PresentationRate) {
+      if (presentation) {
+        return axios
+          .post<{ id: string }>(`/api/presentations/${presentation.id}/ratings`, { value: rate, comment })
+          .then((response) => {
+              commit(RATE, { presentation, id: response.data.id });
+            },
+          );
+      }
+    },
+  },
 };
 
 export interface PresentationsState {
 
   underRating: PresentationRate | null;
+  rates: string[];
 }
 

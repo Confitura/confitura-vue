@@ -81,7 +81,7 @@ export interface Presentation {
   workshop: boolean;
 }
 
-export interface WithTitle{
+export interface WithTitle {
   id: string;
   title: string;
 }
@@ -151,4 +151,5 @@ export interface Voucher {
 export interface PresentationRate {
   presentation?: WithTitle;
   rate: number;
+  comment?: string;
 }

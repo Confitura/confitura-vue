@@ -3,7 +3,6 @@
         <PageHeader title="Schedule" type="peace"/>
 
         <Box color="white" class="min-padding">
-            <button @click="open">open modal</button>
 
             <div class="agenda">
                 <div class="agendaItem--empty"></div>
@@ -31,6 +30,7 @@
                                 :entry="getEntryFor(room, slot)"
                                 @select="selectPresentation"
                                 @start-rating="startRatingPresentation"
+                                :key="presentationRate"
                                 class="agendaItem__entry"></AgendaItem>
                     </template>
                 </template>
@@ -57,7 +57,6 @@
   import AgendaItem from '@/components/AgendaItem.vue';
   import PresentationModal from '@/components/PresentationModal.vue';
   import PresentationRateModal from '@/components/PresentationRateModal.vue';
-  import { SET_PRESENTATION_UNDER_RATE } from '@/store/presentations';
 
   @Component({
     components: {
@@ -127,18 +126,12 @@
     }
 
     public startRatingPresentation(presentationRate: PresentationRate) {
-      console.log('bc asda');
       this.presentationRate = presentationRate;
     }
 
     public modalClosed() {
       this.selectedPresentationId = null;
       this.presentationRate = null;
-    }
-
-    public open() {
-      this.$store.commit(SET_PRESENTATION_UNDER_RATE,
-        { presentationRate: { rate: 3, presentation: { title: 'hello world!' } } });
     }
 
     private sortByOrder = (a: WithOrder, b: WithOrder) => a.displayOrder - b.displayOrder;
