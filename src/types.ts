@@ -1,5 +1,5 @@
-import { AuthenticationState } from '@/store/authentication';
-import { PartnersState } from '@/store/partners';
+import { AuthenticationState } from "@/store/authentication";
+import { PartnersState } from "@/store/partners";
 
 export interface RootState {
   headerTheme: string;
@@ -10,15 +10,15 @@ export interface RootState {
   authentication?: AuthenticationState;
 }
 
-export const CHANGE_HEADER_THEME = 'CHANGE_HEADER_THEME';
-export const WINDOW_RESIZED = 'WINDOW_RESIZED';
-export const LOAD_PARTNERS = 'LOAD_PARTNERS';
-export const LOAD_PARTNER_BY_ID = 'LOAD_PARTNER_BY_ID';
-export const TOKEN = 'TOKEN';
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
-export const REMOVE_PRESENTATION = 'REMOVE_PRESENTATION';
-export const PARTICIPATION_ID = 'participationId';
+export const CHANGE_HEADER_THEME = "CHANGE_HEADER_THEME";
+export const WINDOW_RESIZED = "WINDOW_RESIZED";
+export const LOAD_PARTNERS = "LOAD_PARTNERS";
+export const LOAD_PARTNER_BY_ID = "LOAD_PARTNER_BY_ID";
+export const TOKEN = "TOKEN";
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
+export const REMOVE_PRESENTATION = "REMOVE_PRESENTATION";
+export const PARTICIPATION_ID = "participationId";
 
 export interface User {
   sub: string;
@@ -35,12 +35,20 @@ export interface Partner {
   description: string;
   logo: string;
   www: string;
-  type: '' | 'platinum' | 'path' | 'gold' | 'silver' | 'bronze' | 'media' | 'tech';
-  orientation?: 'horizontal' | 'vertical' | 'box';
+  type:
+    | ""
+    | "platinum"
+    | "path"
+    | "gold"
+    | "silver"
+    | "bronze"
+    | "media"
+    | "tech";
+  orientation?: "horizontal" | "vertical" | "box";
 }
 
 export interface EmbeddedUserProfiles {
-  _embedded: { users: UserProfile[], publicUsers: UserProfile[] };
+  _embedded: { users: UserProfile[]; publicUsers: UserProfile[] };
 }
 
 export interface UserProfile {
@@ -100,7 +108,6 @@ export interface Vote {
   id: string;
   order: number;
 }
-
 
 export interface Participant {
   id?: string;
