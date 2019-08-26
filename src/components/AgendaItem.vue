@@ -38,35 +38,10 @@
         <template v-else
           >rate it!
           <div :key="rate">
-            <star-rating
-              @rating-selected="startRating(entry.presentation)"
+            <PresentationRateStars
               v-model="rate"
-              :star-size="30"
-              :show-rating="false"
-              :rounded-corners="true"
-              :star-points="[
-                23,
-                2,
-                14,
-                17,
-                0,
-                19,
-                10,
-                34,
-                7,
-                50,
-                23,
-                43,
-                38,
-                50,
-                36,
-                34,
-                46,
-                19,
-                31,
-                17
-              ]"
-            ></star-rating>
+              @input="startRating(entry.presentation)"
+            ></PresentationRateStars>
           </div>
         </template>
       </div>
@@ -83,10 +58,14 @@ import { AgendaEntry } from "@/views/Agenda.vue";
 import PresentationMetadata from "@/components/PresentationMetadata.vue";
 import PresentationModal from "@/components/PresentationModal.vue";
 import { Presentation, PresentationRate, WithTitle } from "@/types";
-import StarRating from "vue-star-rating";
+import PresentationRateStars from "@/components/PresentationRateStars.vue";
 
 @Component({
-  components: { PresentationModal, PresentationMetadata, StarRating }
+  components: {
+    PresentationModal,
+    PresentationMetadata,
+    PresentationRateStars
+  }
 })
 export default class AgendaItem extends Vue {
   @Prop({ required: true })

@@ -6,7 +6,7 @@ export const SET_PRESENTATION_UNDER_RATE = "SET_PRESENTATION_UNDER_RATE";
 export const RATE = "RATE";
 export const presentationsModule: Module<PresentationsState, RootState> = {
   state: {
-    underRating: { rate: 0, presentation: { id: "", title: "" } },
+    underRating: null,
     rates: JSON.parse(localStorage.getItem("rate") || "[]")
   },
   getters: {

@@ -58,6 +58,7 @@ import { Presentation, PresentationRate } from "@/types";
 import AgendaItem from "@/components/AgendaItem.vue";
 import PresentationModal from "@/components/PresentationModal.vue";
 import PresentationRateModal from "@/components/PresentationRateModal.vue";
+import { SET_PRESENTATION_UNDER_RATE } from "@/store/presentations";
 
 @Component({
   components: {
@@ -133,7 +134,8 @@ export default class Agenda extends Vue {
   }
 
   public startRatingPresentation(presentationRate: PresentationRate) {
-    this.presentationRate = presentationRate;
+    this.$store.commit(SET_PRESENTATION_UNDER_RATE, { presentationRate });
+    // this.presentationRate = presentationRate;
   }
 
   public modalClosed() {
