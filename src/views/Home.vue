@@ -4,7 +4,7 @@
     <HomeAbout />
     <HomeNumbers />
     <HomePartners />
-    <HomeContact />
+    <Contact />
   </div>
 </template>
 
@@ -19,7 +19,7 @@ import HomeNumbers from "@/components/HomeNumbers.vue";
 
 @Component({
   components: {
-    HomeContact: Contact,
+    Contact,
     HomePartners,
     HomeNumbers,
     SocialLinks,
