@@ -20,7 +20,7 @@
         </div>
       </div>
     </Box>
-    <TheContact id="contact" />
+    <Contact />
   </div>
 </template>
 

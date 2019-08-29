@@ -26,7 +26,7 @@
         <router-view></router-view>
       </div>
     </Box>
-    <TheContact id="contact" />
+    <Contact />
   </div>
 </template>
 

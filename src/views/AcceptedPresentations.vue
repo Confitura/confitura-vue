@@ -15,7 +15,7 @@
       ></PresentationBox>
     </Box>
 
-    <TheContact id="contact" />
+    <Contact />
   </div>
 </template>
 

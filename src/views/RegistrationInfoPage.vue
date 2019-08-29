@@ -4,7 +4,7 @@
     <Box class="content" color="white">
       <PageFragment name="registration-info" class="tickets__info" />
     </Box>
-    <TheContact id="contact" />
+    <Contact />
   </div>
 </template>
 

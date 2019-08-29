@@ -1,5 +1,5 @@
 <template>
-  <section class="banner">
+  <section class="banner" id="home">
     <div class="twinkling" ref="twinkling"></div>
     <div class="container">
       <div class="info">
@@ -9,7 +9,7 @@
         <div class="info__live">
           <div class="info__live-text">Thank you!</div>
         </div>
-        <!--        <TheTimer/>-->
+        <!--        <TheTimer />-->
         <div class="time-and-place">
           <div>{{ date }},&nbsp;</div>
           <div class="place">
@@ -42,7 +42,7 @@ import dayjs from "dayjs";
 @Component({
   components: { TheIllustration, TheTimer }
 })
-export default class TheMainBanner extends Vue {
+export default class HomeMainBanner extends Vue {
   public date: string = dayjs(this.$store.state.date).format("DD.MM.YYYY");
   private threshold: number[] = [];
 

@@ -4,7 +4,7 @@
     <Box class="content" color="white">
       <PageFragment name="privacy-policy" />
     </Box>
-    <TheContact id="contact" />
+    <Contact />
   </div>
 </template>
 

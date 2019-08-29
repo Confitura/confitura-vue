@@ -1,5 +1,5 @@
 <template>
-  <Box class="numbers" color="red">
+  <Box class="numbers" color="red" id="numbers">
     <div class="numbers-container">
       <div class="info">
         <h1 class="header">
@@ -56,7 +56,7 @@ import Pictogram from "./Pictogram";
 import Box from "./Box";
 
 export default {
-  name: "TheNumbers",
+  name: "HomeNumbers",
   components: { Box, Pictogram }
 };
 </script>

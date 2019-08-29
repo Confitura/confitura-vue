@@ -14,7 +14,7 @@
       </p>
       <PageFragment class="questions" name="faq" />
     </Box>
-    <TheContact id="contact" />
+    <Contact />
   </div>
 </template>
 

@@ -33,7 +33,7 @@
       </div>
     </Box>
 
-    <TheContact id="contact" />
+    <Contact />
     <PresentationModal
       :presentationId="selectedPresentationId"
       @close="modalClosed()"

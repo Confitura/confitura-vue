@@ -4,7 +4,7 @@
     <Box class="content no-padding" color="white">
       <UsersGrid :users="speakers" class="speakers__grid" />
     </Box>
-    <TheContact id="contact" />
+    <Contact />
   </div>
 </template>
 

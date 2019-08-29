@@ -1,5 +1,5 @@
 <template>
-  <Box class="contact" color="black">
+  <Box class="contact" color="black" id="contact">
     <h1 class="header">stay connected</h1>
     <div class="contact__info">
       <div class="contact__mail">
@@ -28,7 +28,7 @@ import axios from "axios";
 @Component({
   components: { Box, Tweet, TheSocialLinks }
 })
-export default class TheContact extends Vue {
+export default class Contact extends Vue {
   public tweets: TweetItem[] = [];
 
   protected mounted() {

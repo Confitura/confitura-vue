@@ -19,7 +19,7 @@
         />
       </GmapMap>
     </Box>
-    <TheContact id="contact" />
+    <Contact />
   </div>
 </template>
 

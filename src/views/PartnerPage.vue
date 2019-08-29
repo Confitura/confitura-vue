@@ -23,7 +23,7 @@
         <div class="partner__description" v-html="description"></div>
       </article>
     </Box>
-    <TheContact id="contact" />
+    <Contact />
   </div>
 </template>
 

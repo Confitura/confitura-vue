@@ -27,7 +27,7 @@
         </div>
       </article>
     </Box>
-    <TheContact id="contact" />
+    <Contact />
   </div>
 </template>
 
