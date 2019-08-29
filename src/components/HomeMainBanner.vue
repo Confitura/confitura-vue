@@ -25,22 +25,22 @@
           </div>
         </div>
       </div>
-      <TheIllustration />
+      <HomeMainBannerIllustration />
     </div>
-    <img class="rocket-icon" src="../assets/rocket.svg" />
+    <img class="rocket-icon" src="../assets/rocket.svg" alt="rocket" />
   </section>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import TheTimer from "@/components/TheTimer.vue";
-import TheIllustration from "@/components/TheIllustration.vue";
+import HomeMainBannerIllustration from "@/components/HomeMainBannerIllustration.vue";
 import { CHANGE_HEADER_THEME } from "@/types";
 import dayjs from "dayjs";
 import HomeMainBannerStars from "@/components/HomeMainBannerStars.vue";
 
 @Component({
-  components: { HomeMainBannerStars, TheIllustration, TheTimer }
+  components: { HomeMainBannerStars, HomeMainBannerIllustration, TheTimer }
 })
 export default class HomeMainBanner extends Vue {
   public date: string = dayjs(this.$store.state.date).format("DD.MM.YYYY");
