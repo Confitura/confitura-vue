@@ -45,6 +45,7 @@ import HomeMainBannerStars from "@/components/HomeMainBannerStars.vue";
 export default class HomeMainBanner extends Vue {
   public date: string = dayjs(this.$store.state.date).format("DD.MM.YYYY");
   private threshold: number[] = [];
+  private observer: IntersectionObserver | null = null;
 
   constructor() {
     super();
@@ -68,8 +69,14 @@ export default class HomeMainBanner extends Vue {
         }
       }
     };
-    const observer = new IntersectionObserver(callback, options);
-    observer.observe(this.$el);
+    this.observer = new IntersectionObserver(callback, options);
+    this.observer.observe(this.$el);
+  }
+
+  protected beforeDestroy() {
+    if (this.observer !== null) {
+      this.observer.disconnect();
+    }
   }
 }
 </script>
