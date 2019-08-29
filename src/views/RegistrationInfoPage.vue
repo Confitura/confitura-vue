@@ -11,12 +11,12 @@
 <script>
 import PageFragment from "../components/PageFragment";
 import PageHeader from "../components/PageHeader";
-import TheContact from "../components/TheContact";
+import Contact from "../components/Contact";
 import Box from "../components/Box";
 
 export default {
   name: "RegistrationInfoPage",
-  components: { PageFragment, PageHeader, TheContact, Box }
+  components: { PageFragment, PageHeader, Contact, Box }
 };
 </script>
 

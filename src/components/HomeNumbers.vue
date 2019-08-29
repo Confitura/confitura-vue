@@ -51,9 +51,9 @@
   </Box>
 </template>
 
-<script>
-import Pictogram from "./Pictogram";
-import Box from "./Box";
+<script lang="ts">
+import Pictogram from "./Pictogram.vue";
+import Box from "./Box.vue";
 
 export default {
   name: "HomeNumbers",

@@ -12,7 +12,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import HomeMainBanner from "@/components/HomeMainBanner.vue";
 import HomeAbout from "@/components/HomeAbout.vue";
-import HomeSocialLinks from "@/components/HomeSocialLinks.vue";
+import SocialLinks from "@/components/SocialLinks.vue";
 import HomePartners from "@/components/HomePartners.vue";
 import Contact from "@/components/Contact.vue";
 import HomeNumbers from "@/components/HomeNumbers.vue";
@@ -22,7 +22,7 @@ import HomeNumbers from "@/components/HomeNumbers.vue";
     HomeContact: Contact,
     HomePartners,
     HomeNumbers,
-    HomeSocialLinks,
+    SocialLinks,
     HomeAbout,
     HomeMainBanner
   }

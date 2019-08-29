@@ -22,11 +22,11 @@
 import { Component, Vue } from "vue-property-decorator";
 import Box from "@/components/Box.vue";
 import PageHeader from "@/components/PageHeader.vue";
-import TheContact from "@/components/TheContact.vue";
+import Contact from "@/components/Contact.vue";
 import PageFragment from "@/components/PageFragment.vue";
 
 @Component({
-  components: { PageHeader, Box, TheContact, PageFragment }
+  components: { PageHeader, Box, Contact, PageFragment }
 })
 export default class Faq extends Vue {}
 </script>
