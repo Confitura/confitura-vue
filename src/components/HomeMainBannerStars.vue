@@ -9,11 +9,17 @@ export default class HomeMainBannerStars extends Vue {
   private animationId: number | null = null;
 
   protected mounted() {
+    this.generateStars();
+  }
+
+  private generateStars() {
     const height: number = window.outerHeight;
-    const width: number = window.outerWidth;
+    const width: number =
+      window.outerWidth < 1200 ? window.outerWidth * 2 : window.outerWidth;
     const context = this.getContext(width, height);
     const stars: Star[] = this.createStars(width, height);
-    this.animationId = setInterval(animate, 1000 / 24);
+    this.animationId = setInterval(animate, 2000 / 24);
+
     function animate() {
       if (context !== null) {
         context.clearRect(0, 0, width, height);
